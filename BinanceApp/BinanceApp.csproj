@@ -242,6 +242,7 @@
     <Compile Include="Business\CriticalPointCollector.cs" />
     <Compile Include="Business\JenksFisher.cs" />
     <Compile Include="Business\LogHelper.cs" />
+    <Compile Include="Business\macdAnalyzer.cs" />
     <Compile Include="Business\PercentClassifier.cs" />
     <Compile Include="Business\Strategy02Business.cs" />
     <Compile Include="Business\Strategy01Business.cs" />
