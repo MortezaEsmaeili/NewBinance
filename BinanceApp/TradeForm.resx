@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="usersTrades1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>162, 17</value>
+  </metadata>
+  <metadata name="report1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>307, 17</value>
+  </metadata>
+  <data name="report1.ReportResourceString" xml:space="preserve">
+    <value>﻿&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Report ScriptLanguage="CSharp" ReportInfo.Created="11/02/2021 19:52:51" ReportInfo.Modified="11/07/2021 21:11:35" ReportInfo.CreatorVersion="2021.2.8.0"&gt;
+  &lt;Dictionary&gt;
+    &lt;TableDataSource Name="DataTable1" ReferenceName="usersTrades1.DataTable1" DataType="System.Int32" Enabled="true"&gt;
+      &lt;Column Name="Time" DataType="System.DateTime"/&gt;
+      &lt;Column Name="UserName" DataType="System.String"/&gt;
+      &lt;Column Name="TP" Alias="TP%" DataType="System.String"/&gt;
+      &lt;Column Name="SP" Alias="SP%" DataType="System.String"/&gt;
+      &lt;Column Name="Price" DataType="System.String"/&gt;
+      &lt;Column Name="Position" DataType="System.String"/&gt;
+      &lt;Column Name="Profit" DataType="System.String"/&gt;
+      &lt;Column Name="CoinName" DataType="System.String"/&gt;
+    &lt;/TableDataSource&gt;
+  &lt;/Dictionary&gt;
+  &lt;ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="1" OtherPagesSource="1" LastPageSource="1" Guides="727.65,718.2,718.2,699.3" Watermark.Font="Arial, 60pt"&gt;
+    &lt;ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8" Fill.Color="255, 224, 192"&gt;
+      &lt;TextObject Name="Text1" Left="311.85" Top="9.45" Width="415.8" Height="18.9" Text="Transaction performance report" HorzAlign="Center" Font="Arial, 12pt, style=Bold" TextFill.Color="Blue"/&gt;
+    &lt;/ReportTitleBand&gt;
+    &lt;PageHeaderBand Name="PageHeader1" Top="41" Width="1047.06" Height="37.8" Fill.Color="224, 224, 224" KeepChild="true"&gt;
+      &lt;TextObject Name="Text17" Left="935.55" Top="9.45" Width="94.5" Height="18.9" Text="CoinName" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text2" Left="9.45" Top="9.45" Width="151.2" Height="18.9" Text="Time" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text3" Left="179.55" Top="9.45" Width="113.4" Height="18.9" Text="UserName" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text4" Left="311.85" Top="9.45" Width="94.5" Height="18.9" Text="TP%" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text5" Left="463.05" Top="9.45" Width="94.5" Height="18.9" Text="SP%" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text6" Left="585.9" Top="9.45" Width="94.5" Height="18.9" Text="Price" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text7" Left="699.3" Top="9.45" Width="94.5" Height="18.9" Text="Position" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text24" Left="822.15" Top="9.45" Width="94.5" Height="18.9" Text="Profit" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+    &lt;/PageHeaderBand&gt;
+    &lt;DataBand Name="Data1" Top="82" Width="1047.06" Height="47.25" Fill.Color="243, 245, 201" DataSource="DataTable1"&gt;
+      &lt;TextObject Name="Text18" Left="9.45" Top="18.9" Width="151.2" Height="18.9" Text="[DataTable1.Time]" Format="Time" Format.Format="yy/MM/dd  hh:mm tt" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text19" Left="179.55" Top="18.9" Width="113.4" Height="18.9" Text="[DataTable1.UserName]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text20" Left="311.85" Top="18.9" Width="94.5" Height="18.9" Text="[DataTable1.TP%]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text21" Left="463.05" Top="18.9" Width="94.5" Height="18.9" Text="[DataTable1.SP%]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text22" Left="585.9" Top="18.9" Width="94.5" Height="18.9" Text="[DataTable1.Price]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text23" Left="699.3" Top="18.9" Width="94.5" Height="18.9" Text="[DataTable1.Position]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text25" Left="822.15" Top="18.9" Width="94.5" Height="18.9" Text="[DataTable1.Profit]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text26" Left="935.55" Top="18.9" Width="94.5" Height="18.9" Text="[DataTable1.CoinName]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;Sort&gt;
+        &lt;Sort Expression="[DataTable1.Time]"/&gt;
+      &lt;/Sort&gt;
+    &lt;/DataBand&gt;
+    &lt;PageFooterBand Name="PageFooter1" Top="132.45" Width="1047.06" Height="37.8" Fill.Color="255, 224, 192"&gt;
+      &lt;TextObject Name="Text27" Left="28.35" Top="9.45" Width="94.5" Height="18.9" Text="[Page]" HorzAlign="Center" Font="Arial, 10pt"/&gt;
+      &lt;TextObject Name="Text28" Left="822.15" Top="9.45" Width="207.9" Height="18.9" Text="[Date]" Font="Arial, 10pt"/&gt;
+    &lt;/PageFooterBand&gt;
+  &lt;/ReportPage&gt;
+&lt;/Report&gt;
+</value>
+  </data>
+</root>
