@@ -113,6 +113,7 @@ namespace BinanceApp.DataModel
         public List<IBinanceKline> Candels_oneWeek { get; set; }
 
         public List<MacdResult> MacdResult1Min { get; set; }
+
         public List<WeightedValue> MajorHighPrice1Min { get; set; }
         public List<WeightedValue> MajorHighPrice5Min { get; set; }
         public List<WeightedValue> MajorHighPrice15Min { get; set; }
@@ -132,6 +133,27 @@ namespace BinanceApp.DataModel
         public List<WeightedValue> MajorLowPrice4hour { get; set; }
         public List<WeightedValue> MajorLowPrice1Day { get; set; }
         public List<WeightedValue> MajorLowPrice1Week { get; set; }
+
+        public List<LocalMinMax> MacdLocalMin1Min { get; set; }
+        public List<LocalMinMax> MacdLocalMin5Min { get; set; }
+        public List<LocalMinMax> MacdLocalMin15Min { get; set; }
+        public List<LocalMinMax> MacdLocalMin30Min { get; set; }
+        public List<LocalMinMax> MacdLocalMin60Min { get; set; }
+        public List<LocalMinMax> MacdLocalMin2hour { get; set; }
+        public List<LocalMinMax> MacdLocalMin4hour { get; set; }
+        public List<LocalMinMax> MacdLocalMin1Day { get; set; }
+        public List<LocalMinMax> MacdLocalMin1Week { get; set; }
+
+        public List<LocalMinMax> MacdLocalMax1Min { get; set; }
+        public List<LocalMinMax> MacdLocalMax5Min { get; set; }
+        public List<LocalMinMax> MacdLocalMax15Min { get; set; }
+        public List<LocalMinMax> MacdLocalMax30Min { get; set; }
+        public List<LocalMinMax> MacdLocalMax60Min { get; set; }
+        public List<LocalMinMax> MacdLocalMax2hour { get; set; }
+        public List<LocalMinMax> MacdLocalMax4hour { get; set; }
+        public List<LocalMinMax> MacdLocalMax1Day { get; set; }
+        public List<LocalMinMax> MacdLocalMax1Week { get; set; }
+
         public List<Quote> Tbqv_1min { get; set; }
 
         public List<Quote> Tbqv_5min { get; set; }

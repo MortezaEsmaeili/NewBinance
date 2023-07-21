@@ -127,7 +127,7 @@ namespace BinanceApp
                 dgv_Seller.DataSource = binanceModel.SellerList;
                 dgv_Trade.DataSource = binanceModel.TradeList;
                 UpdateStockSeries(); //pegah commented
-                UpdateFinancialIndicator(this.radDropDownList2.SelectedItem.Text);
+               // UpdateFinancialIndicator(this.radDropDownList2.SelectedItem.Text);
             }
             catch { }
         }
@@ -292,10 +292,10 @@ namespace BinanceApp
             candleSery.BackColor = Color.FromArgb(102, 102, 102);
             candleSery.HorizontalAxis = dateTimeCategoricalAxis2;
             candleSery.VerticalAxis = linearAxis2;
-            candleSery.OpenValueMember = "Open";
-            candleSery.HighValueMember = "High";
-            candleSery.LowValueMember = "Low";
-            candleSery.CloseValueMember = "Close";
+            candleSery.OpenValueMember = "OpenPrice";
+            candleSery.HighValueMember = "HighPrice";
+            candleSery.LowValueMember = "LowPrice";
+            candleSery.CloseValueMember = "ClosePrice";
             candleSery.CategoryMember = "CloseTime";
 
             tbqvSery.HorizontalAxis = dateTimeCategoricalAxis1;

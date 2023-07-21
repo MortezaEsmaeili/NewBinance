@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinanceApp.Business
+namespace BinanceApp.Busines
 {
-    internal class macdAnalyzer
+    public class MacdAnalyclass
     {
+        public MacdAnalyclass() { }
     }
 }

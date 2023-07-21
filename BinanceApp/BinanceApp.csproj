@@ -247,7 +247,9 @@
     <Compile Include="Business\Strategy02Business.cs" />
     <Compile Include="Business\Strategy01Business.cs" />
     <Compile Include="Business\StrategySFBusiness.cs" />
+    <Compile Include="DataModel\LocalMinMax.cs" />
     <Compile Include="DataModel\ReportModel.cs" />
+    <Compile Include="DataModel\TimeFrameEnum.cs" />
     <Compile Include="Helper\PersonalMath.cs" />
     <Compile Include="PercentForm.cs">
       <SubType>Form</SubType>

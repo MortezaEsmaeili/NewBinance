@@ -23,23 +23,24 @@ namespace BinanceApp.Business
 
         public static List<MacdResult> MacdCalculationForStepDiagram(List<IBinanceKline> refSamples, MacdParams macdParam,
             ref List<WeightedValue> majorHighList, ref List<WeightedValue> majorLowList)
-        {
             
+        {
+
             List<MacdResult> macdResult = new List<MacdResult>();
+            if (refSamples == null || refSamples.Any() == false) return null;
+            var history = GetQuotes(refSamples);
+
+            var macd = history.GetMacd(macdParam.FastPeriod, macdParam.SlowPeriod, macdParam.SignalPeriod);
+            macdResult = macd.SkipWhile(r => r.Macd == null || r.Signal == null).ToList();
             try
             {
-                if (refSamples == null || refSamples.Any() == false) return null;
-                var history = GetQuotes(refSamples);
-                
-                var macd = history.GetMacd(macdParam.FastPeriod, macdParam.SlowPeriod, macdParam.SignalPeriod);
-                macdResult = macd.SkipWhile(r => r.Macd == null || r.Signal == null).ToList();
                 bool sign = macd.Last().Histogram > 0 ? true : false;
-                List<Tuple<DateTime, bool>> ZeroCrossHistogram = new List<Tuple<DateTime, bool>>(); 
+                List<Tuple<DateTime, bool>> ZeroCrossHistogram = new List<Tuple<DateTime, bool>>();
                 for (int i = macdResult.Count() - 2; i > 0; i--)
                 {
                     if (macdResult[i].Histogram <= 0 && sign == true)
                     {
-                        ZeroCrossHistogram.Add(new Tuple<DateTime, bool>( macdResult[i].Date, sign));
+                        ZeroCrossHistogram.Add(new Tuple<DateTime, bool>(macdResult[i].Date, sign));
                         sign = !sign;
                     }
                     else if (macdResult[i].Histogram >= 0 && sign == false)
@@ -47,7 +48,7 @@ namespace BinanceApp.Business
                         ZeroCrossHistogram.Add(new Tuple<DateTime, bool>(macdResult[i].Date, sign));
                         sign = !sign;
                     }
-                    
+
                 }
                 var lastDate = macdResult.Last().Date;
                 if (ZeroCrossHistogram == null || ZeroCrossHistogram.Any() == false)
@@ -57,46 +58,211 @@ namespace BinanceApp.Business
 
                 var tmpMajorHighList = new List<WeightedValue>();
                 var tmpMajorLowList = new List<WeightedValue>();
-               // int lastSet = 0;
+
+                // int lastSet = 0;
                 foreach (var item in ZeroCrossHistogram.Skip(1))
                 {
-                    if(item.Item2==true)
+                    if (item.Item2 == true)
                     {
                         var refPrices = history.Where(h => h.Date < lastRefDate && h.Date >= item.Item1).OrderByDescending(h => h.High);
-                       var maxprice = refPrices.FirstOrDefault();
+                        var maxprice = refPrices.FirstOrDefault();
                         if (maxprice != null)
                         {
                             tmpMajorHighList.Add(new WeightedValue { Time = maxprice.Date, Value = maxprice.High });//item.item1
                             lastRefDate = item.Item1;
                         }
-                        
+
                     }
                     else
                     {
                         var refPrices = history.Where(h => h.Date < lastRefDate && h.Date >= item.Item1).OrderBy(h => h.Low);
-                       
+
                         var minPrice = refPrices.FirstOrDefault();
                         if (minPrice != null)
                         {
                             tmpMajorLowList.Add(new WeightedValue { Time = minPrice.Date, Value = minPrice.Low });
                             lastRefDate = item.Item1;
                         }
-                        
                     }
                 }
                 if (tmpMajorHighList.Any())
                     majorHighList = tmpMajorHighList;
                 if (tmpMajorLowList.Any())
                     majorLowList = tmpMajorLowList;
-                
             }
             catch (Exception ex)
             {
                 majorHighList = null;
                 majorLowList = null;
             }
+
             return macdResult;
         }
+
+        private static void CalculateMacdLocalMinMax(ref List<LocalMinMax> localMaxes, ref List<LocalMinMax> localMins, List<MacdResult> macdResult)
+        {
+            try
+            {
+                var tmpLocalMins = new List<LocalMinMax>();
+                var tmpLocalMaxes = new List<LocalMinMax>();
+                int i = 1;
+                while (i < macdResult.Count)
+                {
+                    if (macdResult[i].Macd > macdResult[i - 1].Macd)
+                    {
+                        while (macdResult[i].Macd > macdResult[i - 1].Macd)
+                        {
+                            i++;
+                            if (i >= macdResult.Count)
+                                break;
+                        }
+                        if (i < macdResult.Count)
+                            tmpLocalMaxes.Add(new LocalMinMax { Date = macdResult[i - 1].Date, Macd = macdResult[i - 1].Macd.Value, index = i - 1 });
+
+                    }
+                    else
+                    {
+                        while (macdResult[i].Macd < macdResult[i - 1].Macd)
+                        {
+                            i++;
+                            if (i >= macdResult.Count)
+                                break;
+                        }
+                        if (i < macdResult.Count)
+                            tmpLocalMins.Add(new LocalMinMax { Date = macdResult[i - 1].Date, Macd = macdResult[i - 1].Macd.Value, index = i - 1 });
+                    }
+
+                }
+                for (int k = 0; k < tmpLocalMaxes.Count; k++)
+                {
+                    var localMax = tmpLocalMaxes[k];
+                    localMax.LeftDelta = 0;
+                    if (tmpLocalMins.Any(x => x.index < localMax.index))
+                    {
+                        var leftMin = tmpLocalMins.Where(x => x.index < localMax.index).Last();
+                        localMax.LeftDelta = localMax.Macd - leftMin.Macd;
+                    }
+                    localMax.RightDelta = 0;
+                    if (tmpLocalMins.Any(x => x.index > localMax.index))
+                    {
+                        var rightMin = tmpLocalMins.Where(x => x.index > localMax.index).First();
+                        localMax.RightDelta = localMax.Macd - rightMin.Macd;
+                    }
+                    localMax.MinDelta = Math.Min(localMax.LeftDelta, localMax.RightDelta);
+                    localMax.Sign = (k == 0) ? true : (localMax.Macd > tmpLocalMaxes[k - 1].Macd);
+                }
+                for (int k = 0; k < tmpLocalMins.Count; k++)
+                {
+                    var localMin = tmpLocalMins[k];
+                    localMin.LeftDelta = 0;
+                    if (tmpLocalMaxes.Any(x => x.index < localMin.index))
+                    {
+                        var leftMax = tmpLocalMaxes.Where(x => x.index < localMin.index).Last();
+                        localMin.LeftDelta = leftMax.Macd - localMin.Macd;
+                    }
+                    localMin.RightDelta = 0;
+                    if (tmpLocalMaxes.Any(x => x.index > localMin.index))
+                    {
+                        var rightMax = tmpLocalMaxes.Where(x => x.index > localMin.index).First();
+                        localMin.RightDelta = rightMax.Macd - localMin.Macd;
+                    }
+                    localMin.MinDelta = Math.Min(localMin.LeftDelta, localMin.RightDelta);
+                    localMin.Sign = (k == 0) ? true : (localMin.Macd > tmpLocalMins[k - 1].Macd);
+                }
+                if (tmpLocalMins.Any())
+                    localMins = tmpLocalMins;
+                if (tmpLocalMaxes.Any())
+                    localMaxes = tmpLocalMaxes;
+            }
+            catch (Exception ex1)
+            {
+                localMaxes = null;
+                localMins = null;
+            }
+        }
+
+        public static void CalculateMacdLocalMinMax(ref List<LocalMinMax> localMaxes, ref List<LocalMinMax> localMins, List<WeightedValue> macdResult)
+        {
+            try
+            {
+                var tmpLocalMins = new List<LocalMinMax>();
+                var tmpLocalMaxes = new List<LocalMinMax>();
+                int i = 1;
+                while (i < macdResult.Count)
+                {
+                    if (macdResult[i].Value >= macdResult[i - 1].Value)
+                    {
+                        while (macdResult[i].Value >= macdResult[i - 1].Value)
+                        {
+                            i++;
+                            if (i >= macdResult.Count)
+                                break;
+                        }
+                        if (i < macdResult.Count)
+                            tmpLocalMaxes.Add(new LocalMinMax { Date = macdResult[i - 1].Time, Macd = macdResult[i - 1].Value, index = i - 1 });
+
+                    }
+                    else
+                    {
+                        while (macdResult[i].Value < macdResult[i - 1].Value)
+                        {
+                            i++;
+                            if (i >= macdResult.Count)
+                                break;
+                        }
+                        if (i < macdResult.Count)
+                            tmpLocalMins.Add(new LocalMinMax { Date = macdResult[i - 1].Time, Macd = macdResult[i - 1].Value, index = i - 1 });
+                    }
+
+                }
+                for (int k = 0; k < tmpLocalMaxes.Count; k++)
+                {
+                    var localMax = tmpLocalMaxes[k];
+                    localMax.LeftDelta = 0;
+                    if (tmpLocalMins.Any(x => x.index < localMax.index))
+                    {
+                        var leftMin = tmpLocalMins.Where(x => x.index < localMax.index).Last();
+                        localMax.LeftDelta = localMax.Macd - leftMin.Macd;
+                    }
+                    localMax.RightDelta = 0;
+                    if (tmpLocalMins.Any(x => x.index > localMax.index))
+                    {
+                        var rightMin = tmpLocalMins.Where(x => x.index > localMax.index).First();
+                        localMax.RightDelta = localMax.Macd - rightMin.Macd;
+                    }
+                    localMax.MinDelta = Math.Min(localMax.LeftDelta, localMax.RightDelta);
+                    localMax.Sign = (k == 0) ? true : (localMax.Macd > tmpLocalMaxes[k - 1].Macd);
+                }
+                for (int k = 0; k < tmpLocalMins.Count; k++)
+                {
+                    var localMin = tmpLocalMins[k];
+                    localMin.LeftDelta = 0;
+                    if (tmpLocalMaxes.Any(x => x.index < localMin.index))
+                    {
+                        var leftMax = tmpLocalMaxes.Where(x => x.index < localMin.index).Last();
+                        localMin.LeftDelta = leftMax.Macd - localMin.Macd;
+                    }
+                    localMin.RightDelta = 0;
+                    if (tmpLocalMaxes.Any(x => x.index > localMin.index))
+                    {
+                        var rightMax = tmpLocalMaxes.Where(x => x.index > localMin.index).First();
+                        localMin.RightDelta = rightMax.Macd - localMin.Macd;
+                    }
+                    localMin.MinDelta = Math.Min(localMin.LeftDelta, localMin.RightDelta);
+                    localMin.Sign = (k == 0) ? true : (localMin.Macd > tmpLocalMins[k - 1].Macd);
+                }
+                if (tmpLocalMins.Any())
+                    localMins = tmpLocalMins;
+                if (tmpLocalMaxes.Any())
+                    localMaxes = tmpLocalMaxes;
+            }
+            catch (Exception ex1)
+            {
+                localMaxes = null;
+                localMins = null;
+            }
+        }
+
         public static List<MacdResult> MacdCalculation(List<IBinanceKline> refSamples, MacdParams macdParam, out WeightedValue majorHigh,
             out WeightedValue majorLow)
         {
@@ -152,9 +318,9 @@ namespace BinanceApp.Business
                     if (refSamples[lastIndex - i - 1].ClosePrice > 0)
                         result *= ((refSamples[lastIndex - i].ClosePrice - refSamples[lastIndex - i - 1].ClosePrice) / refSamples[lastIndex - i - 1].ClosePrice) + 1;
                 }
-                return new WeightedValue { Time = refSamples[lastIndex].CloseTime, Value =  result };
+                return new WeightedValue { Time = refSamples[lastIndex].CloseTime, Value = result };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogHelper.SendError(typeof(BinanceHelper), ex.Message, ex, null);
                 return null;
@@ -187,7 +353,7 @@ namespace BinanceApp.Business
                 }
                 return Fc;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogHelper.SendError(typeof(BinanceHelper), ex.Message, ex, null);
                 return null;
@@ -209,10 +375,10 @@ namespace BinanceApp.Business
                 Fc5 = Fc5.SkipWhile(x => x.Time < startTime).ToList();
                 List<WeightedValue> FcShort = new List<WeightedValue>();
                 for (int i = 0; i < Fc8.Count; i++)
-                    FcShort.Add(new WeightedValue { Time = Fc8[i].Time, Value = Math.Round((Fc3[i].Value + Fc5[i].Value + Fc8[i].Value)*10000 / 3)/10000 });
+                    FcShort.Add(new WeightedValue { Time = Fc8[i].Time, Value = Math.Round((Fc3[i].Value + Fc5[i].Value + Fc8[i].Value) * 10000 / 3) / 10000 });
                 return FcShort;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogHelper.SendError(typeof(BinanceHelper), ex.Message, ex, null);
                 return null;
@@ -235,7 +401,7 @@ namespace BinanceApp.Business
                 Fc15 = Fc15.SkipWhile(x => x.Time < startTime).ToList();
                 List<WeightedValue> FcShort = new List<WeightedValue>();
                 for (int i = 0; i < Fc30.Count; i++)
-                    FcShort.Add(new WeightedValue { Time = Fc30[i].Time, Value =Math.Round ((Fc10[i].Value + Fc15[i].Value + Fc30[i].Value)*10000 / 3)/10000 });
+                    FcShort.Add(new WeightedValue { Time = Fc30[i].Time, Value = Math.Round((Fc10[i].Value + Fc15[i].Value + Fc30[i].Value) * 10000 / 3) / 10000 });
                 return FcShort;
             }
             catch (Exception ex)
@@ -254,7 +420,7 @@ namespace BinanceApp.Business
             var Fc8 = LastFC(refSamples, currentPrice, 8);
             if (Fc3 == null || Fc5 == null || Fc8 == null)
                 return null;
-            return new WeightedValue { Time = Fc8.Time, Value =Math.Round( (Fc3.Value + Fc5.Value + Fc8.Value)*10000 / 3)/10000 };
+            return new WeightedValue { Time = Fc8.Time, Value = Math.Round((Fc3.Value + Fc5.Value + Fc8.Value) * 10000 / 3) / 10000 };
         }
         public static WeightedValue LastLongTermFC(List<IBinanceKline> refSamples, decimal currentPrice)
         {
@@ -265,7 +431,7 @@ namespace BinanceApp.Business
             var Fc30 = LastFC(refSamples, currentPrice, 30);
             if (Fc10 == null || Fc15 == null || Fc30 == null)
                 return null;
-            return new WeightedValue { Time = Fc30.Time, Value = Math.Round(10000* (Fc10.Value + Fc15.Value + Fc30.Value) / 3 )/10000};
+            return new WeightedValue { Time = Fc30.Time, Value = Math.Round(10000 * (Fc10.Value + Fc15.Value + Fc30.Value) / 3) / 10000 };
         }
 
         public static List<MacdResult> MacdCalculation(List<Quote> history, MacdParams macdParam, out WeightedValue majorHigh, out WeightedValue majorLow)
@@ -321,7 +487,7 @@ namespace BinanceApp.Business
         }
         public static List<EmaResult> EMA(List<Quote> history, int period)//exponential moving avaerage
         {
-            return history.GetEma(period).Where(x=>x.Ema!=null).ToList();
+            return history.GetEma(period).Where(x => x.Ema != null).ToList();
         }
         public static List<WeightedValue> CalulateDerivative(List<EmaResult> data)
         {
@@ -337,7 +503,7 @@ namespace BinanceApp.Business
                 }).ToList();
                 return dydx;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -351,10 +517,10 @@ namespace BinanceApp.Business
                 data = refData.Where(x => Math.Abs((x.Date - date).TotalMinutes) < 30).OrderBy(x => x.Date).ToList();
                 var firsDate = data.First().Date;
 
-                var xvec = new DenseVector(data.Select(x => (x.Date- firsDate).TotalMinutes).ToArray());
+                var xvec = new DenseVector(data.Select(x => (x.Date - firsDate).TotalMinutes).ToArray());
                 var yvec = new DenseVector(data.Select(x => (double)x.Ema).ToArray());
                 var cs = CubicSpline.InterpolateNatural(xvec, yvec);
-                var retval = cs.Differentiate((date- firsDate).TotalMinutes);
+                var retval = cs.Differentiate((date - firsDate).TotalMinutes);
                 return retval;
             }
             catch (Exception ex)

@@ -58,9 +58,10 @@ namespace BinanceApp.Business
         private BinanceDataCollector()
         {
             LogHelper.SendInfo(this, "Data Collector, is initializing ...");
+
             CoinNames = new List<string> { "BTCUSDT" , "ALGOUSDT" ,  "SOLUSDT", "DOGEUSDT", "ADAUSDT",
                 "MATICUSDT","KAVAUSDT","LTCUSDT","BNBUSDT" };
-            //CoinNames = new List<string> { "BTCUSDT"};
+           // CoinNames = new List<string> { "BTCUSDT"};
             Intervals = new List<KlineInterval> { KlineInterval.OneMinute, KlineInterval.FiveMinutes, KlineInterval.FifteenMinutes, KlineInterval.ThirtyMinutes,
                 KlineInterval.OneHour, KlineInterval.TwoHour, KlineInterval.FourHour, KlineInterval.OneDay, KlineInterval.OneWeek};
             BinanceRestClient.SetDefaultOptions(options =>
@@ -106,6 +107,7 @@ namespace BinanceApp.Business
                 CalcMajorHighMajorLow(coinName, KlineInterval.OneMinute);
                 CalculateTbqv_1min(coinName);
             });
+            
             CoinNames.AsParallel().ForAll(async coinName =>
             {
                 while (CoinsDictionary[coinName].Candels_5min == null || CoinsDictionary[coinName].Candels_5min.Count <= 0)
@@ -543,7 +545,8 @@ namespace BinanceApp.Business
             {
                 List<WeightedValue> majorHighs = new List<WeightedValue>();
                 List<WeightedValue> majorLows = new List<WeightedValue>();
-
+                List<LocalMinMax> localMins = new List<LocalMinMax>();
+                List<LocalMinMax> localMaxes = new List<LocalMinMax>();
                 switch (interval)
                 {
                     case KlineInterval.OneMinute:
@@ -555,6 +558,8 @@ namespace BinanceApp.Business
                                 CoinsDictionary[coinName].MacdResult1Min = macdResult;
                                 CoinsDictionary[coinName].MajorHighPrice1Min = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice1Min = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin1Min = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax1Min = localMaxes;
                             }
                         }
                         break;
@@ -566,6 +571,8 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice5Min = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice5Min = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin5Min = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax5Min = localMaxes;
                             }
                         }
                         break;
@@ -577,6 +584,9 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice15Min = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice15Min = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin15Min = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax15Min = localMaxes;
+
                             }
                         }
                         break;
@@ -588,6 +598,9 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice30Min = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice30Min = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin30Min = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax30Min = localMaxes;
+
                             }
                         }
                         break;
@@ -599,6 +612,9 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice60Min = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice60Min = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin60Min = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax60Min = localMaxes;
+
                             }
                         }
                         break;
@@ -610,6 +626,9 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice2hour = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice2hour = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin2hour = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax2hour = localMaxes;
+
                             }
                         }
                         break;
@@ -621,6 +640,9 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice4hour = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice4hour = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin4hour = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax4hour = localMaxes;
+
                             }
                         }
                         break;
@@ -632,6 +654,8 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice1Day = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice1Day = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin1Day = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax1Day = localMaxes;
                             }
                         }
                         break;
@@ -643,6 +667,8 @@ namespace BinanceApp.Business
                             {
                                 CoinsDictionary[coinName].MajorHighPrice1Week = majorHighs;
                                 CoinsDictionary[coinName].MajorLowPrice1Week = majorLows;
+                                CoinsDictionary[coinName].MacdLocalMin1Week = localMins;
+                                CoinsDictionary[coinName].MacdLocalMax1Week = localMaxes;
                             }
                         }
                         break;

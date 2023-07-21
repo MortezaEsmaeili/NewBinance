@@ -23,19 +23,22 @@ namespace BinanceApp
 {
     public partial class PercentForm : Telerik.WinControls.UI.RadForm
     {
+        Timeframe timeFrame = Timeframe.tf_4h;
         Telerik.WinControls.UI.DateTimeCategoricalAxis dateTimeCategoricalAxis1 = new Telerik.WinControls.UI.DateTimeCategoricalAxis();
         Telerik.WinControls.UI.LinearAxis linearAxis1 = new Telerik.WinControls.UI.LinearAxis();
 
         LineSeries ZeroLine = new LineSeries();
+        LineSeries MacdMinLine = new LineSeries();
+        LineSeries MacdMaxLine = new LineSeries();
 
         List<string> Intervals = new List<string> { KlineInterval.OneMinute.ToString(),
             KlineInterval.FiveMinutes.ToString(), KlineInterval.FifteenMinutes.ToString(),
             KlineInterval.ThirtyMinutes.ToString(), KlineInterval.OneHour.ToString(),
             KlineInterval.FourHour.ToString(), KlineInterval.OneDay.ToString()};
 
-        Dictionary<string,decimal> priceDic = new Dictionary<string,decimal>();
-        Dictionary<string,decimal> AllCoinBuyRR = new Dictionary<string,decimal>();
-        Dictionary<string,decimal> AllCoinSellRR= new Dictionary<string,decimal>();
+        Dictionary<string, decimal> priceDic = new Dictionary<string, decimal>();
+        Dictionary<string, decimal> AllCoinBuyRR = new Dictionary<string, decimal>();
+        Dictionary<string, decimal> AllCoinSellRR = new Dictionary<string, decimal>();
         private BinanceModel binanceModel;
 
         private string coinName = string.Empty;
@@ -59,6 +62,7 @@ namespace BinanceApp
 
             initAxis();
             InitSeries();
+            RB_4H.Checked = true;
         }
         protected void WireEvents()
         {
@@ -96,7 +100,8 @@ namespace BinanceApp
                 else
                     return;
             }
-            Action act = new Action(() => {
+            Action act = new Action(() =>
+            {
                 if (binanceModel.PriceList.Any())
                 {
                     price_LB.Text = binanceModel.CurrentPrice.ToString();
@@ -161,6 +166,7 @@ namespace BinanceApp
                 price_LB.Text = binanceModel.CurrentPrice.ToString();
                 decimal price = binanceModel.CurrentPrice;
 
+                if (binanceModel.MacdResult1Min == null) return;
                 var startTime = binanceModel.MacdResult1Min.First().Date;
                 var endTime = binanceModel.MacdResult1Min.Last().Date;
                 decimal mh1H = 0, ml1H = 0, mh2H = 0, ml2H = 0, mh4H = 0, ml4H = 0;
@@ -170,14 +176,15 @@ namespace BinanceApp
                 _ = GetMarginPoints(binanceModel.MajorLowPrice60Min, startTime, endTime, out ml1H);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice60Min, startTime, endTime, out mh1H);
                 ma1H = GetMovingAverage(binanceModel.Candels_60min);
-                LB_ML1H.Text = $"ML 1H : {ml1H}";
-                string temp = ((price - ml1H) * 100 / ml1H).ToString("#.##");
-                LB_ML1HP.Text = $"ML 1H P : {temp} %";
-                LB_MH1H.Text = $"MH 1H : {ml1H}";
-                temp = ((price - mh1H) * 100 / mh1H).ToString("#.##");
-                LB_MH1HP.Text = $"MH 1H P : {temp} %";
-                if(ma1H > 0)
+
+                if (ma1H > 0 && ml1H > 0 && mh1H > 0)
                 {
+                    LB_ML1H.Text = $"ML 1H : {ml1H}";
+                    string temp = ((price - ml1H) * 100 / ml1H).ToString("#.##");
+                    LB_ML1HP.Text = $"ML 1H P : {temp} %";
+                    LB_MH1H.Text = $"MH 1H : {ml1H}";
+                    temp = ((price - mh1H) * 100 / mh1H).ToString("#.##");
+                    LB_MH1HP.Text = $"MH 1H P : {temp} %";
                     LB_MA_1H.Text = $" MA 1H : {ma1H}";
                     temp = ((price - ma1H) * 100 / ma1H).ToString("#.##");
                     LB_MA_1HP.Text = $"MA 1H P : {temp} %";
@@ -186,92 +193,105 @@ namespace BinanceApp
                 _ = GetMarginPoints(binanceModel.MajorLowPrice2hour, startTime, endTime, out ml2H);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice60Min, startTime, endTime, out mh2H);
                 ma2H = GetMovingAverage(binanceModel.Candels_2hour);
-                LB_ML2H.Text = $"ML 2H : {ml2H}";
-                temp = ((price - ml2H) * 100 / ml2H).ToString("#.##");
-                LB_ML2HP.Text = $"ML 2H P : {temp} %";
-                LB_MH2H.Text = $"MH 2H : {mh2H}";
-                temp = ((price - mh2H) * 100 / mh2H).ToString("#.##");
-                LB_MH2HP.Text = $"MH 2H P : {temp} %";
-                if (ma2H > 0)
+                if (ma2H > 0 && mh2H > 0 && ml2H > 0)
                 {
-                    LB_MA_2H.Text = $" MA 2H : {ma2H}";
-                    temp = ((price - ma2H) * 100 / ma2H).ToString("#.##");
-                    LB_MA_2HP.Text = $"MA 2H P : {temp} %";
+                    LB_ML2H.Text = $"ML 2H : {ml2H}";
+                    string temp = ((price - ml2H) * 100 / ml2H).ToString("#.##");
+                    LB_ML2HP.Text = $"ML 2H P : {temp} %";
+                    LB_MH2H.Text = $"MH 2H : {mh2H}";
+                    temp = ((price - mh2H) * 100 / mh2H).ToString("#.##");
+                    LB_MH2HP.Text = $"MH 2H P : {temp} %";
+                    if (ma2H > 0)
+                    {
+                        LB_MA_2H.Text = $" MA 2H : {ma2H}";
+                        temp = ((price - ma2H) * 100 / ma2H).ToString("#.##");
+                        LB_MA_2HP.Text = $"MA 2H P : {temp} %";
+                    }
                 }
 
                 _ = GetMarginPoints(binanceModel.MajorLowPrice4hour, startTime, endTime, out ml4H);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice4hour, startTime, endTime, out mh4H);
                 ma4H = GetMovingAverage(binanceModel.Candels_4hour);
-                LB_ML4H.Text = $"ML 4H : {ml4H}";
-                temp = ((price - ml4H) * 100 / ml4H).ToString("#.##");
-                LB_ML4HP.Text = $"ML 4H P : {temp} %";
-                LB_MH4H.Text = $"MH 4H : {mh4H}";
-                temp = ((price - mh4H) * 100 / mh4H).ToString("#.##");
-                LB_MH4HP.Text = $"MH 4H P : {temp} %";
-                if (ma4H > 0)
+                if (ma4H > 0 && mh4H > 0 && ml4H > 0)
                 {
-                    LB_MA_4H.Text = $" MA 4H : {ma4H}";
-                    temp = ((price - ma4H) * 100 / ma4H).ToString("#.##");
-                    LB_MA_4HP.Text = $"MA 4H P : {temp} %";
-                }
 
+                    LB_ML4H.Text = $"ML 4H : {ml4H}";
+                    string temp = ((price - ml4H) * 100 / ml4H).ToString("#.##");
+                    LB_ML4HP.Text = $"ML 4H P : {temp} %";
+                    LB_MH4H.Text = $"MH 4H : {mh4H}";
+                    temp = ((price - mh4H) * 100 / mh4H).ToString("#.##");
+                    LB_MH4HP.Text = $"MH 4H P : {temp} %";
+                    if (ma4H > 0)
+                    {
+                        LB_MA_4H.Text = $" MA 4H : {ma4H}";
+                        temp = ((price - ma4H) * 100 / ma4H).ToString("#.##");
+                        LB_MA_4HP.Text = $"MA 4H P : {temp} %";
+                    }
+                }
                 _ = GetMarginPoints(binanceModel.MajorLowPrice1Day, startTime, endTime, out ml1D);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice1Day, startTime, endTime, out mh1D);
                 ma1D = GetMovingAverage(binanceModel.Candels_oneDay);
-                LB_ML1D.Text = $"ML 1D : {ml1D}";
-                temp = ((price - ml1D) * 100 / ml1D).ToString("#.##");
-                LB_ML1DP.Text = $"ML 1D P : {temp} %";
-                LB_MH1D.Text = $"MH 1D : {mh1D}";
-                temp = ((price - mh1D) * 100 / mh1D).ToString("#.##");
-                LB_MH1DP.Text = $"MH 1D P : {temp} %";
-                if (ma1D > 0)
+                if (ma1D > 0 && ml1D > 0 && mh1D > 0)
                 {
-                    LB_MA_1D.Text = $" MA 1D : {ma1D}";
-                    temp = ((price - ma1D) * 100 / ma1D).ToString("#.##");
-                    LB_MA_1DP.Text = $"MA 1D P : {temp} %";
-                }
 
+                    LB_ML1D.Text = $"ML 1D : {ml1D}";
+                    string temp = ((price - ml1D) * 100 / ml1D).ToString("#.##");
+                    LB_ML1DP.Text = $"ML 1D P : {temp} %";
+                    LB_MH1D.Text = $"MH 1D : {mh1D}";
+                    temp = ((price - mh1D) * 100 / mh1D).ToString("#.##");
+                    LB_MH1DP.Text = $"MH 1D P : {temp} %";
+                    if (ma1D > 0)
+                    {
+                        LB_MA_1D.Text = $" MA 1D : {ma1D}";
+                        temp = ((price - ma1D) * 100 / ma1D).ToString("#.##");
+                        LB_MA_1DP.Text = $"MA 1D P : {temp} %";
+                    }
+                }
                 _ = GetMarginPoints(binanceModel.MajorLowPrice1Week, startTime, endTime, out ml1W);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice1Week, startTime, endTime, out mh1W);
                 ma1W = GetMovingAverage(binanceModel.Candels_oneWeek);
-                LB_ML1W.Text = $"ML 1W : {ml1W}";
-                temp = ((price - ml1W) * 100 / ml1W).ToString("#.##");
-                LB_ML1WP.Text = $"ML 1W P : {temp} %";
-                LB_MH1W.Text = $"MH 1W : {mh1W}";
-                temp = ((price - mh1W) * 100 / mh1W).ToString("#.##");
-                LB_MH1WP.Text = $"MH 1W P : {temp} %";
-                if (ma1W > 0)
+                if (ma1W > 0 && ml1W > 0 && mh1W > 0)
                 {
-                    LB_MA_1W.Text = $" MA 1W : {ma1W}";
-                    temp = ((price - ma1W) * 100 / ma1W).ToString("#.##");
-                    LB_MA_1WP.Text = $"MA 1W P : {temp} %";
+
+                    LB_ML1W.Text = $"ML 1W : {ml1W}";
+                    string temp = ((price - ml1W) * 100 / ml1W).ToString("#.##");
+                    LB_ML1WP.Text = $"ML 1W P : {temp} %";
+                    LB_MH1W.Text = $"MH 1W : {mh1W}";
+                    temp = ((price - mh1W) * 100 / mh1W).ToString("#.##");
+                    LB_MH1WP.Text = $"MH 1W P : {temp} %";
+                    if (ma1W > 0)
+                    {
+                        LB_MA_1W.Text = $" MA 1W : {ma1W}";
+                        temp = ((price - ma1W) * 100 / ma1W).ToString("#.##");
+                        LB_MA_1WP.Text = $"MA 1W P : {temp} %";
+                    }
                 }
 
                 priceDic.Clear();
-                priceDic.Add("PRICE",price);
-                priceDic.Add("ML 1H",ml1H);
-                priceDic.Add("MH 1H",mh1H);
-                priceDic.Add("ML 2H",ml2H);
-                priceDic.Add("MH 2H",mh2H);
-                priceDic.Add("ML 4H",ml4H);
-                priceDic.Add("MH 4H",mh4H);
-                priceDic.Add("ML 1D",ml1D);
-                priceDic.Add("MH 1D",mh1D);
-                priceDic.Add("ML 1W",ml1W);
-                priceDic.Add("MH 1W",mh1W);
+                priceDic.Add("PRICE", price);
+                priceDic.Add("ML 1H", ml1H);
+                priceDic.Add("MH 1H", mh1H);
+                priceDic.Add("ML 2H", ml2H);
+                priceDic.Add("MH 2H", mh2H);
+                priceDic.Add("ML 4H", ml4H);
+                priceDic.Add("MH 4H", mh4H);
+                priceDic.Add("ML 1D", ml1D);
+                priceDic.Add("MH 1D", mh1D);
+                priceDic.Add("ML 1W", ml1W);
+                priceDic.Add("MH 1W", mh1W);
 
                 var sortedDic = from entry in priceDic orderby entry.Value descending select entry; //ascending
 
                 LIST_BOX_SORTED.Items.Clear();
 
                 int iResistanceIndex = 0, iSupportIndex = 0;
-                for(int i=0; i<sortedDic.Count(); i++)
+                for (int i = 0; i < sortedDic.Count(); i++)
                 {
                     LIST_BOX_SORTED.Items.Add($"{sortedDic.ElementAt(i).Key}:   {sortedDic.ElementAt(i).Value}");
-                    if(sortedDic.ElementAt(i).Key == "PRICE")
+                    if (sortedDic.ElementAt(i).Key == "PRICE")
                     {
-                        iResistanceIndex = (i-1) < 0 ? 0 : i-1;
-                        iSupportIndex = i == sortedDic.Count() - 1 ? i : i+1;
+                        iResistanceIndex = (i - 1) < 0 ? 0 : i - 1;
+                        iSupportIndex = i == sortedDic.Count() - 1 ? i : i + 1;
                     }
                 }
                 decimal supportPrice = sortedDic.ElementAt(iSupportIndex).Value;
@@ -287,22 +307,22 @@ namespace BinanceApp
                 decimal sellOpenPosition = resistancePrice * (1 - positionMargin);
 
                 TB_BuyPositionOpen.Text = buyOpenPosition.ToString();
-                TB_SellPositionPrice.Text=sellOpenPosition.ToString();
+                TB_SellPositionPrice.Text = sellOpenPosition.ToString();
 
                 decimal buyStopLoss = supportPrice * (1 - stopLossMargin);
-                decimal sellStopLoss= resistancePrice * (1 + stopLossMargin);
+                decimal sellStopLoss = resistancePrice * (1 + stopLossMargin);
 
                 TB_BuyStopLoss.Text = buyStopLoss.ToString();
                 TB_SellStopLoss.Text = sellStopLoss.ToString();
 
-                decimal buyGain = -1*((buyOpenPosition / sellOpenPosition) - 1 ) *100;
-                decimal sellGain = ((sellOpenPosition / buyOpenPosition) - 1) *100;
+                decimal buyGain = -1 * ((buyOpenPosition / sellOpenPosition) - 1) * 100;
+                decimal sellGain = ((sellOpenPosition / buyOpenPosition) - 1) * 100;
 
                 TB_BuyGain.Text = buyGain.ToString("#.##");
                 TB_SellGain.Text = sellGain.ToString("#.##");
 
-                decimal buyLoss = ((buyOpenPosition / buyStopLoss) - 1)*100;
-                decimal sellLoss= ((sellStopLoss/sellOpenPosition) - 1 ) *100;
+                decimal buyLoss = ((buyOpenPosition / buyStopLoss) - 1) * 100;
+                decimal sellLoss = ((sellStopLoss / sellOpenPosition) - 1) * 100;
 
                 TB_BuyLoss.Text = buyLoss.ToString("#.##");
                 TB_SellLoss.Text = sellLoss.ToString("#.##");
@@ -326,7 +346,7 @@ namespace BinanceApp
         {
             try
             {
-                if(!radDropDownList1.Items.Contains(coinName)) { return; }
+                if (!radDropDownList1.Items.Contains(coinName)) { return; }
                 var binanceModel = BinanceDataCollector.Instance.GetBinance(coinName);
 
                 //price_LB.Text = binanceModel.CurrentPrice.ToString();
@@ -343,80 +363,80 @@ namespace BinanceApp
                 ma1H = GetMovingAverage(binanceModel.Candels_60min);
                 //LB_ML1H.Text = $"ML 1H : {ml1H}";
                 string temp = ((price - ml1H) * 100 / ml1H).ToString("#.##");
-               // LB_ML1HP.Text = $"ML 1H P : {temp} %";
+                // LB_ML1HP.Text = $"ML 1H P : {temp} %";
                 //LB_MH1H.Text = $"MH 1H : {ml1H}";
                 temp = ((price - mh1H) * 100 / mh1H).ToString("#.##");
-               // LB_MH1HP.Text = $"MH 1H P : {temp} %";
-               /* if (ma1H > 0)
-                {
-                    LB_MA_1H.Text = $" MA 1H : {ma1H}";
-                    temp = ((price - ma1H) * 100 / ma1H).ToString("#.##");
-                    LB_MA_1HP.Text = $"MA 1H P : {temp} %";
-                }*/
+                // LB_MH1HP.Text = $"MH 1H P : {temp} %";
+                /* if (ma1H > 0)
+                 {
+                     LB_MA_1H.Text = $" MA 1H : {ma1H}";
+                     temp = ((price - ma1H) * 100 / ma1H).ToString("#.##");
+                     LB_MA_1HP.Text = $"MA 1H P : {temp} %";
+                 }*/
 
                 _ = GetMarginPoints(binanceModel.MajorLowPrice2hour, startTime, endTime, out ml2H);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice60Min, startTime, endTime, out mh2H);
                 ma2H = GetMovingAverage(binanceModel.Candels_2hour);
-              //  LB_ML2H.Text = $"ML 2H : {ml2H}";
+                //  LB_ML2H.Text = $"ML 2H : {ml2H}";
                 temp = ((price - ml2H) * 100 / ml2H).ToString("#.##");
-              //  LB_ML2HP.Text = $"ML 2H P : {temp} %";
-              //  LB_MH2H.Text = $"MH 2H : {mh2H}";
+                //  LB_ML2HP.Text = $"ML 2H P : {temp} %";
+                //  LB_MH2H.Text = $"MH 2H : {mh2H}";
                 temp = ((price - mh2H) * 100 / mh2H).ToString("#.##");
-             //   LB_MH2HP.Text = $"MH 2H P : {temp} %";
-             /*   if (ma2H > 0)
-                {
-                    LB_MA_2H.Text = $" MA 2H : {ma2H}";
-                    temp = ((price - ma2H) * 100 / ma2H).ToString("#.##");
-                    LB_MA_2HP.Text = $"MA 2H P : {temp} %";
-                }*/
+                //   LB_MH2HP.Text = $"MH 2H P : {temp} %";
+                /*   if (ma2H > 0)
+                   {
+                       LB_MA_2H.Text = $" MA 2H : {ma2H}";
+                       temp = ((price - ma2H) * 100 / ma2H).ToString("#.##");
+                       LB_MA_2HP.Text = $"MA 2H P : {temp} %";
+                   }*/
 
                 _ = GetMarginPoints(binanceModel.MajorLowPrice4hour, startTime, endTime, out ml4H);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice4hour, startTime, endTime, out mh4H);
                 ma4H = GetMovingAverage(binanceModel.Candels_4hour);
-             //   LB_ML4H.Text = $"ML 4H : {ml4H}";
+                //   LB_ML4H.Text = $"ML 4H : {ml4H}";
                 temp = ((price - ml4H) * 100 / ml4H).ToString("#.##");
-             //   LB_ML4HP.Text = $"ML 4H P : {temp} %";
-             //   LB_MH4H.Text = $"MH 4H : {mh4H}";
+                //   LB_ML4HP.Text = $"ML 4H P : {temp} %";
+                //   LB_MH4H.Text = $"MH 4H : {mh4H}";
                 temp = ((price - mh4H) * 100 / mh4H).ToString("#.##");
-            //    LB_MH4HP.Text = $"MH 4H P : {temp} %";
-            /*    if (ma4H > 0)
-                {
-                    LB_MA_4H.Text = $" MA 4H : {ma4H}";
-                    temp = ((price - ma4H) * 100 / ma4H).ToString("#.##");
-                    LB_MA_4HP.Text = $"MA 4H P : {temp} %";
-                }*/
+                //    LB_MH4HP.Text = $"MH 4H P : {temp} %";
+                /*    if (ma4H > 0)
+                    {
+                        LB_MA_4H.Text = $" MA 4H : {ma4H}";
+                        temp = ((price - ma4H) * 100 / ma4H).ToString("#.##");
+                        LB_MA_4HP.Text = $"MA 4H P : {temp} %";
+                    }*/
 
                 _ = GetMarginPoints(binanceModel.MajorLowPrice1Day, startTime, endTime, out ml1D);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice1Day, startTime, endTime, out mh1D);
                 ma1D = GetMovingAverage(binanceModel.Candels_oneDay);
-            /*    LB_ML1D.Text = $"ML 1D : {ml1D}";
-                temp = ((price - ml1D) * 100 / ml1D).ToString("#.##");
-                LB_ML1DP.Text = $"ML 1D P : {temp} %";
-                LB_MH1D.Text = $"MH 1D : {mh1D}";
-                temp = ((price - mh1D) * 100 / mh1D).ToString("#.##");
-                LB_MH1DP.Text = $"MH 1D P : {temp} %";
-                if (ma1D > 0)
-                {
-                    LB_MA_1D.Text = $" MA 1D : {ma1D}";
-                    temp = ((price - ma1D) * 100 / ma1D).ToString("#.##");
-                    LB_MA_1DP.Text = $"MA 1D P : {temp} %";
-                }*/
+                /*    LB_ML1D.Text = $"ML 1D : {ml1D}";
+                    temp = ((price - ml1D) * 100 / ml1D).ToString("#.##");
+                    LB_ML1DP.Text = $"ML 1D P : {temp} %";
+                    LB_MH1D.Text = $"MH 1D : {mh1D}";
+                    temp = ((price - mh1D) * 100 / mh1D).ToString("#.##");
+                    LB_MH1DP.Text = $"MH 1D P : {temp} %";
+                    if (ma1D > 0)
+                    {
+                        LB_MA_1D.Text = $" MA 1D : {ma1D}";
+                        temp = ((price - ma1D) * 100 / ma1D).ToString("#.##");
+                        LB_MA_1DP.Text = $"MA 1D P : {temp} %";
+                    }*/
 
                 _ = GetMarginPoints(binanceModel.MajorLowPrice1Week, startTime, endTime, out ml1W);
                 _ = GetMarginPoints(binanceModel.MajorHighPrice1Week, startTime, endTime, out mh1W);
                 ma1W = GetMovingAverage(binanceModel.Candels_oneWeek);
-             /*   LB_ML1W.Text = $"ML 1W : {ml1W}";
-                temp = ((price - ml1W) * 100 / ml1W).ToString("#.##");
-                LB_ML1WP.Text = $"ML 1W P : {temp} %";
-                LB_MH1W.Text = $"MH 1W : {mh1W}";
-                temp = ((price - mh1W) * 100 / mh1W).ToString("#.##");
-                LB_MH1WP.Text = $"MH 1W P : {temp} %";
-                if (ma1W > 0)
-                {
-                    LB_MA_1W.Text = $" MA 1W : {ma1W}";
-                    temp = ((price - ma1W) * 100 / ma1W).ToString("#.##");
-                    LB_MA_1WP.Text = $"MA 1W P : {temp} %";
-                }*/
+                /*   LB_ML1W.Text = $"ML 1W : {ml1W}";
+                   temp = ((price - ml1W) * 100 / ml1W).ToString("#.##");
+                   LB_ML1WP.Text = $"ML 1W P : {temp} %";
+                   LB_MH1W.Text = $"MH 1W : {mh1W}";
+                   temp = ((price - mh1W) * 100 / mh1W).ToString("#.##");
+                   LB_MH1WP.Text = $"MH 1W P : {temp} %";
+                   if (ma1W > 0)
+                   {
+                       LB_MA_1W.Text = $" MA 1W : {ma1W}";
+                       temp = ((price - ma1W) * 100 / ma1W).ToString("#.##");
+                       LB_MA_1WP.Text = $"MA 1W P : {temp} %";
+                   }*/
 
                 priceDic.Clear();
                 priceDic.Add("PRICE", price);
@@ -433,12 +453,12 @@ namespace BinanceApp
 
                 var sortedDic = from entry in priceDic orderby entry.Value descending select entry; //ascending
 
-            //    LIST_BOX_SORTED.Items.Clear();
+                //    LIST_BOX_SORTED.Items.Clear();
 
                 int iResistanceIndex = 0, iSupportIndex = 0;
                 for (int i = 0; i < sortedDic.Count(); i++)
                 {
-             //       LIST_BOX_SORTED.Items.Add($"{sortedDic.ElementAt(i).Key}:   {sortedDic.ElementAt(i).Value}");
+                    //       LIST_BOX_SORTED.Items.Add($"{sortedDic.ElementAt(i).Key}:   {sortedDic.ElementAt(i).Value}");
                     if (sortedDic.ElementAt(i).Key == "PRICE")
                     {
                         iResistanceIndex = (i - 1) < 0 ? 0 : i - 1;
@@ -457,37 +477,37 @@ namespace BinanceApp
                 decimal buyOpenPosition = supportPrice * (1 + positionMargin);
                 decimal sellOpenPosition = resistancePrice * (1 - positionMargin);
 
-         //       TB_BuyPositionOpen.Text = buyOpenPosition.ToString();
-           //     TB_SellPositionPrice.Text = sellOpenPosition.ToString();
+                //       TB_BuyPositionOpen.Text = buyOpenPosition.ToString();
+                //     TB_SellPositionPrice.Text = sellOpenPosition.ToString();
 
                 decimal buyStopLoss = supportPrice * (1 - stopLossMargin);
                 decimal sellStopLoss = resistancePrice * (1 + stopLossMargin);
 
-         //       TB_BuyStopLoss.Text = buyStopLoss.ToString();
-           //     TB_SellStopLoss.Text = sellStopLoss.ToString();
+                //       TB_BuyStopLoss.Text = buyStopLoss.ToString();
+                //     TB_SellStopLoss.Text = sellStopLoss.ToString();
 
                 decimal buyGain = -1 * ((buyOpenPosition / sellOpenPosition) - 1) * 100;
                 decimal sellGain = ((sellOpenPosition / buyOpenPosition) - 1) * 100;
 
-         //       TB_BuyGain.Text = buyGain.ToString("#.##");
-           //     TB_SellGain.Text = sellGain.ToString("#.##");
+                //       TB_BuyGain.Text = buyGain.ToString("#.##");
+                //     TB_SellGain.Text = sellGain.ToString("#.##");
 
                 decimal buyLoss = ((buyOpenPosition / buyStopLoss) - 1) * 100;
                 decimal sellLoss = ((sellStopLoss / sellOpenPosition) - 1) * 100;
 
-          //      TB_BuyLoss.Text = buyLoss.ToString("#.##");
-            //    TB_SellLoss.Text = sellLoss.ToString("#.##");
+                //      TB_BuyLoss.Text = buyLoss.ToString("#.##");
+                //    TB_SellLoss.Text = sellLoss.ToString("#.##");
 
                 decimal buyRiskReward = buyGain / buyLoss;
                 decimal sellRiskReward = sellGain / sellLoss;
 
-            //    if(AllCoinBuyRR.Keys.Contains(coinName))
+                //    if(AllCoinBuyRR.Keys.Contains(coinName))
                 {
                     AllCoinBuyRR.Remove($"{coinName} Buy: ");
                 }
                 AllCoinBuyRR.Add($"{coinName} Buy: ", buyRiskReward);
 
-         //       if (AllCoinSellRR.Keys.Contains(coinName))
+                //       if (AllCoinSellRR.Keys.Contains(coinName))
                 {
                     AllCoinSellRR.Remove($"{coinName} Sell: ");
                 }
@@ -511,7 +531,7 @@ namespace BinanceApp
                 bool isExisted = false;
                 for (int i = 0; i < listView1.Items.Count; i++)
                 {
-                    if(listView1.Items[i].SubItems[0].Text == coinName)
+                    if (listView1.Items[i].SubItems[0].Text == coinName)
                     {
                         isExisted = true;
                         listView1.Items[i].SubItems[1].Text = mh4H.ToString();
@@ -524,7 +544,7 @@ namespace BinanceApp
                     }
                 }
 
-                if(!isExisted)
+                if (!isExisted)
                 {
                     ListViewItem listItem = new ListViewItem();
                     listItem.Text = coinName;
@@ -533,7 +553,7 @@ namespace BinanceApp
                     listItem.SubItems.Add(ml4H.ToString());
                     listItem.SubItems.Add("Macd State");
                     listItem.SubItems.Add("General Command");
-                    
+
                     listView1.Items.Add(listItem);
                 }
 
@@ -550,12 +570,12 @@ namespace BinanceApp
             if (candels.Count < 50) return -1;
             decimal movingAverage = 0;
             List<IBinanceKline> temp = candels.Skip(Math.Max(0, candels.Count() - 100)).ToList();
-            foreach(var item in temp)
+            foreach (var item in temp)
             {
                 movingAverage += item.ClosePrice;
             }
             movingAverage = movingAverage / temp.Count();
-            return movingAverage;            
+            return movingAverage;
         }
 
         private ConcurrentBag<CategoricalDataPoint> GetMarginPoints(List<WeightedValue> valueList, DateTime startTime,
@@ -602,7 +622,7 @@ namespace BinanceApp
             string tempCoin = ListBox_Buy.GetItemText(ListBox_Buy.SelectedItem);
             var temptext = tempCoin.Split(' ');
             string coin = temptext[0];
-            for(int i = 0; i < radDropDownList1.Items.Count; i++) 
+            for (int i = 0; i < radDropDownList1.Items.Count; i++)
             {
                 if (radDropDownList1.Items[i].Text == coin)
                 { radDropDownList1.SelectedIndex = i; break; }
@@ -652,6 +672,12 @@ namespace BinanceApp
             indicator.ValueMember = "ClosePrice";
             indicator.DataSource = candels;//viewModel.Data;
 
+            MacdMaxLine.CategoryMember = "Date";
+            MacdMaxLine.ValueMember = "Macd";
+
+            MacdMinLine.CategoryMember = "Date";
+            MacdMinLine.ValueMember = "Macd";
+
             ConfigureAxis(-2, 2, 1);
 
             return indicator;
@@ -688,6 +714,16 @@ namespace BinanceApp
             ZeroLine.VerticalAxis = linearAxis1;
             ZeroLine.BackColor = Color.Blue;
             ZeroLine.BorderColor = Color.Blue;
+
+            MacdMinLine.HorizontalAxis = dateTimeCategoricalAxis1;
+            MacdMinLine.VerticalAxis = linearAxis1;
+            MacdMinLine.BackColor = Color.Purple;
+            MacdMinLine.BorderColor = Color.Purple;
+
+            MacdMaxLine.HorizontalAxis = dateTimeCategoricalAxis1;
+            MacdMaxLine.VerticalAxis = linearAxis1;
+            MacdMaxLine.BackColor = Color.Green;
+            MacdMaxLine.BorderColor = Color.Green;
         }
 
         private void UpdateFinancialIndicator(string coinName)
@@ -698,7 +734,8 @@ namespace BinanceApp
                 if (coinInfo == null) return;
 
                 //var candels = coinInfo.Candels_4hour.Skip(coinInfo.Candels_4hour.Count() - 200).Take(200).ToList();
-                var candels = coinInfo.Candels_60min.Skip(coinInfo.Candels_60min.Count() - 200).Take(200).ToList();
+                //var candels = coinInfo.Candels_60min.Skip(coinInfo.Candels_60min.Count() - 200).Take(200).ToList();
+                var candels = GetCorrectCandle(coinInfo);
 
                 //if (viewModel.Data == null || !viewModel.Data.Any()) return;
                 if (candels == null || !candels.Any()) return;
@@ -724,13 +761,29 @@ namespace BinanceApp
                     parentIndicator.ChildIndicator.BorderColor = Color.Red;
                 }
                 //ConfigureAxis();
-                List<double>macdValues = new List<double>();
+                List<double> macdValues = new List<double>();
+                List<WeightedValue> macd = new List<WeightedValue>();
                 for (int i = 0; i < indicator.DataPoints.Count; i++)
-                    macdValues.Add(indicator.GetProcessedValue(i));
-                ConfigureAxis(macdValues.Min(), macdValues.Max() , (macdValues.Max() - macdValues.Min())/10);
+                {
+                    var value = indicator.GetProcessedValue(i);
+                    macdValues.Add(value);
+                    macd.Add(new WeightedValue { Time = candels[i].CloseTime, Value = (decimal)value });
+                }
+                var localMins = new List<LocalMinMax>();
+                var localMaxes = new List<LocalMinMax>();
+                BinanceHelper.CalculateMacdLocalMinMax(ref localMaxes, ref localMins, macd);
+
+                ConfigureAxis(macdValues.Min(), macdValues.Max(), (macdValues.Max() - macdValues.Min()) / 10);
                 this.radChartView1.Series.Add(indicator);
 
                 this.radChartView1.Series.Add(ZeroLine);
+
+
+                MacdMaxLine.DataSource = localMaxes;
+                this.radChartView1.Series.Add(MacdMaxLine);
+
+                MacdMinLine.DataSource = localMins;
+                this.radChartView1.Series.Add(MacdMinLine);
 
             }
             catch (Exception ex)
@@ -738,14 +791,57 @@ namespace BinanceApp
             }
         }
 
+
+        private List<IBinanceKline> GetCorrectCandle(BinanceModel coinInfo)
+        {
+            List<IBinanceKline> candels = coinInfo.Candels_4hour.Skip(coinInfo.Candels_4hour.Count() - 200).Take(200).ToList(); ;
+            switch (timeFrame)
+            {
+                case Timeframe.tf_1min:
+                    candels = coinInfo.Candels_1min.Skip(coinInfo.Candels_1min.Count() - 200).Take(200).ToList();
+                    break;
+                case Timeframe.tf_5min:
+                    candels = coinInfo.Candels_5min.Skip(coinInfo.Candels_5min.Count() - 200).Take(200).ToList();
+                    break;
+                case Timeframe.tf_15min:
+                    candels = coinInfo.Candels_15min.Skip(coinInfo.Candels_15min.Count() - 200).Take(200).ToList();
+                    break;
+                case Timeframe.tf_1h:
+                    candels = coinInfo.Candels_60min.Skip(coinInfo.Candels_60min.Count() - 200).Take(200).ToList();
+                    break;
+                case Timeframe.tf_2h:
+                    candels = coinInfo.Candels_2hour.Skip(coinInfo.Candels_2hour.Count() - 200).Take(200).ToList();
+                    break;
+                case Timeframe.tf_4h:
+                    candels = coinInfo.Candels_4hour.Skip(coinInfo.Candels_4hour.Count() - 200).Take(200).ToList();
+                    break;
+                case Timeframe.tf_1d:
+                    candels = coinInfo.Candels_oneDay.Skip(coinInfo.Candels_oneDay.Count() - 200).Take(200).ToList();
+                    break;
+            }
+            return candels;
+        }
+
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
-           int index = listView1.SelectedIndices[0];
+            int index = listView1.SelectedIndices[0];
             coinName = listView1.Items[index].Text;
             var coinInfo = BinanceDataCollector.Instance.GetBinance(coinName);
             if (coinInfo == null) return;
             binanceModel = coinInfo;
             UpdateData(binanceModel);
+        }
+
+        private void RB_1min_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RB_1min.Checked) { timeFrame = Timeframe.tf_1min; }
+            if (RB_5min.Checked) { timeFrame = Timeframe.tf_5min; }
+            if (RB_15min.Checked) { timeFrame = Timeframe.tf_15min; }
+            if (RB_1H.Checked) { timeFrame = Timeframe.tf_1h; }
+            if (RB_2H.Checked) { timeFrame = Timeframe.tf_2h; }
+            if (RB_4H.Checked) { timeFrame = Timeframe.tf_4h; }
+            if (RB_1D.Checked) { timeFrame = Timeframe.tf_1d; }
+            UpdateFinancialIndicator(coinName);
         }
     }
 }
