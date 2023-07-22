@@ -1,5 +1,6 @@
 ﻿using Binance.Net.Enums;
 using Binance.Net.Interfaces;
+using BinanceApp.Busines;
 using BinanceApp.Business;
 using BinanceApp.DataModel;
 using CryptoExchange.Net.CommonObjects;
@@ -778,13 +779,19 @@ namespace BinanceApp
 
                 this.radChartView1.Series.Add(ZeroLine);
 
-
-                MacdMaxLine.DataSource = localMaxes;
-                this.radChartView1.Series.Add(MacdMaxLine);
-
-                MacdMinLine.DataSource = localMins;
-                this.radChartView1.Series.Add(MacdMinLine);
-
+                if (localMaxes[localMaxes.Count - 1].Macd < 0 && localMaxes.Count>3)
+                {
+                    MacdMaxLine.DataSource = localMaxes.Skip(localMaxes.Count-3).Take(3).ToList();
+                    this.radChartView1.Series.Add(MacdMaxLine);
+                }
+                if (localMins[localMins.Count-1].Macd > 0 && localMins.Count>3)
+                {
+                    MacdMinLine.DataSource = localMins.Skip(localMins.Count - 3).Take(3).ToList(); ;
+                    this.radChartView1.Series.Add(MacdMinLine);
+                }
+                MacdAnalyclass.Instance.DoAnalysis();
+                MacdAnalyclass.Instance.MacdStateDic.Keys.Count();
+                
             }
             catch (Exception ex)
             {
@@ -805,6 +812,9 @@ namespace BinanceApp
                     break;
                 case Timeframe.tf_15min:
                     candels = coinInfo.Candels_15min.Skip(coinInfo.Candels_15min.Count() - 200).Take(200).ToList();
+                    break;
+                case Timeframe.tf_30min:
+                    candels = coinInfo.Candels_30min.Skip(coinInfo.Candels_30min.Count() - 200).Take(200).ToList();
                     break;
                 case Timeframe.tf_1h:
                     candels = coinInfo.Candels_60min.Skip(coinInfo.Candels_60min.Count() - 200).Take(200).ToList();
@@ -837,11 +847,17 @@ namespace BinanceApp
             if (RB_1min.Checked) { timeFrame = Timeframe.tf_1min; }
             if (RB_5min.Checked) { timeFrame = Timeframe.tf_5min; }
             if (RB_15min.Checked) { timeFrame = Timeframe.tf_15min; }
+            if (RB_30min.Checked) { timeFrame = Timeframe.tf_30min; }
             if (RB_1H.Checked) { timeFrame = Timeframe.tf_1h; }
             if (RB_2H.Checked) { timeFrame = Timeframe.tf_2h; }
             if (RB_4H.Checked) { timeFrame = Timeframe.tf_4h; }
             if (RB_1D.Checked) { timeFrame = Timeframe.tf_1d; }
             UpdateFinancialIndicator(coinName);
+        }
+
+        private void radChartView1_DoubleClick(object sender, EventArgs e)
+        {
+            this.radChartView1.Zoom(1, 1);
         }
     }
 }

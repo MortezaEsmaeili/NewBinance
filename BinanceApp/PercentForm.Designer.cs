@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.CartesianArea cartesianArea2 = new Telerik.WinControls.UI.CartesianArea();
+            Telerik.WinControls.UI.CartesianArea cartesianArea1 = new Telerik.WinControls.UI.CartesianArea();
             this.office2007BlackTheme1 = new Telerik.WinControls.Themes.Office2007BlackTheme();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.LB_MA_1WP = new System.Windows.Forms.TextBox();
@@ -100,7 +100,16 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.radChartView1 = new Telerik.WinControls.UI.RadChartView();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.RB_1D = new System.Windows.Forms.RadioButton();
+            this.RB_4H = new System.Windows.Forms.RadioButton();
+            this.RB_2H = new System.Windows.Forms.RadioButton();
+            this.RB_1H = new System.Windows.Forms.RadioButton();
+            this.RB_15min = new System.Windows.Forms.RadioButton();
+            this.RB_5min = new System.Windows.Forms.RadioButton();
+            this.RB_1min = new System.Windows.Forms.RadioButton();
             this.listView1 = new System.Windows.Forms.ListView();
             this.ch_CoinName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_mh_price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -108,15 +117,7 @@
             this.ch_major_low = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_macd_state = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_general_state = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.RB_1min = new System.Windows.Forms.RadioButton();
-            this.RB_5min = new System.Windows.Forms.RadioButton();
-            this.RB_15min = new System.Windows.Forms.RadioButton();
-            this.RB_1H = new System.Windows.Forms.RadioButton();
-            this.RB_2H = new System.Windows.Forms.RadioButton();
-            this.RB_4H = new System.Windows.Forms.RadioButton();
-            this.RB_1D = new System.Windows.Forms.RadioButton();
+            this.RB_30min = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -128,9 +129,9 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).BeginInit();
             this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -888,9 +889,22 @@
             this.tabPage2.Text = "Alarm";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox9.Controls.Add(this.radChartView1);
+            this.groupBox9.Location = new System.Drawing.Point(107, 246);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(1198, 369);
+            this.groupBox9.TabIndex = 4;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "MACD";
+            // 
             // radChartView1
             // 
-            this.radChartView1.AreaDesign = cartesianArea2;
+            this.radChartView1.AreaDesign = cartesianArea1;
             this.radChartView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radChartView1.Location = new System.Drawing.Point(3, 23);
             this.radChartView1.Name = "radChartView1";
@@ -900,6 +914,110 @@
             this.radChartView1.ShowTrackBall = true;
             this.radChartView1.Size = new System.Drawing.Size(1192, 343);
             this.radChartView1.TabIndex = 2;
+            this.radChartView1.DoubleClick += new System.EventHandler(this.radChartView1_DoubleClick);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox8.Controls.Add(this.RB_30min);
+            this.groupBox8.Controls.Add(this.RB_1D);
+            this.groupBox8.Controls.Add(this.RB_4H);
+            this.groupBox8.Controls.Add(this.RB_2H);
+            this.groupBox8.Controls.Add(this.RB_1H);
+            this.groupBox8.Controls.Add(this.RB_15min);
+            this.groupBox8.Controls.Add(this.RB_5min);
+            this.groupBox8.Controls.Add(this.RB_1min);
+            this.groupBox8.Location = new System.Drawing.Point(6, 246);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(95, 369);
+            this.groupBox8.TabIndex = 3;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "TF";
+            // 
+            // RB_1D
+            // 
+            this.RB_1D.AutoSize = true;
+            this.RB_1D.Location = new System.Drawing.Point(11, 319);
+            this.RB_1D.Name = "RB_1D";
+            this.RB_1D.Size = new System.Drawing.Size(57, 24);
+            this.RB_1D.TabIndex = 6;
+            this.RB_1D.TabStop = true;
+            this.RB_1D.Text = "1 D";
+            this.RB_1D.UseVisualStyleBackColor = true;
+            this.RB_1D.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            // 
+            // RB_4H
+            // 
+            this.RB_4H.AutoSize = true;
+            this.RB_4H.Location = new System.Drawing.Point(11, 279);
+            this.RB_4H.Name = "RB_4H";
+            this.RB_4H.Size = new System.Drawing.Size(57, 24);
+            this.RB_4H.TabIndex = 5;
+            this.RB_4H.TabStop = true;
+            this.RB_4H.Text = "4 H";
+            this.RB_4H.UseVisualStyleBackColor = true;
+            this.RB_4H.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            // 
+            // RB_2H
+            // 
+            this.RB_2H.AutoSize = true;
+            this.RB_2H.Location = new System.Drawing.Point(11, 239);
+            this.RB_2H.Name = "RB_2H";
+            this.RB_2H.Size = new System.Drawing.Size(57, 24);
+            this.RB_2H.TabIndex = 4;
+            this.RB_2H.TabStop = true;
+            this.RB_2H.Text = "2 H";
+            this.RB_2H.UseVisualStyleBackColor = true;
+            this.RB_2H.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            // 
+            // RB_1H
+            // 
+            this.RB_1H.AutoSize = true;
+            this.RB_1H.Location = new System.Drawing.Point(11, 199);
+            this.RB_1H.Name = "RB_1H";
+            this.RB_1H.Size = new System.Drawing.Size(57, 24);
+            this.RB_1H.TabIndex = 3;
+            this.RB_1H.TabStop = true;
+            this.RB_1H.Text = "1 H";
+            this.RB_1H.UseVisualStyleBackColor = true;
+            this.RB_1H.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            // 
+            // RB_15min
+            // 
+            this.RB_15min.AutoSize = true;
+            this.RB_15min.Location = new System.Drawing.Point(11, 119);
+            this.RB_15min.Name = "RB_15min";
+            this.RB_15min.Size = new System.Drawing.Size(80, 24);
+            this.RB_15min.TabIndex = 2;
+            this.RB_15min.TabStop = true;
+            this.RB_15min.Text = "15 min";
+            this.RB_15min.UseVisualStyleBackColor = true;
+            this.RB_15min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            // 
+            // RB_5min
+            // 
+            this.RB_5min.AutoSize = true;
+            this.RB_5min.Location = new System.Drawing.Point(11, 79);
+            this.RB_5min.Name = "RB_5min";
+            this.RB_5min.Size = new System.Drawing.Size(71, 24);
+            this.RB_5min.TabIndex = 1;
+            this.RB_5min.TabStop = true;
+            this.RB_5min.Text = "5 min";
+            this.RB_5min.UseVisualStyleBackColor = true;
+            this.RB_5min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            // 
+            // RB_1min
+            // 
+            this.RB_1min.AutoSize = true;
+            this.RB_1min.Location = new System.Drawing.Point(11, 39);
+            this.RB_1min.Name = "RB_1min";
+            this.RB_1min.Size = new System.Drawing.Size(71, 24);
+            this.RB_1min.TabIndex = 0;
+            this.RB_1min.TabStop = true;
+            this.RB_1min.Text = "1 min";
+            this.RB_1min.UseVisualStyleBackColor = true;
+            this.RB_1min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
             // 
             // listView1
             // 
@@ -960,120 +1078,17 @@
             this.ch_general_state.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ch_general_state.Width = 214;
             // 
-            // groupBox8
+            // RB_30min
             // 
-            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox8.Controls.Add(this.RB_1D);
-            this.groupBox8.Controls.Add(this.RB_4H);
-            this.groupBox8.Controls.Add(this.RB_2H);
-            this.groupBox8.Controls.Add(this.RB_1H);
-            this.groupBox8.Controls.Add(this.RB_15min);
-            this.groupBox8.Controls.Add(this.RB_5min);
-            this.groupBox8.Controls.Add(this.RB_1min);
-            this.groupBox8.Location = new System.Drawing.Point(6, 246);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(95, 369);
-            this.groupBox8.TabIndex = 3;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "TF";
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox9.Controls.Add(this.radChartView1);
-            this.groupBox9.Location = new System.Drawing.Point(107, 246);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(1198, 369);
-            this.groupBox9.TabIndex = 4;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "MACD";
-            // 
-            // RB_1min
-            // 
-            this.RB_1min.AutoSize = true;
-            this.RB_1min.Location = new System.Drawing.Point(11, 39);
-            this.RB_1min.Name = "RB_1min";
-            this.RB_1min.Size = new System.Drawing.Size(71, 24);
-            this.RB_1min.TabIndex = 0;
-            this.RB_1min.TabStop = true;
-            this.RB_1min.Text = "1 min";
-            this.RB_1min.UseVisualStyleBackColor = true;
-            this.RB_1min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
-            // 
-            // RB_5min
-            // 
-            this.RB_5min.AutoSize = true;
-            this.RB_5min.Location = new System.Drawing.Point(11, 86);
-            this.RB_5min.Name = "RB_5min";
-            this.RB_5min.Size = new System.Drawing.Size(71, 24);
-            this.RB_5min.TabIndex = 1;
-            this.RB_5min.TabStop = true;
-            this.RB_5min.Text = "5 min";
-            this.RB_5min.UseVisualStyleBackColor = true;
-            this.RB_5min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
-            // 
-            // RB_15min
-            // 
-            this.RB_15min.AutoSize = true;
-            this.RB_15min.Location = new System.Drawing.Point(11, 133);
-            this.RB_15min.Name = "RB_15min";
-            this.RB_15min.Size = new System.Drawing.Size(80, 24);
-            this.RB_15min.TabIndex = 2;
-            this.RB_15min.TabStop = true;
-            this.RB_15min.Text = "15 min";
-            this.RB_15min.UseVisualStyleBackColor = true;
-            this.RB_15min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
-            // 
-            // RB_1H
-            // 
-            this.RB_1H.AutoSize = true;
-            this.RB_1H.Location = new System.Drawing.Point(11, 180);
-            this.RB_1H.Name = "RB_1H";
-            this.RB_1H.Size = new System.Drawing.Size(57, 24);
-            this.RB_1H.TabIndex = 3;
-            this.RB_1H.TabStop = true;
-            this.RB_1H.Text = "1 H";
-            this.RB_1H.UseVisualStyleBackColor = true;
-            this.RB_1H.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
-            // 
-            // RB_2H
-            // 
-            this.RB_2H.AutoSize = true;
-            this.RB_2H.Location = new System.Drawing.Point(11, 227);
-            this.RB_2H.Name = "RB_2H";
-            this.RB_2H.Size = new System.Drawing.Size(57, 24);
-            this.RB_2H.TabIndex = 4;
-            this.RB_2H.TabStop = true;
-            this.RB_2H.Text = "2 H";
-            this.RB_2H.UseVisualStyleBackColor = true;
-            this.RB_2H.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
-            // 
-            // RB_4H
-            // 
-            this.RB_4H.AutoSize = true;
-            this.RB_4H.Location = new System.Drawing.Point(11, 274);
-            this.RB_4H.Name = "RB_4H";
-            this.RB_4H.Size = new System.Drawing.Size(57, 24);
-            this.RB_4H.TabIndex = 5;
-            this.RB_4H.TabStop = true;
-            this.RB_4H.Text = "4 H";
-            this.RB_4H.UseVisualStyleBackColor = true;
-            this.RB_4H.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
-            // 
-            // RB_1D
-            // 
-            this.RB_1D.AutoSize = true;
-            this.RB_1D.Location = new System.Drawing.Point(11, 321);
-            this.RB_1D.Name = "RB_1D";
-            this.RB_1D.Size = new System.Drawing.Size(57, 24);
-            this.RB_1D.TabIndex = 6;
-            this.RB_1D.TabStop = true;
-            this.RB_1D.Text = "1 D";
-            this.RB_1D.UseVisualStyleBackColor = true;
-            this.RB_1D.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            this.RB_30min.AutoSize = true;
+            this.RB_30min.Location = new System.Drawing.Point(11, 159);
+            this.RB_30min.Name = "RB_30min";
+            this.RB_30min.Size = new System.Drawing.Size(80, 24);
+            this.RB_30min.TabIndex = 7;
+            this.RB_30min.TabStop = true;
+            this.RB_30min.Text = "30 min";
+            this.RB_30min.UseVisualStyleBackColor = true;
+            this.RB_30min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
             // 
             // PercentForm
             // 
@@ -1110,10 +1125,10 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -1209,5 +1224,6 @@
         private System.Windows.Forms.RadioButton RB_2H;
         private System.Windows.Forms.RadioButton RB_1H;
         private System.Windows.Forms.RadioButton RB_15min;
+        private System.Windows.Forms.RadioButton RB_30min;
     }
 }
