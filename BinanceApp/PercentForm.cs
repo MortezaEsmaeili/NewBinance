@@ -4,6 +4,7 @@ using BinanceApp.Busines;
 using BinanceApp.Business;
 using BinanceApp.DataModel;
 using CryptoExchange.Net.CommonObjects;
+using MathNet.Numerics;
 using Skender.Stock.Indicators;
 using System;
 using System.Collections.Concurrent;
@@ -15,10 +16,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using Telerik.Charting;
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Data;
+using static BinanceApp.Busines.MacdAnalyclass;
 
 namespace BinanceApp
 {
@@ -60,11 +64,50 @@ namespace BinanceApp
             coinName = this.radDropDownList1.SelectedItem.Text;
             BinanceDataCollector.Instance.DataReadyEvent += OnDataReadyEvent;
             BinanceDataCollector.Instance.CandleReadyEvent += OnCandleReadyEvent;
-
+            MacdAnalyclass.UpdateMacdEvent += UpdateMacdState;
             initAxis();
             InitSeries();
             RB_4H.Checked = true;
         }
+
+
+        private void UpdateMacdState(string coin, KlineInterval interval, string state)
+        {
+            if (InvokeRequired)
+            {
+                var d = new UpdateMacdStateDelegate(UpdateMacdStateListView);
+                this.Invoke( d, coin, interval, state);
+            }
+            else
+                UpdateMacdStateListView(coin, interval,state);
+        }
+        private void UpdateMacdStateListView(string coin, KlineInterval interval,string state)
+        { 
+            int idx = 0;
+            switch(interval)
+            {
+                case KlineInterval.OneMinute:idx = 2; break;
+                case KlineInterval.FiveMinutes:idx = 3; break;
+                case KlineInterval.FifteenMinutes:idx = 4; break;
+                case KlineInterval.ThirtyMinutes:idx = 5; break;
+                case KlineInterval.OneHour:idx = 6; break;
+                case KlineInterval.TwoHour:idx=7; break;
+                case KlineInterval.FourHour:idx = 8; break;
+                case KlineInterval.OneDay:idx = 9; break;
+                default:break;
+
+            }
+            for(int k=0; k<listView1.Items.Count; k++)
+            {
+                if (listView1.Items[k].Text == coin)
+                {
+                    listView1.Items[k].SubItems[idx].Text = state;
+                    return;
+                }
+            }
+                
+        }
+
         protected void WireEvents()
         {
             this.radDropDownList1.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(radDropDownList1_SelectedIndexChanged);
@@ -87,6 +130,8 @@ namespace BinanceApp
         {
             BinanceDataCollector.Instance.DataReadyEvent -= OnDataReadyEvent;
             BinanceDataCollector.Instance.CandleReadyEvent -= OnCandleReadyEvent;
+            MacdAnalyclass.UpdateMacdEvent -= UpdateMacdState;
+
         }
         private void OnDataReadyEvent()
         {
@@ -123,6 +168,7 @@ namespace BinanceApp
         {
             try
             {
+                MacdAnalyclass.DoAnalyze(interval, coin);
                 if (InvokeRequired)
                 {
                     var d = new UpdateAllCoinListDelegate(UpdateAllCoinList);
@@ -144,6 +190,7 @@ namespace BinanceApp
                     else
                         return;
                 }
+                
 
                 if (InvokeRequired)
                 {
@@ -530,17 +577,13 @@ namespace BinanceApp
                 //       TB_SellRR.Text = sellRiskReward.ToString("#.##");
 
                 bool isExisted = false;
+               
                 for (int i = 0; i < listView1.Items.Count; i++)
                 {
                     if (listView1.Items[i].SubItems[0].Text == coinName)
                     {
                         isExisted = true;
-                        listView1.Items[i].SubItems[1].Text = mh4H.ToString();
-                        listView1.Items[i].SubItems[2].Text = price.ToString();
-                        listView1.Items[i].SubItems[3].Text = ml4H.ToString();
-                        listView1.Items[i].SubItems[4].Text = "Macd State";
-                        listView1.Items[i].SubItems[5].Text = "General Command";
-
+                        listView1.Items[i].SubItems[1].Text = price.ToString();
                         break;
                     }
                 }
@@ -549,26 +592,39 @@ namespace BinanceApp
                 {
                     ListViewItem listItem = new ListViewItem();
                     listItem.Text = coinName;
-                    listItem.SubItems.Add(mh4H.ToString());
                     listItem.SubItems.Add(price.ToString());
-                    listItem.SubItems.Add(ml4H.ToString());
-                    listItem.SubItems.Add("Macd State");
+                    
+                    for(int i=0; i<8; i++) {
+                        listItem.SubItems.Add("");
+                    }
                     listItem.SubItems.Add("General Command");
-
                     listView1.Items.Add(listItem);
                 }
-
+                AnalyzeMacdStates();
             }
             catch (Exception ex)
             {
                 ex.ToString();
             }
         }
+        private void AnalyzeMacdStates()
+        {
+            KlineInterval[] intervals = new KlineInterval[] { KlineInterval.OneMinute, KlineInterval.FiveMinutes,
+                    KlineInterval.FifteenMinutes, KlineInterval.ThirtyMinutes, KlineInterval.OneHour, KlineInterval.TwoHour,
+                    KlineInterval.FourHour, KlineInterval.OneDay};
+            for (int k = 0; k < listView1.Items.Count; k++)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    MacdAnalyclass.DoAnalyze(intervals[i], listView1.Items[k].Text);
+                }
+            }
 
+        }
         private decimal GetMovingAverage(List<IBinanceKline> candels)
         {
             if (candels == null) return -1;
-            if (candels.Count < 50) return -1;
+            if (candels.Count < 100) return -1;
             decimal movingAverage = 0;
             List<IBinanceKline> temp = candels.Skip(Math.Max(0, candels.Count() - 100)).ToList();
             foreach (var item in temp)
@@ -718,8 +774,8 @@ namespace BinanceApp
 
             MacdMinLine.HorizontalAxis = dateTimeCategoricalAxis1;
             MacdMinLine.VerticalAxis = linearAxis1;
-            MacdMinLine.BackColor = Color.Purple;
-            MacdMinLine.BorderColor = Color.Purple;
+            MacdMinLine.BackColor = Color.Black;
+            MacdMinLine.BorderColor = Color.Black;
 
             MacdMaxLine.HorizontalAxis = dateTimeCategoricalAxis1;
             MacdMaxLine.VerticalAxis = linearAxis1;
@@ -779,19 +835,54 @@ namespace BinanceApp
 
                 this.radChartView1.Series.Add(ZeroLine);
 
-                if (localMaxes[localMaxes.Count - 1].Macd < 0 && localMaxes.Count>3)
+
+                var lastPositive = localMaxes.LastOrDefault(x => x.Macd > 0);
+                var lastNegative = localMaxes.LastOrDefault(x => x.index < lastPositive.index && x.Macd < 0);
+                if (lastPositive != null && lastNegative != null)
                 {
-                    MacdMaxLine.DataSource = localMaxes.Skip(localMaxes.Count-3).Take(3).ToList();
-                    this.radChartView1.Series.Add(MacdMaxLine);
+                    var points = localMaxes.Where(x => x.index > lastNegative.index && x.index <= lastPositive.index).ToList();
+                    var maxPoint = points.Where(p => p.Macd == points.Max(x => x.Macd)).First();   
+                    points = points.Where(x=>x.index>=maxPoint.index).ToList();
+                    if (points.Count > 2)
+                    {
+                        double[] xdata = points.Select(x => (double)x.index).ToArray();
+                        double[] ydata = points.Select(x => (double)x.Macd).ToArray();
+                        Tuple<double, double> p = Fit.Line(xdata, ydata);
+                        double[] lineYdata = xdata.Select(x => p.Item2 * x + p.Item1).ToArray();
+                        MacdMaxLine.DataPoints.Clear();
+                        for (int i = 0; i < lineYdata.Length; i++)
+                        {
+                            MacdMaxLine.DataPoints.Add(new CategoricalDataPoint(lineYdata[i], points[i].Date));
+                        }
+
+                        this.radChartView1.Series.Add(MacdMaxLine);
+                    }
                 }
-                if (localMins[localMins.Count-1].Macd > 0 && localMins.Count>3)
+
+                lastNegative = localMins.LastOrDefault(x => x.Macd < 0);
+                lastPositive = localMins.LastOrDefault(x => x.index < lastNegative.index && x.Macd > 0);
+                if (lastPositive != null && lastNegative != null)
                 {
-                    MacdMinLine.DataSource = localMins.Skip(localMins.Count - 3).Take(3).ToList(); ;
-                    this.radChartView1.Series.Add(MacdMinLine);
+                    var points = localMins.Where(x => x.index > lastPositive.index && x.index <= lastNegative.index).ToList();
+                    var minPoint = points.Where(p => p.Macd == points.Min(x => x.Macd)).First();
+                    points = points.Where(x => x.index >= minPoint.index).ToList();
+                    if (points.Count > 2)
+                    {
+                        double[] xdata = points.Select(x => (double)x.index).ToArray();
+                        double[] ydata = points.Select(x => (double)x.Macd).ToArray();
+                        Tuple<double, double> p = Fit.Line(xdata, ydata);
+                        double[] lineYdata = xdata.Select(x => p.Item2 * x + p.Item1).ToArray();
+                        MacdMinLine.DataPoints.Clear();
+                        for (int i = 0; i < lineYdata.Length; i++)
+                        {
+                            MacdMinLine.DataPoints.Add(new CategoricalDataPoint(lineYdata[i], points[i].Date));
+                        }
+
+                        this.radChartView1.Series.Add(MacdMinLine);
+                    }
                 }
-                MacdAnalyclass.Instance.DoAnalysis();
-                MacdAnalyclass.Instance.MacdStateDic.Keys.Count();
-                
+               
+
             }
             catch (Exception ex)
             {

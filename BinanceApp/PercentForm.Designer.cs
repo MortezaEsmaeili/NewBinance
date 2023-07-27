@@ -103,6 +103,7 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.radChartView1 = new Telerik.WinControls.UI.RadChartView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.RB_30min = new System.Windows.Forms.RadioButton();
             this.RB_1D = new System.Windows.Forms.RadioButton();
             this.RB_4H = new System.Windows.Forms.RadioButton();
             this.RB_2H = new System.Windows.Forms.RadioButton();
@@ -112,12 +113,17 @@
             this.RB_1min = new System.Windows.Forms.RadioButton();
             this.listView1 = new System.Windows.Forms.ListView();
             this.ch_CoinName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ch_mh_price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ch_major_low = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ch_macd_state = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ch_general_state = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.RB_30min = new System.Windows.Forms.RadioButton();
+            this.ch_1min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_5min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.ch_15min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_30min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_1h = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_2h = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_4h = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_1day = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_generalState = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -132,6 +138,7 @@
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).BeginInit();
             this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -878,6 +885,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.trackBar1);
             this.tabPage2.Controls.Add(this.groupBox9);
             this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.listView1);
@@ -897,7 +905,7 @@
             this.groupBox9.Controls.Add(this.radChartView1);
             this.groupBox9.Location = new System.Drawing.Point(107, 246);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(1198, 369);
+            this.groupBox9.Size = new System.Drawing.Size(1135, 369);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "MACD";
@@ -912,7 +920,7 @@
             this.radChartView1.ShowPanZoom = true;
             this.radChartView1.ShowToolTip = true;
             this.radChartView1.ShowTrackBall = true;
-            this.radChartView1.Size = new System.Drawing.Size(1192, 343);
+            this.radChartView1.Size = new System.Drawing.Size(1129, 343);
             this.radChartView1.TabIndex = 2;
             this.radChartView1.DoubleClick += new System.EventHandler(this.radChartView1_DoubleClick);
             // 
@@ -934,6 +942,18 @@
             this.groupBox8.TabIndex = 3;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "TF";
+            // 
+            // RB_30min
+            // 
+            this.RB_30min.AutoSize = true;
+            this.RB_30min.Location = new System.Drawing.Point(11, 159);
+            this.RB_30min.Name = "RB_30min";
+            this.RB_30min.Size = new System.Drawing.Size(80, 24);
+            this.RB_30min.TabIndex = 7;
+            this.RB_30min.TabStop = true;
+            this.RB_30min.Text = "30 min";
+            this.RB_30min.UseVisualStyleBackColor = true;
+            this.RB_30min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
             // 
             // RB_1D
             // 
@@ -1026,11 +1046,16 @@
             this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(223)))), ((int)(((byte)(237)))));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ch_CoinName,
-            this.ch_mh_price,
             this.ch_price,
-            this.ch_major_low,
-            this.ch_macd_state,
-            this.ch_general_state});
+            this.ch_1min,
+            this.ch_5min,
+            this.ch_15min,
+            this.ch_30min,
+            this.ch_1h,
+            this.ch_2h,
+            this.ch_4h,
+            this.ch_1day,
+            this.ch_generalState});
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -1048,47 +1073,63 @@
             this.ch_CoinName.Text = "Coin Name";
             this.ch_CoinName.Width = 150;
             // 
-            // ch_mh_price
-            // 
-            this.ch_mh_price.Text = "Major High";
-            this.ch_mh_price.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ch_mh_price.Width = 198;
-            // 
             // ch_price
             // 
             this.ch_price.Text = "Price";
             this.ch_price.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ch_price.Width = 187;
             // 
-            // ch_major_low
+            // ch_1min
             // 
-            this.ch_major_low.Text = "Major Low";
-            this.ch_major_low.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ch_major_low.Width = 193;
+            this.ch_1min.Text = "1 Min";
+            this.ch_1min.Width = 50;
             // 
-            // ch_macd_state
+            // ch_5min
             // 
-            this.ch_macd_state.Text = "MACD State";
-            this.ch_macd_state.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ch_macd_state.Width = 184;
+            this.ch_5min.Text = "5 Min";
             // 
-            // ch_general_state
+            // trackBar1
             // 
-            this.ch_general_state.Text = "General State";
-            this.ch_general_state.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ch_general_state.Width = 214;
+            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar1.Location = new System.Drawing.Point(1247, 262);
+            this.trackBar1.Maximum = 400;
+            this.trackBar1.Minimum = 10;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(56, 350);
+            this.trackBar1.SmallChange = 5;
+            this.trackBar1.TabIndex = 5;
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.Value = 100;
             // 
-            // RB_30min
+            // ch_15min
             // 
-            this.RB_30min.AutoSize = true;
-            this.RB_30min.Location = new System.Drawing.Point(11, 159);
-            this.RB_30min.Name = "RB_30min";
-            this.RB_30min.Size = new System.Drawing.Size(80, 24);
-            this.RB_30min.TabIndex = 7;
-            this.RB_30min.TabStop = true;
-            this.RB_30min.Text = "30 min";
-            this.RB_30min.UseVisualStyleBackColor = true;
-            this.RB_30min.CheckedChanged += new System.EventHandler(this.RB_1min_CheckedChanged);
+            this.ch_15min.Text = "15 Min";
+            // 
+            // ch_30min
+            // 
+            this.ch_30min.Text = "30 Min";
+            // 
+            // ch_1h
+            // 
+            this.ch_1h.Text = "1 H";
+            // 
+            // ch_2h
+            // 
+            this.ch_2h.Text = "2 H";
+            // 
+            // ch_4h
+            // 
+            this.ch_4h.Text = "4 H";
+            // 
+            // ch_1day
+            // 
+            this.ch_1day.Text = "1 D";
+            // 
+            // ch_generalState
+            // 
+            this.ch_generalState.Text = "General State";
             // 
             // PercentForm
             // 
@@ -1125,10 +1166,12 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -1209,11 +1252,9 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader ch_CoinName;
-        private System.Windows.Forms.ColumnHeader ch_mh_price;
         private System.Windows.Forms.ColumnHeader ch_price;
-        private System.Windows.Forms.ColumnHeader ch_major_low;
-        private System.Windows.Forms.ColumnHeader ch_macd_state;
-        private System.Windows.Forms.ColumnHeader ch_general_state;
+        private System.Windows.Forms.ColumnHeader ch_1min;
+        private System.Windows.Forms.ColumnHeader ch_5min;
         private Telerik.WinControls.UI.RadChartView radChartView1;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.GroupBox groupBox8;
@@ -1225,5 +1266,13 @@
         private System.Windows.Forms.RadioButton RB_1H;
         private System.Windows.Forms.RadioButton RB_15min;
         private System.Windows.Forms.RadioButton RB_30min;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.ColumnHeader ch_15min;
+        private System.Windows.Forms.ColumnHeader ch_30min;
+        private System.Windows.Forms.ColumnHeader ch_1h;
+        private System.Windows.Forms.ColumnHeader ch_2h;
+        private System.Windows.Forms.ColumnHeader ch_4h;
+        private System.Windows.Forms.ColumnHeader ch_1day;
+        private System.Windows.Forms.ColumnHeader ch_generalState;
     }
 }

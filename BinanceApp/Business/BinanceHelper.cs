@@ -248,6 +248,7 @@ namespace BinanceApp.Business
                         var rightMax = tmpLocalMaxes.Where(x => x.index > localMin.index).First();
                         localMin.RightDelta = rightMax.Macd - localMin.Macd;
                     }
+                    //if()
                     localMin.MinDelta = Math.Min(localMin.LeftDelta, localMin.RightDelta);
                     localMin.Sign = (k == 0) ? true : (localMin.Macd > tmpLocalMins[k - 1].Macd);
                 }
