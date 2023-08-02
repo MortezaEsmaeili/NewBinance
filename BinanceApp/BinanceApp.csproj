@@ -275,6 +275,12 @@
     <Compile Include="strategiesEma.Designer.cs">
       <DependentUpon>strategiesEma.cs</DependentUpon>
     </Compile>
+    <Compile Include="macdPmaMpriceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="macdPmaMpriceForm.Designer.cs">
+      <DependentUpon>macdPmaMpriceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="strategiesSfMaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -423,6 +429,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="strategiesEma.resx">
       <DependentUpon>strategiesEma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="macdPmaMpriceForm.resx">
+      <DependentUpon>macdPmaMpriceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="strategiesSfMaForm.resx">
       <DependentUpon>strategiesSfMaForm.cs</DependentUpon>

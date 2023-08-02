@@ -116,7 +116,6 @@
             this.ch_price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_1min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_5min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.ch_15min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_30min = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_1h = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -138,7 +137,6 @@
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).BeginInit();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -885,7 +883,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.trackBar1);
             this.tabPage2.Controls.Add(this.groupBox9);
             this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.listView1);
@@ -903,9 +900,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox9.Controls.Add(this.radChartView1);
-            this.groupBox9.Location = new System.Drawing.Point(107, 246);
+            this.groupBox9.Location = new System.Drawing.Point(107, 285);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(1135, 369);
+            this.groupBox9.Size = new System.Drawing.Size(1198, 330);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "MACD";
@@ -920,7 +917,7 @@
             this.radChartView1.ShowPanZoom = true;
             this.radChartView1.ShowToolTip = true;
             this.radChartView1.ShowTrackBall = true;
-            this.radChartView1.Size = new System.Drawing.Size(1129, 343);
+            this.radChartView1.Size = new System.Drawing.Size(1192, 304);
             this.radChartView1.TabIndex = 2;
             this.radChartView1.DoubleClick += new System.EventHandler(this.radChartView1_DoubleClick);
             // 
@@ -936,9 +933,9 @@
             this.groupBox8.Controls.Add(this.RB_15min);
             this.groupBox8.Controls.Add(this.RB_5min);
             this.groupBox8.Controls.Add(this.RB_1min);
-            this.groupBox8.Location = new System.Drawing.Point(6, 246);
+            this.groupBox8.Location = new System.Drawing.Point(6, 285);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(95, 369);
+            this.groupBox8.Size = new System.Drawing.Size(95, 330);
             this.groupBox8.TabIndex = 3;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "TF";
@@ -946,7 +943,7 @@
             // RB_30min
             // 
             this.RB_30min.AutoSize = true;
-            this.RB_30min.Location = new System.Drawing.Point(11, 159);
+            this.RB_30min.Location = new System.Drawing.Point(11, 141);
             this.RB_30min.Name = "RB_30min";
             this.RB_30min.Size = new System.Drawing.Size(80, 24);
             this.RB_30min.TabIndex = 7;
@@ -958,7 +955,7 @@
             // RB_1D
             // 
             this.RB_1D.AutoSize = true;
-            this.RB_1D.Location = new System.Drawing.Point(11, 319);
+            this.RB_1D.Location = new System.Drawing.Point(11, 297);
             this.RB_1D.Name = "RB_1D";
             this.RB_1D.Size = new System.Drawing.Size(57, 24);
             this.RB_1D.TabIndex = 6;
@@ -970,7 +967,7 @@
             // RB_4H
             // 
             this.RB_4H.AutoSize = true;
-            this.RB_4H.Location = new System.Drawing.Point(11, 279);
+            this.RB_4H.Location = new System.Drawing.Point(11, 258);
             this.RB_4H.Name = "RB_4H";
             this.RB_4H.Size = new System.Drawing.Size(57, 24);
             this.RB_4H.TabIndex = 5;
@@ -982,7 +979,7 @@
             // RB_2H
             // 
             this.RB_2H.AutoSize = true;
-            this.RB_2H.Location = new System.Drawing.Point(11, 239);
+            this.RB_2H.Location = new System.Drawing.Point(11, 219);
             this.RB_2H.Name = "RB_2H";
             this.RB_2H.Size = new System.Drawing.Size(57, 24);
             this.RB_2H.TabIndex = 4;
@@ -994,7 +991,7 @@
             // RB_1H
             // 
             this.RB_1H.AutoSize = true;
-            this.RB_1H.Location = new System.Drawing.Point(11, 199);
+            this.RB_1H.Location = new System.Drawing.Point(11, 180);
             this.RB_1H.Name = "RB_1H";
             this.RB_1H.Size = new System.Drawing.Size(57, 24);
             this.RB_1H.TabIndex = 3;
@@ -1006,7 +1003,7 @@
             // RB_15min
             // 
             this.RB_15min.AutoSize = true;
-            this.RB_15min.Location = new System.Drawing.Point(11, 119);
+            this.RB_15min.Location = new System.Drawing.Point(11, 102);
             this.RB_15min.Name = "RB_15min";
             this.RB_15min.Size = new System.Drawing.Size(80, 24);
             this.RB_15min.TabIndex = 2;
@@ -1018,7 +1015,7 @@
             // RB_5min
             // 
             this.RB_5min.AutoSize = true;
-            this.RB_5min.Location = new System.Drawing.Point(11, 79);
+            this.RB_5min.Location = new System.Drawing.Point(11, 63);
             this.RB_5min.Name = "RB_5min";
             this.RB_5min.Size = new System.Drawing.Size(71, 24);
             this.RB_5min.TabIndex = 1;
@@ -1030,7 +1027,7 @@
             // RB_1min
             // 
             this.RB_1min.AutoSize = true;
-            this.RB_1min.Location = new System.Drawing.Point(11, 39);
+            this.RB_1min.Location = new System.Drawing.Point(11, 24);
             this.RB_1min.Name = "RB_1min";
             this.RB_1min.Size = new System.Drawing.Size(71, 24);
             this.RB_1min.TabIndex = 0;
@@ -1056,13 +1053,13 @@
             this.ch_4h,
             this.ch_1day,
             this.ch_generalState});
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(6, 6);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1299, 234);
+            this.listView1.Size = new System.Drawing.Size(1299, 273);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -1087,21 +1084,6 @@
             // ch_5min
             // 
             this.ch_5min.Text = "5 Min";
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(1247, 262);
-            this.trackBar1.Maximum = 400;
-            this.trackBar1.Minimum = 10;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(56, 350);
-            this.trackBar1.SmallChange = 5;
-            this.trackBar1.TabIndex = 5;
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.Value = 100;
             // 
             // ch_15min
             // 
@@ -1166,12 +1148,10 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -1266,7 +1246,6 @@
         private System.Windows.Forms.RadioButton RB_1H;
         private System.Windows.Forms.RadioButton RB_15min;
         private System.Windows.Forms.RadioButton RB_30min;
-        private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.ColumnHeader ch_15min;
         private System.Windows.Forms.ColumnHeader ch_30min;
         private System.Windows.Forms.ColumnHeader ch_1h;

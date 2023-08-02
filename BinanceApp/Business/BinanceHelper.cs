@@ -264,6 +264,19 @@ namespace BinanceApp.Business
             }
         }
 
+        public static List<MacdResult> GetMacd(List<IBinanceKline> refSamples, MacdParams macdParam)
+        {
+            List<MacdResult> macdResult = new List<MacdResult>();
+            try
+            {
+                var history = GetQuotes(refSamples);
+
+                var macd = history.GetMacd(macdParam.FastPeriod, macdParam.SlowPeriod, macdParam.SignalPeriod);
+                macdResult = macd.SkipWhile(r => r.Macd == null || r.Signal == null).ToList();
+            }
+            catch { }
+            return macdResult;
+        }
         public static List<MacdResult> MacdCalculation(List<IBinanceKline> refSamples, MacdParams macdParam, out WeightedValue majorHigh,
             out WeightedValue majorLow)
         {

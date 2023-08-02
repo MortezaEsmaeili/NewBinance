@@ -321,5 +321,12 @@ namespace BinanceApp
             Percentfrm.MdiParent = this;
             Percentfrm.Show();
         }
+
+        private void mAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var macdPmaMpricefrm = new macdPmaMpriceForm();
+            macdPmaMpricefrm.MdiParent = this;
+            macdPmaMpricefrm.Show();
+        }
     }
 }
