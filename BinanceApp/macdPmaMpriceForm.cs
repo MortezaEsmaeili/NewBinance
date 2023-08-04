@@ -129,8 +129,8 @@ namespace BinanceApp
             dateTimeCategoricalAxis1.DateTimeComponent = Telerik.Charting.DateTimeComponent.Ticks;
             dateTimeCategoricalAxis1.IsPrimary = true;
             dateTimeCategoricalAxis1.LabelFitMode = Telerik.Charting.AxisLabelFitMode.MultiLine;
-            dateTimeCategoricalAxis1.LabelFormat = "{0:HH:mm:ss}";
-            dateTimeCategoricalAxis1.MajorTickInterval = 50;
+            dateTimeCategoricalAxis1.LabelFormat = "{0:M/d HH:mm:ss}";//"{0:HH:mm:ss}";
+            dateTimeCategoricalAxis1.MajorTickInterval = 30;
 
             linearAxis1.AxisType = Telerik.Charting.AxisType.Second;
             linearAxis1.HorizontalLocation = Telerik.Charting.AxisHorizontalLocation.Left;
@@ -424,8 +424,8 @@ namespace BinanceApp
             {
                 result.Add(new WeightedValue
                 {
-                    Value = ma100[ma100.Count - i].Sma.Value + macd[macd.Count - i].Macd.Value - Qutoes[Qutoes.Count - i].Close,
-                    Time = ma100[ma100.Count - i].Date
+                    Value = -ma100[ma100.Count - i].Sma.Value - macd[macd.Count - i].Macd.Value + Qutoes[Qutoes.Count - i].Close,
+                    Time = ma100[ma100.Count - i].Date.ToLocalTime()
                 });
             }
             return result;

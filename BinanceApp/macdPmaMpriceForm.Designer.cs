@@ -250,7 +250,7 @@ namespace BinanceApp
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
-            this.Text = "SF Chart";
+            this.Text = "MACD+MA-Price";
             this.ThemeName = "Office2007Black";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.strategiesSfForm_FormClosed);
