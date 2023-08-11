@@ -407,7 +407,7 @@ namespace BinanceApp
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SabaFam - Binance 5.0";
+            this.Text = "SabaFam - Binance 5.2.1";
             this.ThemeName = "Office2007Black";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.mainForm_Load);

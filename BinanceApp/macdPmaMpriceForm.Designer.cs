@@ -45,6 +45,7 @@ namespace BinanceApp
             this.chb_tmf_4H = new System.Windows.Forms.CheckBox();
             this.chb_tmf_1W = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chb_tmf_Z1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -63,7 +64,7 @@ namespace BinanceApp
             this.radChartView1.ShowPanZoom = true;
             this.radChartView1.ShowToolTip = true;
             this.radChartView1.ShowTrackBall = true;
-            this.radChartView1.Size = new System.Drawing.Size(971, 495);
+            this.radChartView1.Size = new System.Drawing.Size(971, 529);
             this.radChartView1.TabIndex = 1;
             this.radChartView1.DoubleClick += new System.EventHandler(this.radChartView1_DoubleClick);
             // 
@@ -72,7 +73,7 @@ namespace BinanceApp
             this.radDropDownList1.DropDownAnimationEnabled = true;
             this.radDropDownList1.Location = new System.Drawing.Point(105, 10);
             this.radDropDownList1.Name = "radDropDownList1";
-            this.radDropDownList1.Size = new System.Drawing.Size(200, 28);
+            this.radDropDownList1.Size = new System.Drawing.Size(200, 24);
             this.radDropDownList1.TabIndex = 14;
             this.radDropDownList1.Text = "radDropDownList3";
             // 
@@ -217,6 +218,7 @@ namespace BinanceApp
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chb_tmf_Z1);
             this.groupBox1.Controls.Add(this.chb_tmf_1min);
             this.groupBox1.Controls.Add(this.chb_tmf_5min);
             this.groupBox1.Controls.Add(this.chb_tmf_1W);
@@ -229,17 +231,31 @@ namespace BinanceApp
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox1.Location = new System.Drawing.Point(989, 38);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(129, 499);
+            this.groupBox1.Size = new System.Drawing.Size(129, 533);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Time Frame";
+            // 
+            // chb_tmf_Z1
+            // 
+            this.chb_tmf_Z1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chb_tmf_Z1.AutoSize = true;
+            this.chb_tmf_Z1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.chb_tmf_Z1.ForeColor = System.Drawing.Color.White;
+            this.chb_tmf_Z1.Location = new System.Drawing.Point(47, 494);
+            this.chb_tmf_Z1.Name = "chb_tmf_Z1";
+            this.chb_tmf_Z1.Size = new System.Drawing.Size(48, 23);
+            this.chb_tmf_Z1.TabIndex = 31;
+            this.chb_tmf_Z1.Text = "Z1";
+            this.chb_tmf_Z1.UseVisualStyleBackColor = true;
+            this.chb_tmf_Z1.CheckStateChanged += new System.EventHandler(this.chb_tmf_Z1_CheckStateChanged);
             // 
             // macdPmaMpriceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1127, 549);
+            this.ClientSize = new System.Drawing.Size(1127, 583);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.radChartView1);
@@ -280,6 +296,7 @@ namespace BinanceApp
         private System.Windows.Forms.CheckBox chb_tmf_4H;
         private System.Windows.Forms.CheckBox chb_tmf_1W;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chb_tmf_Z1;
     }
 }
 

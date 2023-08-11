@@ -43,7 +43,7 @@ namespace BinanceApp
    //     LineSeries price = new LineSeries();
     //    LineSeries shortTermSf = new LineSeries();
    //     LineSeries longTermSf = new LineSeries();
-   //     LineSeries LineOne = new LineSeries();
+        LineSeries LineZ1 = new LineSeries();
         
         private  Dictionary<string, LineSeries> MADic { get; set; }
         private string[] maList = { "1Min", "5Min", "15Min", "30Min", "1H",
@@ -155,13 +155,16 @@ namespace BinanceApp
         
         private void InitSeries()
         {
-          /*  LineOne.HorizontalAxis = dateTimeCategoricalAxis1;
-            LineOne.VerticalAxis = linearAxis2;
-            LineOne.BorderColor = Color.Black;
-            LineOne.BackColor = Color.Black;
-            LineOne.IsVisibleInLegend = false;
-            LineOne.BorderDashStyle = System.Drawing.Drawing2D.DashStyle.Dash;*/
-
+            LineZ1.HorizontalAxis = dateTimeCategoricalAxis1;
+            LineZ1.VerticalAxis = linearAxis1;
+            LineZ1.BorderColor = Color.Black;
+            LineZ1.BackColor = Color.Black;
+            LineZ1.IsVisibleInLegend = true;
+            LineZ1.BorderDashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            LineZ1.CategoryMember = "Time";//"Date";
+            LineZ1.ValueMember = "Value";//"Sma";
+            LineZ1.Name = "Z1";
+            LineZ1.LegendTitle = "Z1";
             int i = 1;
             foreach(var item in maList)
             {
@@ -393,6 +396,7 @@ namespace BinanceApp
                 if (binanceModel.Candels_2hour != null)
                 {
                     MADic["2H"].DataSource = Macd_Sma_priceCalc(binanceModel.Candels_2hour);
+                    MADic["2H"].DataSource = Macd_Sma_priceCalc(binanceModel.Candels_2hour);                        
                 }
                 if (binanceModel.Candels_4hour != null )
                 {
@@ -406,15 +410,51 @@ namespace BinanceApp
                 {
                     MADic["1D"].DataSource = Macd_Sma_priceCalc(binanceModel.Candels_oneDay);
                 }
+                var Z1 = CalculateZ1(binanceModel);
+                if (Z1 != null)
+                {
+                    LineZ1.DataSource = Z1;
+                }
             }
             catch (Exception ex)
-            {
+            {  
                 MessageBox.Show(ex.ToString());
             }
                       
         }
+
+        private List<WeightedValue> CalculateZ1(BinanceModel binanceModel)
+        {
+            try
+            {
+                if (binanceModel.Candels_1min == null || binanceModel.Candels_15min == null || binanceModel.Candels_5min == null
+                    || binanceModel.Candels_30min == null || binanceModel.Candels_60min == null)
+
+                { return null; }
+                List<WeightedValue> Z1 = new List<WeightedValue>();
+                foreach (var candle in (MADic["1Min"].DataSource as List<WeightedValue>))
+                {
+                    Z1.Add(new WeightedValue
+                    {
+                        Time = candle.Time,
+                        Value = (candle.Value +
+                            (MADic["5Min"].DataSource as List<WeightedValue>).Last(c => c.Time <= candle.Time).Value / 5 +
+                            (MADic["15Min"].DataSource as List<WeightedValue>).Last(c => c.Time <= candle.Time).Value / 15 +
+                            (MADic["30Min"].DataSource as List<WeightedValue>).Last(c => c.Time <= candle.Time).Value / 30 +
+                            (MADic["1H"].DataSource as List<WeightedValue>).Last(c => c.Time <= candle.Time).Value / 60)
+                    }
+                    ) ;
+                }
+                return Z1;
+            }
+            catch ( Exception ex ) { 
+                return null;
+            }
+        }
+
         private List<WeightedValue> Macd_Sma_priceCalc(List<IBinanceKline> candels)
         {
+           // if(candels.Count == 0) return null;
             var Qutoes = BinanceHelper.GetQuotes(candels);
             var ma100 = BinanceHelper.SMA(Qutoes, 100);
             var macd = BinanceHelper.GetMacd(candels, macdParams);
@@ -452,6 +492,12 @@ namespace BinanceApp
             
         }
 
-        
+        private void chb_tmf_Z1_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (chb_tmf_Z1.Checked)
+                radChartView1.Series.Add(LineZ1);
+            else
+                radChartView1.Series.Remove(LineZ1);
+        }
     }
 }
