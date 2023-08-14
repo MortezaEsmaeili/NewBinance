@@ -251,6 +251,12 @@
     <Compile Include="DataModel\ReportModel.cs" />
     <Compile Include="DataModel\TimeFrameEnum.cs" />
     <Compile Include="Helper\PersonalMath.cs" />
+    <Compile Include="CP_MA100Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CP_MA100Form.Designer.cs">
+      <DependentUpon>CP_MA100Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="PercentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -417,6 +423,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CP_MA100Form.resx">
+      <DependentUpon>CP_MA100Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PercentForm.resx">
       <DependentUpon>PercentForm.cs</DependentUpon>

@@ -70,6 +70,7 @@ namespace BinanceApp
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.percentStrategyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cPMA1001ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -372,7 +373,8 @@ namespace BinanceApp
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.percentStrategyToolStripMenuItem,
-            this.mAToolStripMenuItem});
+            this.mAToolStripMenuItem,
+            this.cPMA1001ToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(62, 26);
             this.newToolStripMenuItem.Text = "New";
@@ -391,6 +393,13 @@ namespace BinanceApp
             this.mAToolStripMenuItem.Text = "MA MACD Price";
             this.mAToolStripMenuItem.Click += new System.EventHandler(this.mAToolStripMenuItem_Click);
             // 
+            // cPMA1001ToolStripMenuItem
+            // 
+            this.cPMA1001ToolStripMenuItem.Name = "cPMA1001ToolStripMenuItem";
+            this.cPMA1001ToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
+            this.cPMA1001ToolStripMenuItem.Text = "CP/MA100-1";
+            this.cPMA1001ToolStripMenuItem.Click += new System.EventHandler(this.cPMA1001ToolStripMenuItem_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -407,7 +416,7 @@ namespace BinanceApp
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SabaFam - Binance 5.2.1";
+            this.Text = "SabaFam - Binance 5.3";
             this.ThemeName = "Office2007Black";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.mainForm_Load);
@@ -461,5 +470,6 @@ namespace BinanceApp
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem percentStrategyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mAToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cPMA1001ToolStripMenuItem;
     }
 }

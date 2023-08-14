@@ -328,5 +328,12 @@ namespace BinanceApp
             macdPmaMpricefrm.MdiParent = this;
             macdPmaMpricefrm.Show();
         }
+
+        private void cPMA1001ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var cp_MA100Form = new CP_MA100Form();
+            cp_MA100Form.MdiParent = this;
+            cp_MA100Form.Show();
+        }
     }
 }
