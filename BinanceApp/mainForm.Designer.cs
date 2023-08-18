@@ -71,6 +71,7 @@ namespace BinanceApp
             this.percentStrategyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cPMA1001ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mAMLMHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -374,7 +375,8 @@ namespace BinanceApp
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.percentStrategyToolStripMenuItem,
             this.mAToolStripMenuItem,
-            this.cPMA1001ToolStripMenuItem});
+            this.cPMA1001ToolStripMenuItem,
+            this.mAMLMHToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(62, 26);
             this.newToolStripMenuItem.Text = "New";
@@ -399,6 +401,13 @@ namespace BinanceApp
             this.cPMA1001ToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
             this.cPMA1001ToolStripMenuItem.Text = "CP/MA100-1";
             this.cPMA1001ToolStripMenuItem.Click += new System.EventHandler(this.cPMA1001ToolStripMenuItem_Click);
+            // 
+            // mAMLMHToolStripMenuItem
+            // 
+            this.mAMLMHToolStripMenuItem.Name = "mAMLMHToolStripMenuItem";
+            this.mAMLMHToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
+            this.mAMLMHToolStripMenuItem.Text = "MA + ML + MH";
+            this.mAMLMHToolStripMenuItem.Click += new System.EventHandler(this.mAMLMHToolStripMenuItem_Click);
             // 
             // mainForm
             // 
@@ -471,5 +480,6 @@ namespace BinanceApp
         private System.Windows.Forms.ToolStripMenuItem percentStrategyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cPMA1001ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mAMLMHToolStripMenuItem;
     }
 }

@@ -335,5 +335,12 @@ namespace BinanceApp
             cp_MA100Form.MdiParent = this;
             cp_MA100Form.Show();
         }
+
+        private void mAMLMHToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ma100MHMLForm = new MA100MHMLForm();
+            ma100MHMLForm.MdiParent = this;
+            ma100MHMLForm.Show();
+        }
     }
 }
