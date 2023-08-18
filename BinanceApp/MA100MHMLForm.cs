@@ -49,6 +49,11 @@ namespace BinanceApp
         {
             initAxis();
             InitSeries();
+
+            MADic = new Dictionary<string, LineSeries>();
+            MHDic = new Dictionary<string, SteplineSeries>();
+            MLDic = new Dictionary<string, SteplineSeries>();
+
             this.radDropDownList1.DataSource = BinanceDataCollector.Instance.CoinNames;
             radChartView1.BackColor = Color.AliceBlue;
             radChartView1.GetArea<CartesianArea>().ShowGrid = true;
