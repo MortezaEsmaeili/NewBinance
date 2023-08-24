@@ -29,7 +29,7 @@ namespace BinanceApp
 
         private Dictionary<string, LineSeries> MADic { get; set; }
         private string[] maList = { "1Min", "5Min", "15Min", "30Min", "1H",
-            "2H", "4H", "1D", "1W"};
+        "2H", "4H", "1D", "1W"};
 
         LineSeries price = new LineSeries();
 
@@ -47,12 +47,13 @@ namespace BinanceApp
 
         private void MA100MHMLForm_Load(object sender, EventArgs e)
         {
-            initAxis();
-            InitSeries();
 
             MADic = new Dictionary<string, LineSeries>();
             MHDic = new Dictionary<string, SteplineSeries>();
             MLDic = new Dictionary<string, SteplineSeries>();
+
+            initAxis();
+            InitSeries();
 
             this.radDropDownList1.DataSource = BinanceDataCollector.Instance.CoinNames;
             radChartView1.BackColor = Color.AliceBlue;
@@ -78,8 +79,8 @@ namespace BinanceApp
             linearAxis1.TickOrigin = null;
 
             this.radChartView1.Axes.AddRange(new Telerik.WinControls.UI.Axis[] {
-            dateTimeCategoricalAxis1,
-             linearAxis1});
+        dateTimeCategoricalAxis1,
+         linearAxis1});
 
             LassoZoomController lassoZoomController = new LassoZoomController();
             radChartView1.Controllers.Add(lassoZoomController);
@@ -101,8 +102,8 @@ namespace BinanceApp
                 ma.HorizontalAxis = dateTimeCategoricalAxis1;
                 ma.VerticalAxis = linearAxis1;
                 ma.LegendTitle = $"MA {item}";
-                ma.CategoryMember = "Time";
-                ma.ValueMember = "Value";
+                ma.CategoryMember = "Date";
+                ma.ValueMember = "Sma";
                 ma.Name = $"MA {item}";
                 ma.BorderColor = getColore(item);
                 MADic.Add(item, ma);
@@ -163,7 +164,7 @@ namespace BinanceApp
                     temp = Color.FromArgb(120, 10, 0);
                     break;
                 case "1W":
-                    temp = Color.FromArgb(10, 10, 0);
+                    temp = Color.FromArgb(10, 120, 0);
                     break;
             }
             return temp;
@@ -296,41 +297,22 @@ namespace BinanceApp
             var startTime = sma.First().Date;
             var endTime = sma.Last().Date;
             MADic[DictionaryKey].DataSource = sma;
-            MHDic[DictionaryKey].DataSource = GetMarginPoints(MH, startTime, endTime, out decimal lastMh1min);
-            MLDic[DictionaryKey].DataSource = GetMarginPoints(ML, startTime, endTime, out decimal lastMl1min);
+            MHDic[DictionaryKey].DataSource = AddEndPoint(MH, endTime);
+            MLDic[DictionaryKey].DataSource = AddEndPoint(ML, endTime);
         }
 
-        private ConcurrentBag<CategoricalDataPoint> GetMarginPoints(List<WeightedValue> valueList, DateTime startTime,
-            DateTime endTime, out decimal lastvalue)
+        private List<WeightedValue> AddEndPoint(List<WeightedValue> valueList, DateTime endTime)
         {
-            lastvalue = 0;
-            var temp = new ConcurrentBag<CategoricalDataPoint>();
+            var temp = new List<WeightedValue>(valueList);
             try
             {
                 if (valueList != null && valueList.Any())
                 {
-                    lastvalue = valueList.First().Value;
+                    var lastvalue = valueList.First().Value;
 
-                    valueList.Where(s => s.Time >= startTime).AsParallel().ForAll(item =>
-                    { temp.Add(new CategoricalDataPoint((double)item.Value, item.Time)); });
-                    if (temp.Count == 0)
-                    {
-                        temp.Add(new CategoricalDataPoint((double)lastvalue, startTime));
-                        temp.Add(new CategoricalDataPoint((double)lastvalue, endTime));
-                        return temp;
-                    }
-                    if (temp.Count == 1)
-                    {
-                        temp.Add(new CategoricalDataPoint(temp.First().Value, startTime));
-                    }
-                    else
-                    {
-                        var firstPoint = valueList.Where(s => s.Time < startTime).OrderByDescending(s => s.Time).FirstOrDefault();
-                        if (firstPoint != null)
-                            temp.Add(new CategoricalDataPoint((double)firstPoint.Value, startTime));
-                    }
+                    temp.Add(new WeightedValue { Time = endTime, Value = lastvalue });
+                    return temp;
 
-                    temp.Add(new CategoricalDataPoint((double)lastvalue, endTime));
                 }
             }
             catch (Exception ex)
@@ -393,6 +375,18 @@ namespace BinanceApp
         private void MA100MHMLForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             BinanceDataCollector.Instance.CandleReadyEvent -= OnCandleReadyEvent;
+        }
+
+        private void radDropDownList1_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            if (this.radDropDownList1.SelectedItem != null)
+            {
+                coinName = this.radDropDownList1.SelectedItem.Text;
+                var coinInfo = BinanceDataCollector.Instance.GetBinance(coinName);
+                if (coinInfo == null) return;
+                binanceModel = coinInfo;
+                UpdateData();
+            }
         }
     }
 }
