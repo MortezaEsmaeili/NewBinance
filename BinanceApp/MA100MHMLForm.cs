@@ -29,7 +29,7 @@ namespace BinanceApp
 
         private Dictionary<string, LineSeries> MADic { get; set; }
         private string[] maList = { "1Min", "5Min", "15Min", "30Min", "1H",
-            "2H", "4H", "1D", "1W"};
+        "2H", "4H", "1D", "1W"};
 
         LineSeries price = new LineSeries();
 
@@ -83,8 +83,8 @@ namespace BinanceApp
             linearAxis1.TickOrigin = null;
 
             this.radChartView1.Axes.AddRange(new Telerik.WinControls.UI.Axis[] {
-            dateTimeCategoricalAxis1,
-             linearAxis1});
+        dateTimeCategoricalAxis1,
+         linearAxis1});
 
             LassoZoomController lassoZoomController = new LassoZoomController();
             radChartView1.Controllers.Add(lassoZoomController);

@@ -71,7 +71,7 @@
             this.radChartView1.Location = new System.Drawing.Point(2, 62);
             this.radChartView1.Name = "radChartView1";
             this.radChartView1.ShowGrid = false;
-            this.radChartView1.Size = new System.Drawing.Size(746, 494);
+            this.radChartView1.Size = new System.Drawing.Size(777, 494);
             this.radChartView1.TabIndex = 1;
             this.radChartView1.DoubleClick += new System.EventHandler(this.radChartView1_DoubleClick);
             // 
@@ -91,7 +91,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(864, 62);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(88, 495);
+            this.groupBox2.Size = new System.Drawing.Size(102, 495);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "MH ML";
@@ -259,7 +259,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(763, 62);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(95, 494);
+            this.groupBox3.Size = new System.Drawing.Size(107, 494);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "MA 100";
@@ -270,7 +270,7 @@
             this.chb_ma100_1m.AutoSize = true;
             this.chb_ma100_1m.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_1m.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_1m.Location = new System.Drawing.Point(22, 36);
+            this.chb_ma100_1m.Location = new System.Drawing.Point(9, 36);
             this.chb_ma100_1m.Name = "chb_ma100_1m";
             this.chb_ma100_1m.Size = new System.Drawing.Size(64, 23);
             this.chb_ma100_1m.TabIndex = 31;
@@ -284,7 +284,7 @@
             this.chb_ma100_5m.AutoSize = true;
             this.chb_ma100_5m.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_5m.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_5m.Location = new System.Drawing.Point(22, 88);
+            this.chb_ma100_5m.Location = new System.Drawing.Point(9, 88);
             this.chb_ma100_5m.Name = "chb_ma100_5m";
             this.chb_ma100_5m.Size = new System.Drawing.Size(64, 23);
             this.chb_ma100_5m.TabIndex = 32;
@@ -298,7 +298,7 @@
             this.chb_ma100_1w.AutoSize = true;
             this.chb_ma100_1w.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_1w.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_1w.Location = new System.Drawing.Point(22, 452);
+            this.chb_ma100_1w.Location = new System.Drawing.Point(9, 452);
             this.chb_ma100_1w.Name = "chb_ma100_1w";
             this.chb_ma100_1w.Size = new System.Drawing.Size(53, 23);
             this.chb_ma100_1w.TabIndex = 39;
@@ -312,7 +312,7 @@
             this.chb_ma100_15m.AutoSize = true;
             this.chb_ma100_15m.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_15m.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_15m.Location = new System.Drawing.Point(22, 140);
+            this.chb_ma100_15m.Location = new System.Drawing.Point(9, 140);
             this.chb_ma100_15m.Name = "chb_ma100_15m";
             this.chb_ma100_15m.Size = new System.Drawing.Size(72, 23);
             this.chb_ma100_15m.TabIndex = 33;
@@ -326,7 +326,7 @@
             this.chb_ma100_1d.AutoSize = true;
             this.chb_ma100_1d.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_1d.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_1d.Location = new System.Drawing.Point(22, 400);
+            this.chb_ma100_1d.Location = new System.Drawing.Point(9, 400);
             this.chb_ma100_1d.Name = "chb_ma100_1d";
             this.chb_ma100_1d.Size = new System.Drawing.Size(49, 23);
             this.chb_ma100_1d.TabIndex = 38;
@@ -340,7 +340,7 @@
             this.chb_ma100_30m.AutoSize = true;
             this.chb_ma100_30m.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_30m.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_30m.Location = new System.Drawing.Point(22, 192);
+            this.chb_ma100_30m.Location = new System.Drawing.Point(9, 192);
             this.chb_ma100_30m.Name = "chb_ma100_30m";
             this.chb_ma100_30m.Size = new System.Drawing.Size(72, 23);
             this.chb_ma100_30m.TabIndex = 34;
@@ -354,7 +354,7 @@
             this.chb_ma100_4h.AutoSize = true;
             this.chb_ma100_4h.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_4h.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_4h.Location = new System.Drawing.Point(22, 348);
+            this.chb_ma100_4h.Location = new System.Drawing.Point(9, 348);
             this.chb_ma100_4h.Name = "chb_ma100_4h";
             this.chb_ma100_4h.Size = new System.Drawing.Size(50, 23);
             this.chb_ma100_4h.TabIndex = 37;
@@ -368,7 +368,7 @@
             this.chb_ma100_1h.AutoSize = true;
             this.chb_ma100_1h.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_1h.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_1h.Location = new System.Drawing.Point(22, 244);
+            this.chb_ma100_1h.Location = new System.Drawing.Point(9, 244);
             this.chb_ma100_1h.Name = "chb_ma100_1h";
             this.chb_ma100_1h.Size = new System.Drawing.Size(50, 23);
             this.chb_ma100_1h.TabIndex = 35;
@@ -382,7 +382,7 @@
             this.chb_ma100_2h.AutoSize = true;
             this.chb_ma100_2h.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.chb_ma100_2h.ForeColor = System.Drawing.Color.Black;
-            this.chb_ma100_2h.Location = new System.Drawing.Point(22, 296);
+            this.chb_ma100_2h.Location = new System.Drawing.Point(9, 296);
             this.chb_ma100_2h.Name = "chb_ma100_2h";
             this.chb_ma100_2h.Size = new System.Drawing.Size(50, 23);
             this.chb_ma100_2h.TabIndex = 36;
