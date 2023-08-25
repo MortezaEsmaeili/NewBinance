@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestArea", "TestArea\TestAr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceApp", "BinanceApp\BinanceApp.csproj", "{4986D17C-9CF9-4B12-952C-5CDBF09F12A2}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BinanceSetup", "BinanceSetup\BinanceSetup.vdproj", "{E8B91DBE-7C5D-4385-9646-E7B9D2A7929A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,8 +27,6 @@ Global
 		{4986D17C-9CF9-4B12-952C-5CDBF09F12A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4986D17C-9CF9-4B12-952C-5CDBF09F12A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4986D17C-9CF9-4B12-952C-5CDBF09F12A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8B91DBE-7C5D-4385-9646-E7B9D2A7929A}.Debug|Any CPU.ActiveCfg = Debug
-		{E8B91DBE-7C5D-4385-9646-E7B9D2A7929A}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
