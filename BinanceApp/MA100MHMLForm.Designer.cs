@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.CartesianArea cartesianArea2 = new Telerik.WinControls.UI.CartesianArea();
+            Telerik.WinControls.UI.CartesianArea cartesianArea1 = new Telerik.WinControls.UI.CartesianArea();
             this.radChartView1 = new Telerik.WinControls.UI.RadChartView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chb_mhml_1m = new System.Windows.Forms.CheckBox();
@@ -53,10 +53,13 @@
             this.chb_ma100_1h = new System.Windows.Forms.CheckBox();
             this.chb_ma100_2h = new System.Windows.Forms.CheckBox();
             this.CHB_ContinuedEstimation = new System.Windows.Forms.CheckBox();
+            this.chb_price = new System.Windows.Forms.CheckBox();
+            this.radDropDownList2 = new Telerik.WinControls.UI.RadDropDownList();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView1)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radDropDownList2)).BeginInit();
             this.SuspendLayout();
             // 
             // radChartView1
@@ -64,7 +67,7 @@
             this.radChartView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.radChartView1.AreaDesign = cartesianArea2;
+            this.radChartView1.AreaDesign = cartesianArea1;
             this.radChartView1.Location = new System.Drawing.Point(2, 62);
             this.radChartView1.Name = "radChartView1";
             this.radChartView1.ShowGrid = false;
@@ -232,6 +235,7 @@
             // 
             // radDropDownList1
             // 
+            this.radDropDownList1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.radDropDownList1.Location = new System.Drawing.Point(114, 12);
             this.radDropDownList1.Name = "radDropDownList1";
             this.radDropDownList1.Size = new System.Drawing.Size(121, 28);
@@ -399,11 +403,38 @@
             this.CHB_ContinuedEstimation.UseVisualStyleBackColor = true;
             this.CHB_ContinuedEstimation.CheckedChanged += new System.EventHandler(this.CHB_ContinuedEstimation_CheckedChanged);
             // 
+            // chb_price
+            // 
+            this.chb_price.AutoSize = true;
+            this.chb_price.Checked = true;
+            this.chb_price.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chb_price.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.chb_price.ForeColor = System.Drawing.Color.Black;
+            this.chb_price.Location = new System.Drawing.Point(594, 21);
+            this.chb_price.Name = "chb_price";
+            this.chb_price.Size = new System.Drawing.Size(65, 23);
+            this.chb_price.TabIndex = 53;
+            this.chb_price.Text = "Price";
+            this.chb_price.UseVisualStyleBackColor = true;
+            this.chb_price.CheckedChanged += new System.EventHandler(this.chb_price_CheckedChanged);
+            // 
+            // radDropDownList2
+            // 
+            this.radDropDownList2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.radDropDownList2.Location = new System.Drawing.Point(674, 16);
+            this.radDropDownList2.Name = "radDropDownList2";
+            this.radDropDownList2.Size = new System.Drawing.Size(121, 28);
+            this.radDropDownList2.TabIndex = 54;
+            this.radDropDownList2.Text = "radDropDownList3";
+            this.radDropDownList2.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radDropDownList1_SelectedIndexChanged);
+            // 
             // MA100MHMLForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(964, 559);
+            this.Controls.Add(this.radDropDownList2);
+            this.Controls.Add(this.chb_price);
             this.Controls.Add(this.CHB_ContinuedEstimation);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.radDropDownList1);
@@ -420,6 +451,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radDropDownList2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -451,5 +483,7 @@
         private System.Windows.Forms.CheckBox chb_ma100_1h;
         private System.Windows.Forms.CheckBox chb_ma100_2h;
         private System.Windows.Forms.CheckBox CHB_ContinuedEstimation;
+        private System.Windows.Forms.CheckBox chb_price;
+        private Telerik.WinControls.UI.RadDropDownList radDropDownList2;
     }
 }

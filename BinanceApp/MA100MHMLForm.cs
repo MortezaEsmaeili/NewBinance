@@ -46,16 +46,20 @@ namespace BinanceApp
         }
 
         private void MA100MHMLForm_Load(object sender, EventArgs e)
-        {          
+        {
 
             MADic = new Dictionary<string, LineSeries>();
             MHDic = new Dictionary<string, SteplineSeries>();
             MLDic = new Dictionary<string, SteplineSeries>();
-            
+
             initAxis();
             InitSeries();
 
             this.radDropDownList1.DataSource = BinanceDataCollector.Instance.CoinNames;
+
+            this.radDropDownList2.DataSource = maList;
+            this.radDropDownList2.Text = maList[3];
+
             radChartView1.BackColor = Color.AliceBlue;
             radChartView1.GetArea<CartesianArea>().ShowGrid = true;
 
@@ -92,6 +96,8 @@ namespace BinanceApp
             price.HorizontalAxis = dateTimeCategoricalAxis1;
             price.VerticalAxis = linearAxis1;
             price.LegendTitle = "Price";
+            price.CategoryMember = "CloseTime";
+            price.ValueMember = "ClosePrice";
             price.BorderColor = Color.Black;
             price.BackColor = Color.Black;
             price.BorderWidth = 2;
@@ -230,16 +236,9 @@ namespace BinanceApp
                 if (binanceModel.PriceList == null || binanceModel.PriceList.Count == 0)
                     return;
 
-                var tempPrice = new ConcurrentBag<CategoricalDataPoint>();
-
-
-                binanceModel.Candels_1min.Where(s => s.CloseTime >= binanceModel.MacdResult1Min.First().Date).AsParallel().ForAll(item =>
-                { tempPrice.Add(new CategoricalDataPoint((double)item.ClosePrice, item.CloseTime)); });
-                if (tempPrice.Any())
-                {
-                    price.DataPoints.Clear();
-                    price.DataPoints.AddRange(tempPrice);
-                }
+                
+                price.DataSource = GetPriceCandle();
+  
                 List<IBinanceKline> refCandles = new List<IBinanceKline>();
 
                 if (binanceModel.Candels_1min != null && binanceModel.Candels_1min.Count >= 500)
@@ -290,6 +289,32 @@ namespace BinanceApp
 
         }
 
+        private List<IBinanceKline> GetPriceCandle()
+        {
+            switch (radDropDownList2.SelectedIndex)
+            {
+                case 0:
+                    return binanceModel.Candels_1min;
+                case 1:
+                    return binanceModel.Candels_5min;
+                case 2:
+                    return binanceModel.Candels_15min;
+                case 3:
+                    return binanceModel.Candels_30min;
+                case 4:
+                    return binanceModel.Candels_60min;
+                case 5:
+                    return binanceModel.Candels_2hour;
+                case 6:
+                    return binanceModel.Candels_4hour;
+                case 7:
+                    return binanceModel.Candels_oneDay;
+                case 8:
+                    return binanceModel.Candels_oneWeek;
+            }
+            return binanceModel.Candels_30min;
+        }
+
         private void CalculateSeries(string DictionaryKey, List<IBinanceKline> candels, List<WeightedValue> MH, List<WeightedValue> ML)
         {
             var quotes = BinanceHelper.GetQuotes(candels);
@@ -309,10 +334,10 @@ namespace BinanceApp
                 if (valueList != null && valueList.Any())
                 {
                     var lastvalue = valueList.First().Value;
-                    
+
                     temp.Add(new WeightedValue { Time = endTime, Value = lastvalue });
                     return temp;
-                    
+
                 }
             }
             catch (Exception ex)
@@ -386,6 +411,18 @@ namespace BinanceApp
                 if (coinInfo == null) return;
                 binanceModel = coinInfo;
                 UpdateData();
+            }
+        }
+
+        private void chb_price_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chb_price.Checked)
+            {
+                radChartView1.Series.Add(price);
+            }
+            else
+            {
+                radChartView1.Series.Remove(price);
             }
         }
     }
