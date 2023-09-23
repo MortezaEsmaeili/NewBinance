@@ -1,5 +1,6 @@
 ﻿using Binance.Net.Enums;
 using Binance.Net.Interfaces;
+using BinanceApp.Busines;
 using BinanceApp.Business;
 using BinanceApp.DataModel;
 using System;
@@ -28,6 +29,7 @@ namespace BinanceApp
         LinearAxis linearAxis1 = new Telerik.WinControls.UI.LinearAxis();
 
         private Dictionary<string, LineSeries> MADic { get; set; }
+        private Dictionary<string, LineSeries> MALine { get; set; }
         private string[] maList = { "1Min", "5Min", "15Min", "30Min", "1H",
         "2H", "4H", "1D", "1W"};
 
@@ -51,7 +53,7 @@ namespace BinanceApp
             MADic = new Dictionary<string, LineSeries>();
             MHDic = new Dictionary<string, SteplineSeries>();
             MLDic = new Dictionary<string, SteplineSeries>();
-
+            MALine = new Dictionary<string, LineSeries>();
             initAxis();
             InitSeries();
 
@@ -96,6 +98,7 @@ namespace BinanceApp
             price.HorizontalAxis = dateTimeCategoricalAxis1;
             price.VerticalAxis = linearAxis1;
             price.LegendTitle = "Price";
+            price.Name = "Price";
             price.CategoryMember = "CloseTime";
             price.ValueMember = "ClosePrice";
             price.BorderColor = Color.Black;
@@ -136,6 +139,18 @@ namespace BinanceApp
                 steplineSeries1.BorderWidth = 2;
                 steplineSeries1.BorderDashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
                 MLDic.Add(item, steplineSeries1);
+
+                LineSeries maLine = new LineSeries();
+                maLine.HorizontalAxis = dateTimeCategoricalAxis1;
+                maLine.VerticalAxis = linearAxis1;
+                maLine.LegendTitle = $"Line MA {item}";
+                maLine.CategoryMember = "Time";
+                maLine.ValueMember = "Value";
+                maLine.Name = $"Line MA {item}";
+                maLine.BorderDashStyle = System.Drawing.Drawing2D.DashStyle.DashDot;
+                maLine.BorderWidth = 4;
+                maLine.BorderColor = getColore(item);
+                MALine.Add(item, maLine);
             }
 
             radChartView1.Series.Add(price);
@@ -324,6 +339,8 @@ namespace BinanceApp
             MADic[DictionaryKey].DataSource = sma;
             MHDic[DictionaryKey].DataSource = AddEndPoint(MH, endTime);
             MLDic[DictionaryKey].DataSource = AddEndPoint(ML, endTime);
+            int len = Math.Min(sma.Count, 10);
+            MALine[DictionaryKey].DataSource = MacdAnalyclass.FitLine(sma.Skip(sma.Count - len).Take(len).ToList());
         }
 
         private List<WeightedValue> AddEndPoint(List<WeightedValue> valueList, DateTime endTime)
@@ -347,11 +364,23 @@ namespace BinanceApp
         }
         private void CHB_ContinuedEstimation_CheckedChanged(object sender, EventArgs e)
         {
-            int i = 0;
+            
             if (CHB_ContinuedEstimation.Checked)
-                i++;
+            {
+                var series = radChartView1.Series.Where(s => s.Name.StartsWith("MA")).ToList();
+                foreach (var sery in series)
+                {
+                    string key = sery.Name.Substring(3);
+                    radChartView1.Series.Add(MALine[key]);
+                }
+               
+            }
             else
-                i--;
+            {
+                var series = radChartView1.Series.Where(s => s.Name.StartsWith("Line MA")).ToList();
+                foreach (var sery in series)
+                      radChartView1.Series.Remove(sery);
+            }
         }
 
         private void chb_ma100_1m_CheckedChanged(object sender, EventArgs e)
@@ -362,9 +391,20 @@ namespace BinanceApp
                 if (MADic.ContainsKey(checkBox.Text))
                 {
                     if (checkBox.Checked)
+                    {
                         radChartView1.Series.Add(MADic[checkBox.Text]);
+                        if (CHB_ContinuedEstimation.Checked)
+                        {
+                            radChartView1.Series.Add(MALine[checkBox.Text]);
+                        }
+                    }
                     else
+                    {
                         radChartView1.Series.Remove(MADic[checkBox.Text]);
+                        var sery=radChartView1.Series.FirstOrDefault(s=>s.Name== $"Line MA {checkBox.Text}");
+                        if(sery!=null)
+                            radChartView1.Series.Remove(MALine[checkBox.Text]);
+                    }
                 }
             }
             catch (Exception ex) { }

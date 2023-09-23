@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.CartesianArea cartesianArea1 = new Telerik.WinControls.UI.CartesianArea();
+            Telerik.WinControls.UI.CartesianArea cartesianArea2 = new Telerik.WinControls.UI.CartesianArea();
             this.office2007BlackTheme1 = new Telerik.WinControls.Themes.Office2007BlackTheme();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.LB_MA_1WP = new System.Windows.Forms.TextBox();
@@ -176,9 +176,9 @@
             this.groupBox1.Controls.Add(this.price_LB);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(237, 26);
+            this.groupBox1.Location = new System.Drawing.Point(237, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1058, 357);
+            this.groupBox1.Size = new System.Drawing.Size(1058, 377);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             // 
@@ -186,7 +186,7 @@
             // 
             this.LB_MA_1WP.BackColor = System.Drawing.Color.LavenderBlush;
             this.LB_MA_1WP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_1WP.Location = new System.Drawing.Point(875, 304);
+            this.LB_MA_1WP.Location = new System.Drawing.Point(875, 312);
             this.LB_MA_1WP.Name = "LB_MA_1WP";
             this.LB_MA_1WP.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_1WP.TabIndex = 30;
@@ -195,7 +195,7 @@
             // 
             this.LB_MA_4HP.BackColor = System.Drawing.Color.Salmon;
             this.LB_MA_4HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_4HP.Location = new System.Drawing.Point(448, 304);
+            this.LB_MA_4HP.Location = new System.Drawing.Point(448, 312);
             this.LB_MA_4HP.Name = "LB_MA_4HP";
             this.LB_MA_4HP.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_4HP.TabIndex = 29;
@@ -204,7 +204,7 @@
             // 
             this.LB_MA_1DP.BackColor = System.Drawing.Color.Plum;
             this.LB_MA_1DP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_1DP.Location = new System.Drawing.Point(651, 304);
+            this.LB_MA_1DP.Location = new System.Drawing.Point(651, 312);
             this.LB_MA_1DP.Name = "LB_MA_1DP";
             this.LB_MA_1DP.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_1DP.TabIndex = 28;
@@ -213,7 +213,7 @@
             // 
             this.LB_MA_2HP.BackColor = System.Drawing.Color.Gold;
             this.LB_MA_2HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_2HP.Location = new System.Drawing.Point(236, 304);
+            this.LB_MA_2HP.Location = new System.Drawing.Point(236, 312);
             this.LB_MA_2HP.Name = "LB_MA_2HP";
             this.LB_MA_2HP.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_2HP.TabIndex = 27;
@@ -222,7 +222,7 @@
             // 
             this.LB_MA_1HP.BackColor = System.Drawing.Color.LightBlue;
             this.LB_MA_1HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_1HP.Location = new System.Drawing.Point(26, 304);
+            this.LB_MA_1HP.Location = new System.Drawing.Point(26, 312);
             this.LB_MA_1HP.Name = "LB_MA_1HP";
             this.LB_MA_1HP.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_1HP.TabIndex = 26;
@@ -231,7 +231,7 @@
             // 
             this.LB_MA_1W.BackColor = System.Drawing.Color.LavenderBlush;
             this.LB_MA_1W.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_1W.Location = new System.Drawing.Point(875, 267);
+            this.LB_MA_1W.Location = new System.Drawing.Point(875, 275);
             this.LB_MA_1W.Name = "LB_MA_1W";
             this.LB_MA_1W.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_1W.TabIndex = 25;
@@ -240,7 +240,7 @@
             // 
             this.LB_MA_4H.BackColor = System.Drawing.Color.Salmon;
             this.LB_MA_4H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_4H.Location = new System.Drawing.Point(448, 269);
+            this.LB_MA_4H.Location = new System.Drawing.Point(448, 277);
             this.LB_MA_4H.Name = "LB_MA_4H";
             this.LB_MA_4H.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_4H.TabIndex = 24;
@@ -249,7 +249,7 @@
             // 
             this.LB_MA_1D.BackColor = System.Drawing.Color.Plum;
             this.LB_MA_1D.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_1D.Location = new System.Drawing.Point(651, 269);
+            this.LB_MA_1D.Location = new System.Drawing.Point(651, 277);
             this.LB_MA_1D.Name = "LB_MA_1D";
             this.LB_MA_1D.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_1D.TabIndex = 23;
@@ -258,7 +258,7 @@
             // 
             this.LB_MA_2H.BackColor = System.Drawing.Color.Gold;
             this.LB_MA_2H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_2H.Location = new System.Drawing.Point(236, 269);
+            this.LB_MA_2H.Location = new System.Drawing.Point(236, 277);
             this.LB_MA_2H.Name = "LB_MA_2H";
             this.LB_MA_2H.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_2H.TabIndex = 22;
@@ -267,7 +267,7 @@
             // 
             this.LB_MA_1H.BackColor = System.Drawing.Color.LightBlue;
             this.LB_MA_1H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MA_1H.Location = new System.Drawing.Point(26, 269);
+            this.LB_MA_1H.Location = new System.Drawing.Point(26, 277);
             this.LB_MA_1H.Name = "LB_MA_1H";
             this.LB_MA_1H.Size = new System.Drawing.Size(153, 30);
             this.LB_MA_1H.TabIndex = 21;
@@ -276,7 +276,7 @@
             // 
             this.LB_MH1WP.BackColor = System.Drawing.Color.LavenderBlush;
             this.LB_MH1WP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH1WP.Location = new System.Drawing.Point(875, 195);
+            this.LB_MH1WP.Location = new System.Drawing.Point(875, 203);
             this.LB_MH1WP.Name = "LB_MH1WP";
             this.LB_MH1WP.Size = new System.Drawing.Size(153, 30);
             this.LB_MH1WP.TabIndex = 20;
@@ -285,7 +285,7 @@
             // 
             this.LB_MH4HP.BackColor = System.Drawing.Color.Salmon;
             this.LB_MH4HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH4HP.Location = new System.Drawing.Point(448, 195);
+            this.LB_MH4HP.Location = new System.Drawing.Point(448, 203);
             this.LB_MH4HP.Name = "LB_MH4HP";
             this.LB_MH4HP.Size = new System.Drawing.Size(153, 30);
             this.LB_MH4HP.TabIndex = 19;
@@ -294,7 +294,7 @@
             // 
             this.LB_MH1DP.BackColor = System.Drawing.Color.Plum;
             this.LB_MH1DP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH1DP.Location = new System.Drawing.Point(651, 195);
+            this.LB_MH1DP.Location = new System.Drawing.Point(651, 203);
             this.LB_MH1DP.Name = "LB_MH1DP";
             this.LB_MH1DP.Size = new System.Drawing.Size(153, 30);
             this.LB_MH1DP.TabIndex = 18;
@@ -303,7 +303,7 @@
             // 
             this.LB_MH2HP.BackColor = System.Drawing.Color.Gold;
             this.LB_MH2HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH2HP.Location = new System.Drawing.Point(236, 195);
+            this.LB_MH2HP.Location = new System.Drawing.Point(236, 203);
             this.LB_MH2HP.Name = "LB_MH2HP";
             this.LB_MH2HP.Size = new System.Drawing.Size(153, 30);
             this.LB_MH2HP.TabIndex = 17;
@@ -312,7 +312,7 @@
             // 
             this.LB_MH1HP.BackColor = System.Drawing.Color.LightBlue;
             this.LB_MH1HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH1HP.Location = new System.Drawing.Point(26, 195);
+            this.LB_MH1HP.Location = new System.Drawing.Point(26, 203);
             this.LB_MH1HP.Name = "LB_MH1HP";
             this.LB_MH1HP.Size = new System.Drawing.Size(153, 30);
             this.LB_MH1HP.TabIndex = 16;
@@ -321,7 +321,7 @@
             // 
             this.LB_MH1W.BackColor = System.Drawing.Color.LavenderBlush;
             this.LB_MH1W.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH1W.Location = new System.Drawing.Point(875, 158);
+            this.LB_MH1W.Location = new System.Drawing.Point(875, 166);
             this.LB_MH1W.Name = "LB_MH1W";
             this.LB_MH1W.Size = new System.Drawing.Size(153, 30);
             this.LB_MH1W.TabIndex = 15;
@@ -330,7 +330,7 @@
             // 
             this.LB_MH4H.BackColor = System.Drawing.Color.Salmon;
             this.LB_MH4H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH4H.Location = new System.Drawing.Point(448, 160);
+            this.LB_MH4H.Location = new System.Drawing.Point(448, 168);
             this.LB_MH4H.Name = "LB_MH4H";
             this.LB_MH4H.Size = new System.Drawing.Size(153, 30);
             this.LB_MH4H.TabIndex = 14;
@@ -339,7 +339,7 @@
             // 
             this.LB_MH1D.BackColor = System.Drawing.Color.Plum;
             this.LB_MH1D.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH1D.Location = new System.Drawing.Point(651, 160);
+            this.LB_MH1D.Location = new System.Drawing.Point(651, 168);
             this.LB_MH1D.Name = "LB_MH1D";
             this.LB_MH1D.Size = new System.Drawing.Size(153, 30);
             this.LB_MH1D.TabIndex = 13;
@@ -348,7 +348,7 @@
             // 
             this.LB_MH2H.BackColor = System.Drawing.Color.Gold;
             this.LB_MH2H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH2H.Location = new System.Drawing.Point(236, 160);
+            this.LB_MH2H.Location = new System.Drawing.Point(236, 168);
             this.LB_MH2H.Name = "LB_MH2H";
             this.LB_MH2H.Size = new System.Drawing.Size(153, 30);
             this.LB_MH2H.TabIndex = 12;
@@ -357,7 +357,7 @@
             // 
             this.LB_MH1H.BackColor = System.Drawing.Color.LightBlue;
             this.LB_MH1H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_MH1H.Location = new System.Drawing.Point(26, 160);
+            this.LB_MH1H.Location = new System.Drawing.Point(26, 168);
             this.LB_MH1H.Name = "LB_MH1H";
             this.LB_MH1H.Size = new System.Drawing.Size(153, 30);
             this.LB_MH1H.TabIndex = 11;
@@ -366,7 +366,7 @@
             // 
             this.LB_ML1WP.BackColor = System.Drawing.Color.LavenderBlush;
             this.LB_ML1WP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML1WP.Location = new System.Drawing.Point(875, 113);
+            this.LB_ML1WP.Location = new System.Drawing.Point(875, 121);
             this.LB_ML1WP.Name = "LB_ML1WP";
             this.LB_ML1WP.Size = new System.Drawing.Size(153, 30);
             this.LB_ML1WP.TabIndex = 10;
@@ -375,7 +375,7 @@
             // 
             this.LB_ML4HP.BackColor = System.Drawing.Color.Salmon;
             this.LB_ML4HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML4HP.Location = new System.Drawing.Point(448, 113);
+            this.LB_ML4HP.Location = new System.Drawing.Point(448, 121);
             this.LB_ML4HP.Name = "LB_ML4HP";
             this.LB_ML4HP.Size = new System.Drawing.Size(153, 30);
             this.LB_ML4HP.TabIndex = 9;
@@ -384,7 +384,7 @@
             // 
             this.LB_ML1DP.BackColor = System.Drawing.Color.Plum;
             this.LB_ML1DP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML1DP.Location = new System.Drawing.Point(651, 113);
+            this.LB_ML1DP.Location = new System.Drawing.Point(651, 121);
             this.LB_ML1DP.Name = "LB_ML1DP";
             this.LB_ML1DP.Size = new System.Drawing.Size(153, 30);
             this.LB_ML1DP.TabIndex = 8;
@@ -393,7 +393,7 @@
             // 
             this.LB_ML2HP.BackColor = System.Drawing.Color.Gold;
             this.LB_ML2HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML2HP.Location = new System.Drawing.Point(236, 113);
+            this.LB_ML2HP.Location = new System.Drawing.Point(236, 121);
             this.LB_ML2HP.Name = "LB_ML2HP";
             this.LB_ML2HP.Size = new System.Drawing.Size(153, 30);
             this.LB_ML2HP.TabIndex = 7;
@@ -402,7 +402,7 @@
             // 
             this.LB_ML1HP.BackColor = System.Drawing.Color.LightBlue;
             this.LB_ML1HP.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML1HP.Location = new System.Drawing.Point(25, 113);
+            this.LB_ML1HP.Location = new System.Drawing.Point(25, 121);
             this.LB_ML1HP.Name = "LB_ML1HP";
             this.LB_ML1HP.Size = new System.Drawing.Size(153, 30);
             this.LB_ML1HP.TabIndex = 6;
@@ -411,7 +411,7 @@
             // 
             this.LB_ML1W.BackColor = System.Drawing.Color.LavenderBlush;
             this.LB_ML1W.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML1W.Location = new System.Drawing.Point(875, 78);
+            this.LB_ML1W.Location = new System.Drawing.Point(875, 86);
             this.LB_ML1W.Name = "LB_ML1W";
             this.LB_ML1W.Size = new System.Drawing.Size(153, 30);
             this.LB_ML1W.TabIndex = 5;
@@ -420,7 +420,7 @@
             // 
             this.LB_ML4H.BackColor = System.Drawing.Color.Salmon;
             this.LB_ML4H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML4H.Location = new System.Drawing.Point(448, 78);
+            this.LB_ML4H.Location = new System.Drawing.Point(448, 86);
             this.LB_ML4H.Name = "LB_ML4H";
             this.LB_ML4H.Size = new System.Drawing.Size(153, 30);
             this.LB_ML4H.TabIndex = 4;
@@ -429,7 +429,7 @@
             // 
             this.LB_ML1D.BackColor = System.Drawing.Color.Plum;
             this.LB_ML1D.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML1D.Location = new System.Drawing.Point(651, 78);
+            this.LB_ML1D.Location = new System.Drawing.Point(651, 86);
             this.LB_ML1D.Name = "LB_ML1D";
             this.LB_ML1D.Size = new System.Drawing.Size(153, 30);
             this.LB_ML1D.TabIndex = 3;
@@ -438,7 +438,7 @@
             // 
             this.LB_ML2H.BackColor = System.Drawing.Color.Gold;
             this.LB_ML2H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML2H.Location = new System.Drawing.Point(236, 78);
+            this.LB_ML2H.Location = new System.Drawing.Point(236, 86);
             this.LB_ML2H.Name = "LB_ML2H";
             this.LB_ML2H.Size = new System.Drawing.Size(153, 30);
             this.LB_ML2H.TabIndex = 2;
@@ -447,7 +447,7 @@
             // 
             this.LB_ML1H.BackColor = System.Drawing.Color.LightBlue;
             this.LB_ML1H.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_ML1H.Location = new System.Drawing.Point(25, 78);
+            this.LB_ML1H.Location = new System.Drawing.Point(25, 86);
             this.LB_ML1H.Name = "LB_ML1H";
             this.LB_ML1H.Size = new System.Drawing.Size(153, 30);
             this.LB_ML1H.TabIndex = 1;
@@ -456,7 +456,7 @@
             // 
             this.price_LB.BackColor = System.Drawing.Color.GreenYellow;
             this.price_LB.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.price_LB.Location = new System.Drawing.Point(448, 34);
+            this.price_LB.Location = new System.Drawing.Point(448, 33);
             this.price_LB.Name = "price_LB";
             this.price_LB.Size = new System.Drawing.Size(153, 30);
             this.price_LB.TabIndex = 0;
@@ -466,7 +466,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(16, 38);
+            this.label2.Location = new System.Drawing.Point(16, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 19);
             this.label2.TabIndex = 51;
@@ -474,9 +474,8 @@
             // 
             // radDropDownList1
             // 
-            this.radDropDownList1.DropDownAnimationEnabled = true;
             this.radDropDownList1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radDropDownList1.Location = new System.Drawing.Point(107, 34);
+            this.radDropDownList1.Location = new System.Drawing.Point(107, 13);
             this.radDropDownList1.Name = "radDropDownList1";
             this.radDropDownList1.Size = new System.Drawing.Size(121, 28);
             this.radDropDownList1.TabIndex = 50;
@@ -487,9 +486,9 @@
             this.LIST_BOX_SORTED.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LIST_BOX_SORTED.FormattingEnabled = true;
             this.LIST_BOX_SORTED.ItemHeight = 25;
-            this.LIST_BOX_SORTED.Location = new System.Drawing.Point(20, 77);
+            this.LIST_BOX_SORTED.Location = new System.Drawing.Point(20, 52);
             this.LIST_BOX_SORTED.Name = "LIST_BOX_SORTED";
-            this.LIST_BOX_SORTED.Size = new System.Drawing.Size(208, 304);
+            this.LIST_BOX_SORTED.Size = new System.Drawing.Size(208, 329);
             this.LIST_BOX_SORTED.TabIndex = 53;
             // 
             // groupBox2
@@ -909,7 +908,7 @@
             // 
             // radChartView1
             // 
-            this.radChartView1.AreaDesign = cartesianArea1;
+            this.radChartView1.AreaDesign = cartesianArea2;
             this.radChartView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radChartView1.Location = new System.Drawing.Point(3, 23);
             this.radChartView1.Name = "radChartView1";

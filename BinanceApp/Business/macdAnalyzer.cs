@@ -3,6 +3,7 @@ using Binance.Net.Interfaces;
 using BinanceApp.Business;
 using BinanceApp.DataModel;
 using MathNet.Numerics;
+using Skender.Stock.Indicators;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telerik.Charting;
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace BinanceApp.Busines
@@ -154,6 +156,26 @@ namespace BinanceApp.Busines
             indicator.DataSource = candels;
 
             return indicator;
+        }
+
+        internal static List<WeightedValue> FitLine(List<SmaResult> points)
+        {
+            List<WeightedValue> line = new List<WeightedValue>();
+            try
+            {
+                if (points.Count() > 2)
+                {
+                    double[] xdata = new double[points.Count()];
+                    for (int i = 0; i < points.Count(); i++) { xdata[i] = i; }
+                    double[] ydata = points.Select(x => (double)x.Sma).ToArray();
+                    Tuple<double, double> p = Fit.Line(xdata, ydata);
+                    for (int i = 0; i < points.Count(); i++)
+                    {
+                        line.Add(new WeightedValue { Time = points[i].Date, Value = (decimal)(p.Item1 + p.Item2 * i) });
+                    }
+                }
+            }catch(Exception ex) { }
+            return line;
         }
     }
 }

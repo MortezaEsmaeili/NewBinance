@@ -328,6 +328,12 @@ namespace BinanceApp
                 priceDic.Add("ML 1W", ml1W);
                 priceDic.Add("MH 1W", mh1W);
 
+                priceDic.Add("MA 1H", ma1H);
+                priceDic.Add("MA 2H", ma2H);
+                priceDic.Add("MA 4H", ma4H);
+                priceDic.Add("MA 1D", ma1D);
+                priceDic.Add("MA 1W", ma1W);
+
                 var sortedDic = from entry in priceDic orderby entry.Value descending select entry; //ascending
 
                 LIST_BOX_SORTED.Items.Clear();
