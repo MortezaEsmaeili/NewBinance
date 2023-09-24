@@ -72,6 +72,8 @@ namespace BinanceApp
             this.mAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cPMA1001ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mAMLMHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.botToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tradeBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +90,8 @@ namespace BinanceApp
             this.marketToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.loginToolStripMenuItem,
-            this.newToolStripMenuItem});
+            this.newToolStripMenuItem,
+            this.botToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 30);
@@ -409,6 +412,21 @@ namespace BinanceApp
             this.mAMLMHToolStripMenuItem.Text = "MA + ML + MH";
             this.mAMLMHToolStripMenuItem.Click += new System.EventHandler(this.mAMLMHToolStripMenuItem_Click);
             // 
+            // botToolStripMenuItem
+            // 
+            this.botToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tradeBotToolStripMenuItem});
+            this.botToolStripMenuItem.Name = "botToolStripMenuItem";
+            this.botToolStripMenuItem.Size = new System.Drawing.Size(52, 26);
+            this.botToolStripMenuItem.Text = "Bot";
+            // 
+            // tradeBotToolStripMenuItem
+            // 
+            this.tradeBotToolStripMenuItem.Name = "tradeBotToolStripMenuItem";
+            this.tradeBotToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.tradeBotToolStripMenuItem.Text = "Trade Bot";
+            this.tradeBotToolStripMenuItem.Click += new System.EventHandler(this.tradeBotToolStripMenuItem_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -481,5 +499,7 @@ namespace BinanceApp
         private System.Windows.Forms.ToolStripMenuItem mAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cPMA1001ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mAMLMHToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem botToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tradeBotToolStripMenuItem;
     }
 }

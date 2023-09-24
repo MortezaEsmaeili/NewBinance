@@ -257,6 +257,12 @@
     <Compile Include="DataModel\LocalMinMax.cs" />
     <Compile Include="DataModel\ReportModel.cs" />
     <Compile Include="DataModel\TimeFrameEnum.cs" />
+    <Compile Include="Form_Bot\TradeBotForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Bot\TradeBotForm.Designer.cs">
+      <DependentUpon>TradeBotForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\PersonalMath.cs" />
     <Compile Include="CP_MA100Form.cs">
       <SubType>Form</SubType>
@@ -440,6 +446,9 @@
     <EmbeddedResource Include="CP_MA100Form.resx">
       <DependentUpon>CP_MA100Form.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_Bot\TradeBotForm.resx">
+      <DependentUpon>TradeBotForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MA100MHMLForm.resx">
       <DependentUpon>MA100MHMLForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -555,6 +564,7 @@
   <ItemGroup>
     <Content Include="Log4NetConfig.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\FastReport.Compat.2020.2.10\build\FastReport.Compat.targets" Condition="Exists('..\packages\FastReport.Compat.2020.2.10\build\FastReport.Compat.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -342,5 +342,13 @@ namespace BinanceApp
             ma100MHMLForm.MdiParent = this;
             ma100MHMLForm.Show();
         }
+
+        private void tradeBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tradeBot = new TradeBotForm();
+            tradeBot.MdiParent = this;
+            tradeBot.Show();
+
+        }
     }
 }
