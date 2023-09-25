@@ -66,8 +66,8 @@ namespace BinanceApp
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.listBox1 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList3)).BeginInit();
@@ -76,8 +76,8 @@ namespace BinanceApp
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +99,7 @@ namespace BinanceApp
             this.radDropDownList3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radDropDownList3.Location = new System.Drawing.Point(221, 13);
             this.radDropDownList3.Name = "radDropDownList3";
-            this.radDropDownList3.Size = new System.Drawing.Size(166, 28);
+            this.radDropDownList3.Size = new System.Drawing.Size(166, 23);
             this.radDropDownList3.TabIndex = 14;
             this.radDropDownList3.Text = "Coin";
             // 
@@ -152,7 +152,7 @@ namespace BinanceApp
             // btn_buy_save
             // 
             this.btn_buy_save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btn_buy_save.Location = new System.Drawing.Point(59, 312);
+            this.btn_buy_save.Location = new System.Drawing.Point(66, 312);
             this.btn_buy_save.Name = "btn_buy_save";
             this.btn_buy_save.Size = new System.Drawing.Size(99, 35);
             this.btn_buy_save.TabIndex = 11;
@@ -296,7 +296,7 @@ namespace BinanceApp
             // button1
             // 
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(63, 313);
+            this.button1.Location = new System.Drawing.Point(70, 313);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 35);
             this.button1.TabIndex = 20;
@@ -425,17 +425,6 @@ namespace BinanceApp
             this.tabPage2.Text = "History";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.listBox1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(499, 497);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Open Positions";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -446,6 +435,17 @@ namespace BinanceApp
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(493, 491);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.listBox1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(499, 497);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Open Positions";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // listBox1
             // 
@@ -491,8 +491,8 @@ namespace BinanceApp
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
