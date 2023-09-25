@@ -52,7 +52,7 @@ namespace BinanceApp
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bt_Sell_Save = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -99,7 +99,7 @@ namespace BinanceApp
             this.radDropDownList3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radDropDownList3.Location = new System.Drawing.Point(221, 13);
             this.radDropDownList3.Name = "radDropDownList3";
-            this.radDropDownList3.Size = new System.Drawing.Size(166, 23);
+            this.radDropDownList3.Size = new System.Drawing.Size(166, 28);
             this.radDropDownList3.TabIndex = 14;
             this.radDropDownList3.Text = "Coin";
             // 
@@ -151,13 +151,14 @@ namespace BinanceApp
             // 
             // btn_buy_save
             // 
+            this.btn_buy_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btn_buy_save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_buy_save.Location = new System.Drawing.Point(66, 312);
             this.btn_buy_save.Name = "btn_buy_save";
             this.btn_buy_save.Size = new System.Drawing.Size(99, 35);
             this.btn_buy_save.TabIndex = 11;
             this.btn_buy_save.Text = "Save";
-            this.btn_buy_save.UseVisualStyleBackColor = true;
+            this.btn_buy_save.UseVisualStyleBackColor = false;
             // 
             // cb_buy_isActive
             // 
@@ -256,7 +257,7 @@ namespace BinanceApp
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(58)))), ((int)(((byte)(86)))));
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.bt_Sell_Save);
             this.groupBox2.Controls.Add(this.checkBox2);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.textBox8);
@@ -293,15 +294,16 @@ namespace BinanceApp
             this.textBox4.Size = new System.Drawing.Size(123, 27);
             this.textBox4.TabIndex = 5;
             // 
-            // button1
+            // bt_Sell_Save
             // 
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(70, 313);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 35);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bt_Sell_Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.bt_Sell_Save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.bt_Sell_Save.Location = new System.Drawing.Point(70, 313);
+            this.bt_Sell_Save.Name = "bt_Sell_Save";
+            this.bt_Sell_Save.Size = new System.Drawing.Size(99, 35);
+            this.bt_Sell_Save.TabIndex = 20;
+            this.bt_Sell_Save.Text = "Save";
+            this.bt_Sell_Save.UseVisualStyleBackColor = false;
             // 
             // checkBox2
             // 
@@ -524,7 +526,7 @@ namespace BinanceApp
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox cb_show_chart_buy;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bt_Sell_Save;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label9;
