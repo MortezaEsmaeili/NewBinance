@@ -37,7 +37,7 @@ namespace BinanceApp
         CandlestickSeries candleSery = new CandlestickSeries();
 
         private string coinName = string.Empty;
-        private bool isNewRange = false;
+        private bool isNewRange = true;
         long iDRow = 0;
 
 
@@ -104,12 +104,15 @@ namespace BinanceApp
             tx_buy_profit_limit.Text = tradeBotRange.BuyTakeProfitPrice.ToString();
             tx_buy_stop_loss.Text = tradeBotRange.BuyStopLossPrice.ToString();
             tx_buy_available.Text = tradeBotRange.BuyAvailable.ToString();
+            cb_buy_isActive.Checked = tradeBotRange.IsActiveBuy;
 
             tx_sell_up_price.Text = tradeBotRange.UpSellPrice.ToString();
             tx_sell_low_price.Text = tradeBotRange.LowSellPrice.ToString();
             tx_sell_profit_limit.Text = tradeBotRange.SellTakeProfitPrice.ToString();
             tx_sell_stop_loss.Text = tradeBotRange.BuyStopLossPrice.ToString();
             tx_sell_available.Text = tradeBotRange.SellAvailable.ToString();
+            cb_sell_isActive.Checked = tradeBotRange.IsActiveSell;
+            iDRow = tradeBotRange.Id;
         }
 
         private  delegate  void UpdateFormDelegate(BinanceModel binanceModel);
@@ -317,8 +320,28 @@ namespace BinanceApp
         {
             using (var context = new TradeContext())
             {
-                var data = new TradeBotRange() { BuyStopLossPrice = 10, BuyTakeProfitPrice = 50, CoinName = "ggg" };
-                context.TradeBotRanges.AddOrUpdate(data);
+                var data = new TradeBotRange() {
+                    UpBuyPrice = buyUpperPrice,
+                    LowBuyPrice = buyLowerPrice,
+                    BuyTakeProfitPrice = buytakeProfit,
+                    BuyStopLossPrice = buyStopLoss,
+                    BuyAvailable = buyAvailable,
+                    IsActiveBuy = cb_buy_isActive.Checked,
+                    UpSellPrice = sellUpperPrice,
+                    LowSellPrice = sellLowerPrice,
+                    SellTakeProfitPrice = selltakeProfit,
+                    SellStopLossPrice = sellStopLoss,
+                    SellAvailable = sellAvailable,
+                    IsActiveSell = cb_sell_isActive.Checked,
+                    CoinName = coinName,
+                };
+                if (isNewRange)
+                    context.TradeBotRanges.Add(data);
+                else
+                {
+                    data.Id = iDRow;
+                    context.TradeBotRanges.AddOrUpdate(data);
+                }
                 context.SaveChanges();
             }
         }

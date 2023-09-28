@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial_mig : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -12,7 +12,7 @@
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        CoinName = c.String(),
+                        CoinName = c.String(maxLength: 2147483647),
                         UpSellPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         LowSellPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         SellStopLossPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
@@ -25,7 +25,7 @@
                         IsActiveSell = c.Boolean(nullable: false),
                         BuyAvailable = c.Decimal(nullable: false, precision: 18, scale: 2),
                         SellAvailable = c.Decimal(nullable: false, precision: 18, scale: 2),
-                })
+                    })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
@@ -33,10 +33,10 @@
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        CoinName = c.String(),
+                        CoinName = c.String(maxLength: 2147483647),
                         OpenDate = c.DateTime(nullable: false),
                         Available = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Position = c.String(),
+                        Position = c.String(maxLength: 2147483647),
                         Leverage = c.Int(nullable: false),
                         Amount = c.Int(nullable: false),
                         OpenPrice = c.Decimal(nullable: false, precision: 18, scale: 2),

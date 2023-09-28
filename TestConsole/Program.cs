@@ -22,7 +22,9 @@ namespace TestConsole
                 context.Migrate();
                 
 
-                var data = new TradeBotRange() { BuyStopLossPrice = 10, BuyTakeProfitPrice = 50, CoinName = "ggg" };
+                var data = new TradeBotRange() { BuyStopLossPrice = 10, 
+                    BuyTakeProfitPrice = 50, CoinName = "ggg", IsActiveSell = true, IsActiveBuy=true
+                };
                 context.TradeBotRanges.Add(data);
                 context.SaveChanges();
             }
