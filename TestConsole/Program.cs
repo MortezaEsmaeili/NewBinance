@@ -19,7 +19,7 @@ namespace TestConsole
             Console.WriteLine("hello");
             using (var context = new TradeContext())
             {
-               // context.Migrate();
+                context.Migrate();
                 
 
                 var data = new TradeBotRange() { BuyStopLossPrice = 10, BuyTakeProfitPrice = 50, CoinName = "ggg" };

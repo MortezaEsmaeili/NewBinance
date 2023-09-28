@@ -21,8 +21,11 @@
                         LowBuyPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         BuyStopLossPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         BuyTakeProfitPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        IsActive = c.Boolean(nullable: false),
-                    })
+                        IsActiveBuy = c.Boolean(nullable: false),
+                        IsActiveSell = c.Boolean(nullable: false),
+                        BuyAvailable = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        SellAvailable = c.Decimal(nullable: false, precision: 18, scale: 2),
+                })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(

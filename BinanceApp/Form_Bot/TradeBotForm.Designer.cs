@@ -39,29 +39,28 @@ namespace BinanceApp
             this.cb_show_chart_buy = new System.Windows.Forms.CheckBox();
             this.btn_buy_save = new System.Windows.Forms.Button();
             this.cb_buy_isActive = new System.Windows.Forms.CheckBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tx_buy_available = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.tx_buy_stop_loss = new System.Windows.Forms.TextBox();
+            this.tx_buy_profit_limit = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tx_buy_low_price = new System.Windows.Forms.TextBox();
+            this.tx_buy_up_price = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.bt_Sell_Save = new System.Windows.Forms.Button();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.cb_show_chart_sell = new System.Windows.Forms.CheckBox();
+            this.tx_sell_low_price = new System.Windows.Forms.TextBox();
+            this.cb_sell_isActive = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tx_sell_available = new System.Windows.Forms.TextBox();
+            this.tx_sell_up_price = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.tx_sell_stop_loss = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.tx_sell_profit_limit = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -99,7 +98,7 @@ namespace BinanceApp
             this.radDropDownList3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radDropDownList3.Location = new System.Drawing.Point(221, 13);
             this.radDropDownList3.Name = "radDropDownList3";
-            this.radDropDownList3.Size = new System.Drawing.Size(166, 28);
+            this.radDropDownList3.Size = new System.Drawing.Size(166, 23);
             this.radDropDownList3.TabIndex = 14;
             this.radDropDownList3.Text = "Coin";
             // 
@@ -118,23 +117,22 @@ namespace BinanceApp
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(123)))), ((int)(((byte)(249)))));
             this.groupBox1.Controls.Add(this.cb_show_chart_buy);
-            this.groupBox1.Controls.Add(this.btn_buy_save);
             this.groupBox1.Controls.Add(this.cb_buy_isActive);
-            this.groupBox1.Controls.Add(this.textBox7);
+            this.groupBox1.Controls.Add(this.tx_buy_available);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.textBox5);
-            this.groupBox1.Controls.Add(this.textBox6);
+            this.groupBox1.Controls.Add(this.tx_buy_stop_loss);
+            this.groupBox1.Controls.Add(this.tx_buy_profit_limit);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.tx_buy_low_price);
+            this.groupBox1.Controls.Add(this.tx_buy_up_price);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox1.Location = new System.Drawing.Point(16, 74);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(249, 412);
+            this.groupBox1.Size = new System.Drawing.Size(249, 369);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buy";
@@ -142,7 +140,7 @@ namespace BinanceApp
             // cb_show_chart_buy
             // 
             this.cb_show_chart_buy.AutoSize = true;
-            this.cb_show_chart_buy.Location = new System.Drawing.Point(47, 373);
+            this.cb_show_chart_buy.Location = new System.Drawing.Point(47, 320);
             this.cb_show_chart_buy.Name = "cb_show_chart_buy";
             this.cb_show_chart_buy.Size = new System.Drawing.Size(131, 24);
             this.cb_show_chart_buy.TabIndex = 12;
@@ -153,12 +151,13 @@ namespace BinanceApp
             // 
             this.btn_buy_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btn_buy_save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btn_buy_save.Location = new System.Drawing.Point(66, 312);
+            this.btn_buy_save.Location = new System.Drawing.Point(230, 466);
             this.btn_buy_save.Name = "btn_buy_save";
-            this.btn_buy_save.Size = new System.Drawing.Size(99, 35);
+            this.btn_buy_save.Size = new System.Drawing.Size(99, 45);
             this.btn_buy_save.TabIndex = 11;
             this.btn_buy_save.Text = "Save";
             this.btn_buy_save.UseVisualStyleBackColor = false;
+            this.btn_buy_save.Click += new System.EventHandler(this.btn_buy_save_Click);
             // 
             // cb_buy_isActive
             // 
@@ -172,12 +171,12 @@ namespace BinanceApp
             this.cb_buy_isActive.Text = "Is Active";
             this.cb_buy_isActive.UseVisualStyleBackColor = true;
             // 
-            // textBox7
+            // tx_buy_available
             // 
-            this.textBox7.Location = new System.Drawing.Point(107, 215);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(123, 27);
-            this.textBox7.TabIndex = 9;
+            this.tx_buy_available.Location = new System.Drawing.Point(107, 215);
+            this.tx_buy_available.Name = "tx_buy_available";
+            this.tx_buy_available.Size = new System.Drawing.Size(123, 27);
+            this.tx_buy_available.TabIndex = 9;
             // 
             // label8
             // 
@@ -188,19 +187,19 @@ namespace BinanceApp
             this.label8.TabIndex = 8;
             this.label8.Text = "Available:";
             // 
-            // textBox5
+            // tx_buy_stop_loss
             // 
-            this.textBox5.Location = new System.Drawing.Point(107, 171);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(123, 27);
-            this.textBox5.TabIndex = 7;
+            this.tx_buy_stop_loss.Location = new System.Drawing.Point(107, 171);
+            this.tx_buy_stop_loss.Name = "tx_buy_stop_loss";
+            this.tx_buy_stop_loss.Size = new System.Drawing.Size(123, 27);
+            this.tx_buy_stop_loss.TabIndex = 7;
             // 
-            // textBox6
+            // tx_buy_profit_limit
             // 
-            this.textBox6.Location = new System.Drawing.Point(107, 127);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(123, 27);
-            this.textBox6.TabIndex = 6;
+            this.tx_buy_profit_limit.Location = new System.Drawing.Point(107, 127);
+            this.tx_buy_profit_limit.Name = "tx_buy_profit_limit";
+            this.tx_buy_profit_limit.Size = new System.Drawing.Size(123, 27);
+            this.tx_buy_profit_limit.TabIndex = 6;
             // 
             // label6
             // 
@@ -220,19 +219,19 @@ namespace BinanceApp
             this.label7.TabIndex = 4;
             this.label7.Text = "Profit Limit:";
             // 
-            // textBox2
+            // tx_buy_low_price
             // 
-            this.textBox2.Location = new System.Drawing.Point(107, 83);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(123, 27);
-            this.textBox2.TabIndex = 3;
+            this.tx_buy_low_price.Location = new System.Drawing.Point(107, 83);
+            this.tx_buy_low_price.Name = "tx_buy_low_price";
+            this.tx_buy_low_price.Size = new System.Drawing.Size(123, 27);
+            this.tx_buy_low_price.TabIndex = 3;
             // 
-            // textBox1
+            // tx_buy_up_price
             // 
-            this.textBox1.Location = new System.Drawing.Point(107, 39);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(123, 27);
-            this.textBox1.TabIndex = 2;
+            this.tx_buy_up_price.Location = new System.Drawing.Point(107, 39);
+            this.tx_buy_up_price.Name = "tx_buy_up_price";
+            this.tx_buy_up_price.Size = new System.Drawing.Size(123, 27);
+            this.tx_buy_up_price.TabIndex = 2;
             // 
             // label4
             // 
@@ -255,67 +254,55 @@ namespace BinanceApp
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(58)))), ((int)(((byte)(86)))));
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.bt_Sell_Save);
-            this.groupBox2.Controls.Add(this.checkBox2);
+            this.groupBox2.Controls.Add(this.cb_show_chart_sell);
+            this.groupBox2.Controls.Add(this.tx_sell_low_price);
+            this.groupBox2.Controls.Add(this.cb_sell_isActive);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.textBox8);
-            this.groupBox2.Controls.Add(this.textBox3);
+            this.groupBox2.Controls.Add(this.tx_sell_available);
+            this.groupBox2.Controls.Add(this.tx_sell_up_price);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.textBox9);
+            this.groupBox2.Controls.Add(this.tx_sell_stop_loss);
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.textBox10);
+            this.groupBox2.Controls.Add(this.tx_sell_profit_limit);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox2.Location = new System.Drawing.Point(296, 74);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(249, 412);
+            this.groupBox2.Size = new System.Drawing.Size(249, 369);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sell";
             // 
-            // checkBox1
+            // cb_show_chart_sell
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(51, 374);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(131, 24);
-            this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "Show on chart";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cb_show_chart_sell.AutoSize = true;
+            this.cb_show_chart_sell.Location = new System.Drawing.Point(51, 321);
+            this.cb_show_chart_sell.Name = "cb_show_chart_sell";
+            this.cb_show_chart_sell.Size = new System.Drawing.Size(131, 24);
+            this.cb_show_chart_sell.TabIndex = 21;
+            this.cb_show_chart_sell.Text = "Show on chart";
+            this.cb_show_chart_sell.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // tx_sell_low_price
             // 
-            this.textBox4.Location = new System.Drawing.Point(110, 85);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(123, 27);
-            this.textBox4.TabIndex = 5;
+            this.tx_sell_low_price.Location = new System.Drawing.Point(110, 85);
+            this.tx_sell_low_price.Name = "tx_sell_low_price";
+            this.tx_sell_low_price.Size = new System.Drawing.Size(123, 27);
+            this.tx_sell_low_price.TabIndex = 5;
             // 
-            // bt_Sell_Save
+            // cb_sell_isActive
             // 
-            this.bt_Sell_Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.bt_Sell_Save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.bt_Sell_Save.Location = new System.Drawing.Point(70, 313);
-            this.bt_Sell_Save.Name = "bt_Sell_Save";
-            this.bt_Sell_Save.Size = new System.Drawing.Size(99, 35);
-            this.bt_Sell_Save.TabIndex = 20;
-            this.bt_Sell_Save.Text = "Save";
-            this.bt_Sell_Save.UseVisualStyleBackColor = false;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(68, 271);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(91, 24);
-            this.checkBox2.TabIndex = 19;
-            this.checkBox2.Text = "Is Active";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cb_sell_isActive.AutoSize = true;
+            this.cb_sell_isActive.Checked = true;
+            this.cb_sell_isActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_sell_isActive.Location = new System.Drawing.Point(68, 271);
+            this.cb_sell_isActive.Name = "cb_sell_isActive";
+            this.cb_sell_isActive.Size = new System.Drawing.Size(91, 24);
+            this.cb_sell_isActive.TabIndex = 19;
+            this.cb_sell_isActive.Text = "Is Active";
+            this.cb_sell_isActive.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -326,19 +313,19 @@ namespace BinanceApp
             this.label5.TabIndex = 4;
             this.label5.Text = "Low Price:";
             // 
-            // textBox8
+            // tx_sell_available
             // 
-            this.textBox8.Location = new System.Drawing.Point(111, 216);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(123, 27);
-            this.textBox8.TabIndex = 18;
+            this.tx_sell_available.Location = new System.Drawing.Point(111, 216);
+            this.tx_sell_available.Name = "tx_sell_available";
+            this.tx_sell_available.Size = new System.Drawing.Size(123, 27);
+            this.tx_sell_available.TabIndex = 18;
             // 
-            // textBox3
+            // tx_sell_up_price
             // 
-            this.textBox3.Location = new System.Drawing.Point(110, 39);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(123, 27);
-            this.textBox3.TabIndex = 4;
+            this.tx_sell_up_price.Location = new System.Drawing.Point(110, 39);
+            this.tx_sell_up_price.Name = "tx_sell_up_price";
+            this.tx_sell_up_price.Size = new System.Drawing.Size(123, 27);
+            this.tx_sell_up_price.TabIndex = 4;
             // 
             // label9
             // 
@@ -358,12 +345,12 @@ namespace BinanceApp
             this.label2.TabIndex = 1;
             this.label2.Text = "Up Price:";
             // 
-            // textBox9
+            // tx_sell_stop_loss
             // 
-            this.textBox9.Location = new System.Drawing.Point(111, 172);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(123, 27);
-            this.textBox9.TabIndex = 16;
+            this.tx_sell_stop_loss.Location = new System.Drawing.Point(111, 172);
+            this.tx_sell_stop_loss.Name = "tx_sell_stop_loss";
+            this.tx_sell_stop_loss.Size = new System.Drawing.Size(123, 27);
+            this.tx_sell_stop_loss.TabIndex = 16;
             // 
             // label11
             // 
@@ -374,12 +361,12 @@ namespace BinanceApp
             this.label11.TabIndex = 13;
             this.label11.Text = "Profit Limit:";
             // 
-            // textBox10
+            // tx_sell_profit_limit
             // 
-            this.textBox10.Location = new System.Drawing.Point(111, 128);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(123, 27);
-            this.textBox10.TabIndex = 15;
+            this.tx_sell_profit_limit.Location = new System.Drawing.Point(111, 128);
+            this.tx_sell_profit_limit.Name = "tx_sell_profit_limit";
+            this.tx_sell_profit_limit.Size = new System.Drawing.Size(123, 27);
+            this.tx_sell_profit_limit.TabIndex = 15;
             // 
             // label10
             // 
@@ -469,6 +456,7 @@ namespace BinanceApp
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1086, 549);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.btn_buy_save);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
@@ -508,31 +496,30 @@ namespace BinanceApp
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tx_buy_up_price;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox tx_buy_stop_loss;
+        private System.Windows.Forms.TextBox tx_buy_profit_limit;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tx_buy_low_price;
+        private System.Windows.Forms.TextBox tx_sell_low_price;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tx_sell_up_price;
         private System.Windows.Forms.Button btn_buy_save;
         private System.Windows.Forms.CheckBox cb_buy_isActive;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox tx_buy_available;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox cb_show_chart_buy;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button bt_Sell_Save;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.CheckBox cb_show_chart_sell;
+        private System.Windows.Forms.CheckBox cb_sell_isActive;
+        private System.Windows.Forms.TextBox tx_sell_available;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox tx_sell_stop_loss;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox tx_sell_profit_limit;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;

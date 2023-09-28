@@ -1,4 +1,6 @@
-﻿using Binance.Net;
+﻿using Binance.Dal;
+using Binance.Dal.Model;
+using Binance.Net;
 using Binance.Net.Enums;
 using Binance.Net.Interfaces;
 using BinanceApp.Business;
@@ -10,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -33,15 +36,26 @@ namespace BinanceApp
 
         CandlestickSeries candleSery = new CandlestickSeries();
 
-        private List<string> movingAverageIndicators, financialIndicators;
-        
         private string coinName = string.Empty;
+        private bool isNewRange = false;
+        long iDRow = 0;
 
-        private KlineInterval interval = KlineInterval.OneMinute;
 
         private BinanceModel binance;
 
         private List<IBinanceKline> candels;
+
+        private decimal buyUpperPrice = 0;
+        private decimal buyLowerPrice = 0;
+        private decimal buytakeProfit = 0;
+        private decimal buyStopLoss = 0;
+        private decimal buyAvailable = 0;
+
+        private decimal sellUpperPrice = 0;
+        private decimal sellLowerPrice = 0;
+        private decimal selltakeProfit = 0;
+        private decimal sellStopLoss = 0;
+        private decimal sellAvailable = 0;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -52,9 +66,12 @@ namespace BinanceApp
             WireEvents();
 
             this.radDropDownList3.DataSource = BinanceDataCollector.Instance.CoinNames;
-            List<string> Intervals = new List<string> { KlineInterval.OneMinute.ToString(),
-                KlineInterval.FiveMinutes.ToString(), KlineInterval.FifteenMinutes.ToString() };
- 
+            this.radDropDownList3.SelectedIndex = 0;
+            if (this.radDropDownList3.SelectedItem != null)
+            {
+                coinName = this.radDropDownList3.SelectedItem.Text;
+                LoadFromDB(coinName);
+            }
             radChartView2.BackColor = Color.Gray;
 
             SetCartesianGrid(this.radChartView2);
@@ -64,6 +81,37 @@ namespace BinanceApp
 
             BinanceDataCollector.Instance.DataReadyEvent += OnDataReadyEvent;
         }
+
+        private void LoadFromDB(string coinName)
+        {
+            using (var context = new TradeContext())
+            {
+                TradeBotRange tradeBotRange = context.TradeBotRanges.FirstOrDefault(r => r.CoinName == coinName);
+                if(tradeBotRange == null)
+                {
+                    isNewRange = true;
+                    return;
+                }
+                isNewRange = false;
+                UpdateFormDataFromDB(tradeBotRange);
+            }
+        }
+
+        private void UpdateFormDataFromDB(TradeBotRange tradeBotRange)
+        {
+            tx_buy_up_price.Text = tradeBotRange.UpBuyPrice.ToString();
+            tx_buy_low_price.Text = tradeBotRange.LowBuyPrice.ToString();
+            tx_buy_profit_limit.Text = tradeBotRange.BuyTakeProfitPrice.ToString();
+            tx_buy_stop_loss.Text = tradeBotRange.BuyStopLossPrice.ToString();
+            tx_buy_available.Text = tradeBotRange.BuyAvailable.ToString();
+
+            tx_sell_up_price.Text = tradeBotRange.UpSellPrice.ToString();
+            tx_sell_low_price.Text = tradeBotRange.LowSellPrice.ToString();
+            tx_sell_profit_limit.Text = tradeBotRange.SellTakeProfitPrice.ToString();
+            tx_sell_stop_loss.Text = tradeBotRange.BuyStopLossPrice.ToString();
+            tx_sell_available.Text = tradeBotRange.SellAvailable.ToString();
+        }
+
         private  delegate  void UpdateFormDelegate(BinanceModel binanceModel);
         private void OnDataReadyEvent()
         {
@@ -106,34 +154,17 @@ namespace BinanceApp
        
         private void InitializeData()
         {
-            movingAverageIndicators = new List<string>()
-            {
-                "MA (5)",
-                "Exponential MA (5)",
-                "Modified MA (5)",
-                "Modified Exponential MA (5)",
-                "Weighted MA (5)",
-                "Adaptive MA Kaufman (10,4,2)",
-                "Bollinger Bands (5,2)"
-            };
+            tx_buy_up_price.Text = "0";
+            tx_buy_low_price.Text = "0";
+            tx_buy_profit_limit.Text = "0";
+            tx_buy_stop_loss.Text = "0";
+            tx_buy_available.Text = "0";
 
-            financialIndicators = new List<string>()
-            {
-                "Average True Range (5)",
-                "Commodity Channel Index (5)",
-                "MACD (12, 9, 6)",
-                "Momentum (5)",
-                "Oscillator (8, 4)",
-                "RAVI (8, 4)",
-                "Rate Of Change (8)",
-                "Relative Momentum Index (8)",
-                "Relative Strength Index (8)",
-                "Stochastic Fast (14, 3)",
-                "Stochastic Slow (14, 3, 3)",
-                "TRIX (8)",
-                "True Range",
-                "Ultimate Oscillator (6, 9, 12)"
-            };
+            tx_sell_up_price.Text = "0";
+            tx_sell_low_price.Text = "0";
+            tx_sell_profit_limit.Text = "0";
+            tx_sell_stop_loss.Text = "0";
+            tx_sell_available.Text = "0";
         }
 
         private void initAxis()
@@ -222,7 +253,7 @@ namespace BinanceApp
                 this.radChartView2.Series.Clear();
                 if (binance.Tbqv_15min.Any() == false)
                     binance = BinanceDataCollector.Instance.GetBinance(coinName);
-                candels = binance.Candels_4hour.Skip(binance.Candels_4hour.Count() - 100).Take(100).ToList();
+                candels = binance.Candels_4hour.Skip(binance.Candels_4hour.Count() - 250).Take(250).ToList();
 
                 if (candels == null || candels.Any() == false) return;
                 candleSery.DataSource = candels;
@@ -258,10 +289,62 @@ namespace BinanceApp
 
         }
 
+        private void btn_buy_save_Click(object sender, EventArgs e)
+        {
+            if(checkValue() == false)
+            {
+                MessageBox.Show("Error in value");
+                return;
+            }
+            Save2DB();
+            if (cb_show_chart_buy.Checked)
+                ShowbuyLines();
+            if (cb_show_chart_sell.Checked)
+                ShowSellLine();
+        }
+
+        private void ShowSellLine()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ShowbuyLines()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Save2DB()
+        {
+            using (var context = new TradeContext())
+            {
+                var data = new TradeBotRange() { BuyStopLossPrice = 10, BuyTakeProfitPrice = 50, CoinName = "ggg" };
+                context.TradeBotRanges.AddOrUpdate(data);
+                context.SaveChanges();
+            }
+        }
+
+        private bool checkValue()
+        {
+            if (!decimal.TryParse(tx_buy_up_price.Text, out buyUpperPrice)) return false;
+            if (!decimal.TryParse(tx_buy_low_price.Text, out buyLowerPrice)) return false;
+            if (!decimal.TryParse(tx_buy_profit_limit.Text, out buytakeProfit)) return false;
+            if (!decimal.TryParse(tx_buy_stop_loss.Text, out buyStopLoss)) return false;
+            if (!decimal.TryParse(tx_buy_available.Text, out buyAvailable)) return false;
+
+            if (!decimal.TryParse(tx_sell_up_price.Text, out sellUpperPrice)) return false;
+            if (!decimal.TryParse(tx_sell_low_price.Text, out sellLowerPrice)) return false;
+            if (!decimal.TryParse(tx_sell_profit_limit.Text, out selltakeProfit)) return false;
+            if (!decimal.TryParse(tx_sell_stop_loss.Text, out sellStopLoss)) return false;
+            if (!decimal.TryParse(tx_sell_available.Text, out sellAvailable)) return false;
+
+            return true;
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             BinanceDataCollector.Instance.DataReadyEvent -= OnDataReadyEvent;
 
         }
+
     }
 }
