@@ -7,8 +7,10 @@ using BinanceApp.Business;
 using BinanceApp.DataModel;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
+using FastReport.DataVisualization.Charting;
 using Skender.Stock.Indicators;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,6 +37,15 @@ namespace BinanceApp
         Telerik.WinControls.UI.LinearAxis linearAxis2 = new Telerik.WinControls.UI.LinearAxis();
 
         CandlestickSeries candleSery = new CandlestickSeries();
+        SteplineSeries buyUpperLine = new SteplineSeries();
+        SteplineSeries buyLowerLine = new SteplineSeries();
+        SteplineSeries buyProfitLine = new SteplineSeries();
+        SteplineSeries buyStopLossLine = new SteplineSeries();
+        SteplineSeries sellUpperLine = new SteplineSeries();
+        SteplineSeries sellLowerLine = new SteplineSeries();
+        SteplineSeries sellProfitLine = new SteplineSeries();
+        SteplineSeries sellStopLossLine = new SteplineSeries();
+
 
         private string coinName = string.Empty;
         private bool isNewRange = true;
@@ -90,6 +101,7 @@ namespace BinanceApp
                 if(tradeBotRange == null)
                 {
                     isNewRange = true;
+                    InitializeData();
                     return;
                 }
                 isNewRange = false;
@@ -109,10 +121,38 @@ namespace BinanceApp
             tx_sell_up_price.Text = tradeBotRange.UpSellPrice.ToString();
             tx_sell_low_price.Text = tradeBotRange.LowSellPrice.ToString();
             tx_sell_profit_limit.Text = tradeBotRange.SellTakeProfitPrice.ToString();
-            tx_sell_stop_loss.Text = tradeBotRange.BuyStopLossPrice.ToString();
+            tx_sell_stop_loss.Text = tradeBotRange.SellStopLossPrice.ToString();
             tx_sell_available.Text = tradeBotRange.SellAvailable.ToString();
             cb_sell_isActive.Checked = tradeBotRange.IsActiveSell;
+
+            buyUpperPrice = tradeBotRange.UpBuyPrice;
+            buyLowerPrice = tradeBotRange.LowBuyPrice;
+            buytakeProfit = tradeBotRange.BuyTakeProfitPrice;
+            buyStopLoss = tradeBotRange.BuyStopLossPrice;
+            buyAvailable = tradeBotRange.BuyAvailable;
+
+            sellUpperPrice = tradeBotRange.UpSellPrice;
+            sellLowerPrice = tradeBotRange.LowSellPrice;
+            selltakeProfit = tradeBotRange.SellTakeProfitPrice;
+            sellStopLoss = tradeBotRange.SellStopLossPrice;
+            sellAvailable = tradeBotRange.SellAvailable;
+
             iDRow = tradeBotRange.Id;
+        }
+
+        private void initLineVariable()
+        {
+            buyUpperPrice = 0;
+            buyLowerPrice = 0;
+            buytakeProfit = 0;
+            buyStopLoss = 0;
+            buyAvailable = 0;
+
+            sellUpperPrice = 0;
+            sellLowerPrice = 0;
+            selltakeProfit = 0;
+            sellStopLoss = 0;
+            sellAvailable = 0;
         }
 
         private  delegate  void UpdateFormDelegate(BinanceModel binanceModel);
@@ -178,7 +218,7 @@ namespace BinanceApp
             dateTimeCategoricalAxis2.IsPrimary = true;
             dateTimeCategoricalAxis2.LabelFitMode = Telerik.Charting.AxisLabelFitMode.MultiLine;
             dateTimeCategoricalAxis2.LabelFormat = "{0:M/d HH:mm:ss}";
-            dateTimeCategoricalAxis2.MajorTickInterval = 5;
+            dateTimeCategoricalAxis2.MajorTickInterval = 15;
 
             linearAxis2.AxisType = Telerik.Charting.AxisType.Second;
             linearAxis2.HorizontalLocation = Telerik.Charting.AxisHorizontalLocation.Right;
@@ -195,11 +235,14 @@ namespace BinanceApp
 
             LassoZoomController lassoZoomController1 = new LassoZoomController();
             radChartView2.Controllers.Add(lassoZoomController1);
+
+            radChartView2.ShowGrid = false;
+            radChartView2.ShowLegend = true;
         }
         private void SetCartesianGrid(RadChartView chart)
         {
             CartesianArea area = chart.GetArea<CartesianArea>();
-            area.ShowGrid = true;
+           // area.ShowGrid = true;
 
             CartesianGrid grid = area.GetGrid<CartesianGrid>();
             grid.DrawHorizontalFills = false;
@@ -228,6 +271,8 @@ namespace BinanceApp
             if (this.radDropDownList3.SelectedItem != null)
             {
                 coinName = this.radDropDownList3.SelectedItem.Text;
+                initLineVariable();
+                LoadFromDB(coinName);
                 var coinInfo = BinanceDataCollector.Instance.GetBinance(coinName);
                 if (coinInfo == null) return;
                 binance = coinInfo;
@@ -246,6 +291,62 @@ namespace BinanceApp
             candleSery.LowValueMember = "LowPrice";
             candleSery.CloseValueMember = "ClosePrice";
             candleSery.CategoryMember = "CloseTime";
+
+            buyUpperLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            buyUpperLine.VerticalAxis = linearAxis2;
+            buyUpperLine.LegendTitle = "Buy Upper Line";
+            buyUpperLine.BorderColor = Color.Black;
+            buyUpperLine.BackColor = Color.Black;
+            buyUpperLine.BorderWidth = 3;
+
+            buyLowerLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            buyLowerLine.VerticalAxis = linearAxis2;
+            buyLowerLine.LegendTitle = "Buy Lower Line";
+            buyLowerLine.BorderColor = Color.Blue;
+            buyLowerLine.BackColor = Color.Blue;
+            buyLowerLine.BorderWidth = 3;
+
+            buyProfitLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            buyProfitLine.VerticalAxis = linearAxis2;
+            buyProfitLine.LegendTitle = "Buy Profit Line";
+            buyProfitLine.BorderColor = Color.Green;
+            buyProfitLine.BackColor = Color.Green;
+            buyProfitLine.BorderWidth = 3;
+
+            buyStopLossLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            buyStopLossLine.VerticalAxis = linearAxis2;
+            buyStopLossLine.LegendTitle = "Buy Loss Line";
+            buyStopLossLine.BorderColor = Color.Red;
+            buyStopLossLine.BackColor = Color.Red;
+            buyStopLossLine.BorderWidth = 3;
+
+            sellUpperLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            sellUpperLine.VerticalAxis = linearAxis2;
+            sellUpperLine.LegendTitle = "Sell Upper Line";
+            sellUpperLine.BorderColor = Color.Black;
+            sellUpperLine.BackColor = Color.Black;
+            sellUpperLine.BorderWidth = 3;
+
+            sellLowerLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            sellLowerLine.VerticalAxis = linearAxis2;
+            sellLowerLine.LegendTitle = "Sell Lower Line";
+            sellLowerLine.BorderColor = Color.Blue;
+            sellLowerLine.BackColor = Color.Blue;
+            sellLowerLine.BorderWidth = 3;
+
+            sellProfitLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            sellProfitLine.VerticalAxis = linearAxis2;
+            sellProfitLine.LegendTitle = "Sell Profit Line";
+            sellProfitLine.BorderColor = Color.Green;
+            sellProfitLine.BackColor = Color.Green;
+            sellProfitLine.BorderWidth = 3;
+
+            sellStopLossLine.HorizontalAxis = dateTimeCategoricalAxis2;
+            sellStopLossLine.VerticalAxis = linearAxis2;
+            sellStopLossLine.LegendTitle = "Sell Loss Line";
+            sellStopLossLine.BorderColor = Color.Red;
+            sellStopLossLine.BackColor = Color.Red;
+            sellStopLossLine.BorderWidth = 3;
         }
         private void UpdateStockSeries()
         {
@@ -256,14 +357,24 @@ namespace BinanceApp
                 this.radChartView2.Series.Clear();
                 if (binance.Tbqv_15min.Any() == false)
                     binance = BinanceDataCollector.Instance.GetBinance(coinName);
-                candels = binance.Candels_4hour.Skip(binance.Candels_4hour.Count() - 250).Take(250).ToList();
+                candels = binance.Candels_4hour.Skip(binance.Candels_4hour.Count() - 150).Take(150).ToList();
 
                 if (candels == null || candels.Any() == false) return;
                 candleSery.DataSource = candels;
 
                 var max = candels.Max(v => v.HighPrice);
                 var min = candels.Min(v => v.LowPrice);
-                if(max-min<3)
+
+                if (sellStopLoss>0)
+                {
+                    if(max < sellStopLoss) max = sellStopLoss + sellStopLoss / 15;
+                }
+                if (buyStopLoss > 0)
+                {
+                    if (min > buyStopLoss) min = buyStopLoss - buyStopLoss/15;
+                }
+
+                if (max-min<3)
                 {
                     linearAxis2.Maximum =(double) max;
                     linearAxis2.Minimum =(double) min;
@@ -276,9 +387,81 @@ namespace BinanceApp
                     linearAxis2.MajorStep = Math.Ceiling((linearAxis2.Maximum - linearAxis2.Minimum) / 10);
                 }
                 this.radChartView2.Series.Add(candleSery);
+                var time1 = candels[0].OpenTime;
+                var time2 = candels.Last().CloseTime;
+                if(cb_show_chart_sell.Checked)
+                {
+                    DrawLossLine(time1,time2);
+                }
+                if(cb_show_chart_buy.Checked)
+                {
+                    DrawBuyLine(time1,time2);
+                }
             }
             catch (Exception ex)
             { }
+        }
+
+        private void DrawBuyLine(DateTime time1, DateTime time2)
+        {
+            buyStopLossLine.DataPoints.Clear();
+            var temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)buyStopLoss, time1));
+            temp.Add(new CategoricalDataPoint((double)buyStopLoss, time2));
+            buyStopLossLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(buyStopLossLine);
+
+            buyUpperLine.DataPoints.Clear();
+            temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)buyUpperPrice, time1));
+            temp.Add(new CategoricalDataPoint((double)buyUpperPrice, time2));
+            buyUpperLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(buyUpperLine);
+
+            buyLowerLine.DataPoints.Clear();
+            temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)buyLowerPrice, time1));
+            temp.Add(new CategoricalDataPoint((double)buyLowerPrice, time2));
+            buyLowerLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(buyLowerLine);
+
+            buyProfitLine.DataPoints.Clear();
+            temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)buytakeProfit, time1));
+            temp.Add(new CategoricalDataPoint((double)buytakeProfit, time2));
+            buyProfitLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(buyProfitLine);
+        }
+
+        private void DrawLossLine(DateTime time1, DateTime time2)
+        {
+            sellStopLossLine.DataPoints.Clear();
+            var temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)sellStopLoss, time1));
+            temp.Add(new CategoricalDataPoint((double)sellStopLoss, time2));
+            sellStopLossLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(sellStopLossLine);
+
+            sellUpperLine.DataPoints.Clear();
+            temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)sellUpperPrice, time1));
+            temp.Add(new CategoricalDataPoint((double)sellUpperPrice, time2));
+            sellUpperLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(sellUpperLine);
+
+            sellLowerLine.DataPoints.Clear();
+            temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)sellLowerPrice, time1));
+            temp.Add(new CategoricalDataPoint((double)sellLowerPrice, time2));
+            sellLowerLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(sellLowerLine);
+
+            sellProfitLine.DataPoints.Clear();
+            temp = new ConcurrentBag<CategoricalDataPoint>();
+            temp.Add(new CategoricalDataPoint((double)selltakeProfit, time1));
+            temp.Add(new CategoricalDataPoint((double)selltakeProfit, time2));
+            sellProfitLine.DataPoints.AddRange(temp);
+            this.radChartView2.Series.Add(sellProfitLine);
         }
 
         protected  void WireEvents()
@@ -300,20 +483,6 @@ namespace BinanceApp
                 return;
             }
             Save2DB();
-            if (cb_show_chart_buy.Checked)
-                ShowbuyLines();
-            if (cb_show_chart_sell.Checked)
-                ShowSellLine();
-        }
-
-        private void ShowSellLine()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ShowbuyLines()
-        {
-            throw new NotImplementedException();
         }
 
         private void Save2DB()
@@ -369,5 +538,9 @@ namespace BinanceApp
 
         }
 
+        private void cb_show_chart_buy_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateStockSeries();
+        }
     }
 }

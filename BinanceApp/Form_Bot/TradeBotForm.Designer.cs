@@ -37,7 +37,6 @@ namespace BinanceApp
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cb_show_chart_buy = new System.Windows.Forms.CheckBox();
-            this.btn_buy_save = new System.Windows.Forms.Button();
             this.cb_buy_isActive = new System.Windows.Forms.CheckBox();
             this.tx_buy_available = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -49,6 +48,7 @@ namespace BinanceApp
             this.tx_buy_up_price = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_buy_save = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cb_show_chart_sell = new System.Windows.Forms.CheckBox();
             this.tx_sell_low_price = new System.Windows.Forms.TextBox();
@@ -146,18 +146,7 @@ namespace BinanceApp
             this.cb_show_chart_buy.TabIndex = 12;
             this.cb_show_chart_buy.Text = "Show on chart";
             this.cb_show_chart_buy.UseVisualStyleBackColor = true;
-            // 
-            // btn_buy_save
-            // 
-            this.btn_buy_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btn_buy_save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btn_buy_save.Location = new System.Drawing.Point(230, 466);
-            this.btn_buy_save.Name = "btn_buy_save";
-            this.btn_buy_save.Size = new System.Drawing.Size(99, 45);
-            this.btn_buy_save.TabIndex = 11;
-            this.btn_buy_save.Text = "Save";
-            this.btn_buy_save.UseVisualStyleBackColor = false;
-            this.btn_buy_save.Click += new System.EventHandler(this.btn_buy_save_Click);
+            this.cb_show_chart_buy.CheckedChanged += new System.EventHandler(this.cb_show_chart_buy_CheckedChanged);
             // 
             // cb_buy_isActive
             // 
@@ -251,6 +240,18 @@ namespace BinanceApp
             this.label1.TabIndex = 0;
             this.label1.Text = "Up Price:";
             // 
+            // btn_buy_save
+            // 
+            this.btn_buy_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btn_buy_save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btn_buy_save.Location = new System.Drawing.Point(230, 466);
+            this.btn_buy_save.Name = "btn_buy_save";
+            this.btn_buy_save.Size = new System.Drawing.Size(99, 45);
+            this.btn_buy_save.TabIndex = 11;
+            this.btn_buy_save.Text = "Save";
+            this.btn_buy_save.UseVisualStyleBackColor = false;
+            this.btn_buy_save.Click += new System.EventHandler(this.btn_buy_save_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(58)))), ((int)(((byte)(86)))));
@@ -284,6 +285,7 @@ namespace BinanceApp
             this.cb_show_chart_sell.TabIndex = 21;
             this.cb_show_chart_sell.Text = "Show on chart";
             this.cb_show_chart_sell.UseVisualStyleBackColor = true;
+            this.cb_show_chart_sell.CheckedChanged += new System.EventHandler(this.cb_show_chart_buy_CheckedChanged);
             // 
             // tx_sell_low_price
             // 
