@@ -29,6 +29,7 @@ namespace BinanceApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             Telerik.WinControls.UI.CartesianArea cartesianArea1 = new Telerik.WinControls.UI.CartesianArea();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TradeBotForm));
             this.radChartView2 = new Telerik.WinControls.UI.RadChartView();
@@ -65,9 +66,12 @@ namespace BinanceApp
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgTragingData = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnExport = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList3)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -75,7 +79,7 @@ namespace BinanceApp
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgTragingData)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -87,7 +91,7 @@ namespace BinanceApp
             this.radChartView2.Location = new System.Drawing.Point(3, 3);
             this.radChartView2.Name = "radChartView2";
             this.radChartView2.ShowGrid = false;
-            this.radChartView2.Size = new System.Drawing.Size(493, 491);
+            this.radChartView2.Size = new System.Drawing.Size(493, 496);
             this.radChartView2.TabIndex = 2;
             this.radChartView2.ThemeName = "Office2007Black";
             this.radChartView2.DoubleClick += new System.EventHandler(this.radChartView2_DoubleClick);
@@ -98,7 +102,7 @@ namespace BinanceApp
             this.radDropDownList3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radDropDownList3.Location = new System.Drawing.Point(221, 13);
             this.radDropDownList3.Name = "radDropDownList3";
-            this.radDropDownList3.Size = new System.Drawing.Size(166, 23);
+            this.radDropDownList3.Size = new System.Drawing.Size(166, 28);
             this.radDropDownList3.TabIndex = 14;
             this.radDropDownList3.Text = "Coin";
             // 
@@ -391,8 +395,9 @@ namespace BinanceApp
             this.tabControl1.Location = new System.Drawing.Point(574, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(507, 530);
+            this.tabControl1.Size = new System.Drawing.Size(507, 535);
             this.tabControl1.TabIndex = 65;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -400,32 +405,35 @@ namespace BinanceApp
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(499, 497);
+            this.tabPage1.Size = new System.Drawing.Size(499, 502);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Chart";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.dataGridView1);
+            this.tabPage2.Controls.Add(this.btnExport);
+            this.tabPage2.Controls.Add(this.dgTragingData);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(499, 497);
+            this.tabPage2.Size = new System.Drawing.Size(499, 502);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "History";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgTragingData
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(493, 491);
-            this.dataGridView1.TabIndex = 0;
+            this.dgTragingData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgTragingData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgTragingData.Location = new System.Drawing.Point(3, 3);
+            this.dgTragingData.Name = "dgTragingData";
+            this.dgTragingData.RowHeadersWidth = 51;
+            this.dgTragingData.RowTemplate.Height = 24;
+            this.dgTragingData.Size = new System.Drawing.Size(493, 456);
+            this.dgTragingData.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -433,7 +441,7 @@ namespace BinanceApp
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(499, 497);
+            this.tabPage3.Size = new System.Drawing.Size(499, 502);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Open Positions";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -448,8 +456,25 @@ namespace BinanceApp
             this.listBox1.ItemHeight = 23;
             this.listBox1.Location = new System.Drawing.Point(3, 3);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(493, 491);
+            this.listBox1.Size = new System.Drawing.Size(493, 496);
             this.listBox1.TabIndex = 0;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExport.Location = new System.Drawing.Point(23, 465);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 27);
+            this.btnExport.TabIndex = 1;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // TradeBotForm
             // 
@@ -483,7 +508,7 @@ namespace BinanceApp
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgTragingData)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
@@ -527,8 +552,11 @@ namespace BinanceApp
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgTragingData;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

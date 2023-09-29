@@ -8,6 +8,7 @@ using BinanceApp.DataModel;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using FastReport.DataVisualization.Charting;
+using FastReport.DevComponents.DotNetBar.Controls;
 using Skender.Stock.Indicators;
 using System;
 using System.Collections.Concurrent;
@@ -16,6 +17,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Migrations;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,7 @@ using System.Windows.Forms;
 using Telerik.Charting;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Data;
+
 
 namespace BinanceApp
 {
@@ -189,7 +192,7 @@ namespace BinanceApp
         private void UpdateData(BinanceModel binanceModel)
         {
             try
-            {
+            {                
                 UpdateStockSeries();
             }
             catch { }
@@ -541,6 +544,51 @@ namespace BinanceApp
         private void cb_show_chart_buy_CheckedChanged(object sender, EventArgs e)
         {
             UpdateStockSeries();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 1)
+            {
+                using (var context = new TradeContext())
+                {
+                    dgTragingData.DataSource = context.TradingDatas.OrderBy(x=>x.CoinName).ToList();
+                }
+            }
+
+        }
+        
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if(saveFileDialog1.ShowDialog()==DialogResult.OK)
+            {
+                if(saveFileDialog1.FileName.ToLower().EndsWith(".csv")==false)
+                {
+                    saveFileDialog1.FileName += ".csv";
+                }
+                string row = string.Empty;
+                foreach (DataGridViewColumn col in dgTragingData.Columns)
+                {
+                    row += "," + col.HeaderText;
+                }
+                row=row.TrimStart(',');
+                using (var file =new StreamWriter(saveFileDialog1.FileName))
+                {
+                    file.WriteLine(row);
+                    
+                    for (int i = 0; i <= dgTragingData.RowCount - 1; i++)
+                    {
+                        row = string.Empty;
+                        for (int j = 0; j <= dgTragingData.ColumnCount - 1; j++)
+                        {
+                            DataGridViewCell cell = dgTragingData[j, i];
+                            row+=","+ cell.Value.ToString();
+                        }
+                        row=row.TrimStart(',');
+                        file.WriteLine(row);
+                    }
+                }
+            }
         }
     }
 }
