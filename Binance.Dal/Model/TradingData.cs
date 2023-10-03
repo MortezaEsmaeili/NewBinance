@@ -14,7 +14,7 @@ namespace Binance.Dal.Model
         public decimal Available { get; set; }
         public string Position { get; set; }
         public int Leverage { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         public decimal OpenPrice { get; set; }
         public decimal ClosePrice { get; set; }
         public decimal PositionValue { get; set; }
@@ -22,7 +22,7 @@ namespace Binance.Dal.Model
         public decimal PercentageinTrade { get; set; }
         public DateTime CloseDate { get; set; }
         public int DaysinPosition { get; set; }
-        public decimal GrossProfig_Loss { get; set; }
+        public decimal GrossProfit_Loss { get; set; }
         public decimal GrossProfit_Loss_Percentage { get; set; }
         public decimal AvailableAfterPosition { get; set; }
         public decimal Net_Profit_Loss { get; set; }

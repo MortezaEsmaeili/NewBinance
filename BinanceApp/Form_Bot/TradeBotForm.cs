@@ -1,4 +1,5 @@
-﻿using Binance.Dal;
+﻿using Binance.BotState;
+using Binance.Dal;
 using Binance.Dal.Model;
 using Binance.Net;
 using Binance.Net.Enums;
@@ -54,6 +55,8 @@ namespace BinanceApp
         private bool isNewRange = true;
         long iDRow = 0;
 
+        List<Account> tradeAccountList = new List<Account>();
+
 
         private BinanceModel binance;
 
@@ -91,8 +94,6 @@ namespace BinanceApp
             SetCartesianGrid(this.radChartView2);
             SetTrackBall();
 
-            coinName = this.radDropDownList3.SelectedItem.Text;
-
             BinanceDataCollector.Instance.DataReadyEvent += OnDataReadyEvent;
         }
 
@@ -119,14 +120,14 @@ namespace BinanceApp
             tx_buy_profit_limit.Text = tradeBotRange.BuyTakeProfitPrice.ToString();
             tx_buy_stop_loss.Text = tradeBotRange.BuyStopLossPrice.ToString();
             tx_buy_available.Text = tradeBotRange.BuyAvailable.ToString();
-            cb_buy_isActive.Checked = tradeBotRange.IsActiveBuy;
+            //cb_buy_isActive.Checked = tradeBotRange.IsActiveBuy;
 
             tx_sell_up_price.Text = tradeBotRange.UpSellPrice.ToString();
             tx_sell_low_price.Text = tradeBotRange.LowSellPrice.ToString();
             tx_sell_profit_limit.Text = tradeBotRange.SellTakeProfitPrice.ToString();
             tx_sell_stop_loss.Text = tradeBotRange.SellStopLossPrice.ToString();
             tx_sell_available.Text = tradeBotRange.SellAvailable.ToString();
-            cb_sell_isActive.Checked = tradeBotRange.IsActiveSell;
+            //cb_sell_isActive.Checked = tradeBotRange.IsActiveSell;
 
             buyUpperPrice = tradeBotRange.UpBuyPrice;
             buyLowerPrice = tradeBotRange.LowBuyPrice;
@@ -274,6 +275,7 @@ namespace BinanceApp
             if (this.radDropDownList3.SelectedItem != null)
             {
                 coinName = this.radDropDownList3.SelectedItem.Text;
+                CorrectButtonState();
                 initLineVariable();
                 LoadFromDB(coinName);
                 var coinInfo = BinanceDataCollector.Instance.GetBinance(coinName);
@@ -281,6 +283,11 @@ namespace BinanceApp
                 binance = coinInfo;
                 UpdateStockSeries();
             }
+        }
+
+        private void CorrectButtonState()
+        {
+            
         }
 
         private void InitSeries()
@@ -357,6 +364,8 @@ namespace BinanceApp
             {
                 if (binance == null ) return;
 
+                UpdatePricessinTrade(binance);
+
                 this.radChartView2.Series.Clear();
                 if (binance.Tbqv_15min.Any() == false)
                     binance = BinanceDataCollector.Instance.GetBinance(coinName);
@@ -403,6 +412,11 @@ namespace BinanceApp
             }
             catch (Exception ex)
             { }
+        }
+
+        private void UpdatePricessinTrade(BinanceModel binance)
+        {
+            throw new NotImplementedException();
         }
 
         private void DrawBuyLine(DateTime time1, DateTime time2)
@@ -498,13 +512,13 @@ namespace BinanceApp
                     BuyTakeProfitPrice = buytakeProfit,
                     BuyStopLossPrice = buyStopLoss,
                     BuyAvailable = buyAvailable,
-                    IsActiveBuy = cb_buy_isActive.Checked,
+                    IsActiveBuy = true,// cb_buy_isActive.Checked,
                     UpSellPrice = sellUpperPrice,
                     LowSellPrice = sellLowerPrice,
                     SellTakeProfitPrice = selltakeProfit,
                     SellStopLossPrice = sellStopLoss,
                     SellAvailable = sellAvailable,
-                    IsActiveSell = cb_sell_isActive.Checked,
+                    IsActiveSell = true,//cb_sell_isActive.Checked,
                     CoinName = coinName,
                 };
                 if (isNewRange)
@@ -589,6 +603,34 @@ namespace BinanceApp
                     }
                 }
             }
+        }
+
+        private void bt_start_buy_Click(object sender, EventArgs e)
+        {
+            foreach (var account in tradeAccountList)
+            {
+                if(account.CoinName == coinName)
+                {
+                    bt_start_buy.Enabled = false;
+                    return;
+                }
+            }
+           // Account tradeAcount = new Account(coinName, )
+        }
+
+        private void bt_stop_buy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_start_sell_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_stop_sell_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

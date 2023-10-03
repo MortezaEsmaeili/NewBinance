@@ -66,9 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202309281151059_initial.cs" />
-    <Compile Include="Migrations\202309281151059_initial.designer.cs">
-      <DependentUpon>202309281151059_initial.cs</DependentUpon>
+    <Compile Include="Migrations\202310031816538_mig1.cs" />
+    <Compile Include="Migrations\202310031816538_mig1.designer.cs">
+      <DependentUpon>202310031816538_mig1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\TradeBotRange.cs" />
@@ -85,8 +85,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202309281151059_initial.resx">
-      <DependentUpon>202309281151059_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202310031816538_mig1.resx">
+      <DependentUpon>202310031816538_mig1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

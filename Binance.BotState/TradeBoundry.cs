@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,14 +36,55 @@ namespace Binance.BotState
             {
                 BuyPermition[i] = true;
                 SellPermition[i] = true;
-                BuyPrice[i] = upperPrice + i * deltaBuy;
-                SellPrice[i] = lowerPrice - i * deltaSell;
+                SellPrice[i] = upperPrice + i * deltaBuy;
+                BuyPrice[i] = lowerPrice - i * deltaSell;
             }
         }
 
-        internal TradeCommand CheckState(decimal price)
+        public TradeCommand CheckState(decimal price)
         {
-            throw new NotImplementedException();
+            TradeCommand tradeCommand = new TradeCommand();
+            if (price <= BuyPrice[0])
+            {
+                for(int i=0; i<=5; i++)
+                {
+                    if (BuyPermition[i] && BuyPrice[i] >= price)
+                    {
+                        tradeCommand.command = CommandType.Buy;
+                        tradeCommand.nextState = TradeState.OpenBuyPosition;
+                        BuyPermition[i] = false;
+                        break;
+                    }
+                }
+                bool temp = false;
+                for (int i = 0; i < 5; i++)
+                    temp = temp || BuyPermition[i];
+                if(!temp)
+                {
+                    tradeCommand.nextState = TradeState.WaitForTakeProfitOrStopLoss;
+                }
+            }
+            if(price >= SellPrice[0])
+            {
+                for (int i = 0; i <= 5; i++)
+                {
+                    if (SellPermition[i] && SellPrice[i] <= price)
+                    {
+                        tradeCommand.command = CommandType.Sell;
+                        tradeCommand.nextState = TradeState.OpenSellPosition;
+                        SellPermition[i] = false;
+                        break;
+                    }
+                }
+                bool temp = false;
+                for (int i = 0; i < 5; i++)
+                    temp = temp || SellPermition[i];
+                if (!temp)
+                {
+                    tradeCommand.nextState = TradeState.WaitForTakeProfitOrStopLoss;
+                }
+            }
+            return tradeCommand;
         }
     }
 }

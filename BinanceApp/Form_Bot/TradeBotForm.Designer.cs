@@ -37,8 +37,9 @@ namespace BinanceApp
             this.radDropDownList3 = new Telerik.WinControls.UI.RadDropDownList();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.bt_stop_buy = new System.Windows.Forms.Button();
+            this.bt_start_buy = new System.Windows.Forms.Button();
             this.cb_show_chart_buy = new System.Windows.Forms.CheckBox();
-            this.cb_buy_isActive = new System.Windows.Forms.CheckBox();
             this.tx_buy_available = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tx_buy_stop_loss = new System.Windows.Forms.TextBox();
@@ -51,9 +52,10 @@ namespace BinanceApp
             this.label1 = new System.Windows.Forms.Label();
             this.btn_buy_save = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.bt_stop_sell = new System.Windows.Forms.Button();
+            this.bt_start_sell = new System.Windows.Forms.Button();
             this.cb_show_chart_sell = new System.Windows.Forms.CheckBox();
             this.tx_sell_low_price = new System.Windows.Forms.TextBox();
-            this.cb_sell_isActive = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tx_sell_available = new System.Windows.Forms.TextBox();
             this.tx_sell_up_price = new System.Windows.Forms.TextBox();
@@ -66,11 +68,11 @@ namespace BinanceApp
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnExport = new System.Windows.Forms.Button();
             this.dgTragingData = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btnExport = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.radChartView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDropDownList3)).BeginInit();
@@ -102,7 +104,7 @@ namespace BinanceApp
             this.radDropDownList3.ForeColor = System.Drawing.SystemColors.WindowText;
             this.radDropDownList3.Location = new System.Drawing.Point(221, 13);
             this.radDropDownList3.Name = "radDropDownList3";
-            this.radDropDownList3.Size = new System.Drawing.Size(166, 28);
+            this.radDropDownList3.Size = new System.Drawing.Size(166, 23);
             this.radDropDownList3.TabIndex = 14;
             this.radDropDownList3.Text = "Coin";
             // 
@@ -120,8 +122,9 @@ namespace BinanceApp
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(123)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.bt_stop_buy);
+            this.groupBox1.Controls.Add(this.bt_start_buy);
             this.groupBox1.Controls.Add(this.cb_show_chart_buy);
-            this.groupBox1.Controls.Add(this.cb_buy_isActive);
             this.groupBox1.Controls.Add(this.tx_buy_available);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.tx_buy_stop_loss);
@@ -141,6 +144,30 @@ namespace BinanceApp
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buy";
             // 
+            // bt_stop_buy
+            // 
+            this.bt_stop_buy.BackColor = System.Drawing.Color.Fuchsia;
+            this.bt_stop_buy.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.bt_stop_buy.Location = new System.Drawing.Point(141, 268);
+            this.bt_stop_buy.Name = "bt_stop_buy";
+            this.bt_stop_buy.Size = new System.Drawing.Size(89, 35);
+            this.bt_stop_buy.TabIndex = 67;
+            this.bt_stop_buy.Text = "Stop";
+            this.bt_stop_buy.UseVisualStyleBackColor = false;
+            this.bt_stop_buy.Click += new System.EventHandler(this.bt_stop_buy_Click);
+            // 
+            // bt_start_buy
+            // 
+            this.bt_start_buy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.bt_start_buy.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.bt_start_buy.Location = new System.Drawing.Point(12, 268);
+            this.bt_start_buy.Name = "bt_start_buy";
+            this.bt_start_buy.Size = new System.Drawing.Size(89, 35);
+            this.bt_start_buy.TabIndex = 66;
+            this.bt_start_buy.Text = "Start";
+            this.bt_start_buy.UseVisualStyleBackColor = false;
+            this.bt_start_buy.Click += new System.EventHandler(this.bt_start_buy_Click);
+            // 
             // cb_show_chart_buy
             // 
             this.cb_show_chart_buy.AutoSize = true;
@@ -151,18 +178,6 @@ namespace BinanceApp
             this.cb_show_chart_buy.Text = "Show on chart";
             this.cb_show_chart_buy.UseVisualStyleBackColor = true;
             this.cb_show_chart_buy.CheckedChanged += new System.EventHandler(this.cb_show_chart_buy_CheckedChanged);
-            // 
-            // cb_buy_isActive
-            // 
-            this.cb_buy_isActive.AutoSize = true;
-            this.cb_buy_isActive.Checked = true;
-            this.cb_buy_isActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_buy_isActive.Location = new System.Drawing.Point(64, 270);
-            this.cb_buy_isActive.Name = "cb_buy_isActive";
-            this.cb_buy_isActive.Size = new System.Drawing.Size(91, 24);
-            this.cb_buy_isActive.TabIndex = 10;
-            this.cb_buy_isActive.Text = "Is Active";
-            this.cb_buy_isActive.UseVisualStyleBackColor = true;
             // 
             // tx_buy_available
             // 
@@ -246,7 +261,9 @@ namespace BinanceApp
             // 
             // btn_buy_save
             // 
-            this.btn_buy_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btn_buy_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btn_buy_save.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_buy_save.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_buy_save.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_buy_save.Location = new System.Drawing.Point(230, 466);
             this.btn_buy_save.Name = "btn_buy_save";
@@ -259,9 +276,10 @@ namespace BinanceApp
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(58)))), ((int)(((byte)(86)))));
+            this.groupBox2.Controls.Add(this.bt_stop_sell);
+            this.groupBox2.Controls.Add(this.bt_start_sell);
             this.groupBox2.Controls.Add(this.cb_show_chart_sell);
             this.groupBox2.Controls.Add(this.tx_sell_low_price);
-            this.groupBox2.Controls.Add(this.cb_sell_isActive);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.tx_sell_available);
             this.groupBox2.Controls.Add(this.tx_sell_up_price);
@@ -280,6 +298,30 @@ namespace BinanceApp
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sell";
             // 
+            // bt_stop_sell
+            // 
+            this.bt_stop_sell.BackColor = System.Drawing.Color.Fuchsia;
+            this.bt_stop_sell.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.bt_stop_sell.Location = new System.Drawing.Point(144, 268);
+            this.bt_stop_sell.Name = "bt_stop_sell";
+            this.bt_stop_sell.Size = new System.Drawing.Size(89, 35);
+            this.bt_stop_sell.TabIndex = 69;
+            this.bt_stop_sell.Text = "Stop";
+            this.bt_stop_sell.UseVisualStyleBackColor = false;
+            this.bt_stop_sell.Click += new System.EventHandler(this.bt_stop_sell_Click);
+            // 
+            // bt_start_sell
+            // 
+            this.bt_start_sell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.bt_start_sell.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.bt_start_sell.Location = new System.Drawing.Point(15, 268);
+            this.bt_start_sell.Name = "bt_start_sell";
+            this.bt_start_sell.Size = new System.Drawing.Size(89, 35);
+            this.bt_start_sell.TabIndex = 68;
+            this.bt_start_sell.Text = "Start";
+            this.bt_start_sell.UseVisualStyleBackColor = false;
+            this.bt_start_sell.Click += new System.EventHandler(this.bt_start_sell_Click);
+            // 
             // cb_show_chart_sell
             // 
             this.cb_show_chart_sell.AutoSize = true;
@@ -297,18 +339,6 @@ namespace BinanceApp
             this.tx_sell_low_price.Name = "tx_sell_low_price";
             this.tx_sell_low_price.Size = new System.Drawing.Size(123, 27);
             this.tx_sell_low_price.TabIndex = 5;
-            // 
-            // cb_sell_isActive
-            // 
-            this.cb_sell_isActive.AutoSize = true;
-            this.cb_sell_isActive.Checked = true;
-            this.cb_sell_isActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_sell_isActive.Location = new System.Drawing.Point(68, 271);
-            this.cb_sell_isActive.Name = "cb_sell_isActive";
-            this.cb_sell_isActive.Size = new System.Drawing.Size(91, 24);
-            this.cb_sell_isActive.TabIndex = 19;
-            this.cb_sell_isActive.Text = "Is Active";
-            this.cb_sell_isActive.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -422,6 +452,17 @@ namespace BinanceApp
             this.tabPage2.Text = "History";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExport.Location = new System.Drawing.Point(23, 465);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 27);
+            this.btnExport.TabIndex = 1;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // dgTragingData
             // 
             this.dgTragingData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -464,17 +505,6 @@ namespace BinanceApp
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // btnExport
-            // 
-            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExport.Location = new System.Drawing.Point(23, 465);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(75, 27);
-            this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "Export";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // TradeBotForm
             // 
@@ -536,12 +566,10 @@ namespace BinanceApp
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tx_sell_up_price;
         private System.Windows.Forms.Button btn_buy_save;
-        private System.Windows.Forms.CheckBox cb_buy_isActive;
         private System.Windows.Forms.TextBox tx_buy_available;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox cb_show_chart_buy;
         private System.Windows.Forms.CheckBox cb_show_chart_sell;
-        private System.Windows.Forms.CheckBox cb_sell_isActive;
         private System.Windows.Forms.TextBox tx_sell_available;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tx_sell_stop_loss;
@@ -557,6 +585,10 @@ namespace BinanceApp
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button bt_stop_buy;
+        private System.Windows.Forms.Button bt_start_buy;
+        private System.Windows.Forms.Button bt_stop_sell;
+        private System.Windows.Forms.Button bt_start_sell;
     }
 }
 

@@ -48,5 +48,11 @@
     <Compile Include="TradeBox.cs" />
     <Compile Include="TradeCommand.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Binance.Dal\Binance.Dal.csproj">
+      <Project>{63fb8182-348f-4b35-b430-758e9873f465}</Project>
+      <Name>Binance.Dal</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

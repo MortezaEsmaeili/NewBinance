@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class mig1 : DbMigration
     {
         public override void Up()
         {
@@ -38,7 +38,7 @@
                         Available = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Position = c.String(maxLength: 2147483647),
                         Leverage = c.Int(nullable: false),
-                        Amount = c.Int(nullable: false),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OpenPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         ClosePrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         PositionValue = c.Decimal(nullable: false, precision: 18, scale: 2),
@@ -46,7 +46,7 @@
                         PercentageinTrade = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CloseDate = c.DateTime(nullable: false),
                         DaysinPosition = c.Int(nullable: false),
-                        GrossProfig_Loss = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        GrossProfit_Loss = c.Decimal(nullable: false, precision: 18, scale: 2),
                         GrossProfit_Loss_Percentage = c.Decimal(nullable: false, precision: 18, scale: 2),
                         AvailableAfterPosition = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Net_Profit_Loss = c.Decimal(nullable: false, precision: 18, scale: 2),

@@ -13,8 +13,7 @@ namespace Binance.BotState
     }
     public class TradeCommand
     {
-        public CommandType command1;
-        public decimal amount;
+        public CommandType command;
         public TradeState nextState;
     }
 }

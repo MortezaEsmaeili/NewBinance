@@ -584,6 +584,10 @@
     <Content Include="Log4NetConfig.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Binance.BotState\Binance.BotState.csproj">
+      <Project>{914154DA-EB93-46EA-9CB2-8C84595B381E}</Project>
+      <Name>Binance.BotState</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Binance.Dal\Binance.Dal.csproj">
       <Project>{63fb8182-348f-4b35-b430-758e9873f465}</Project>
       <Name>Binance.Dal</Name>
