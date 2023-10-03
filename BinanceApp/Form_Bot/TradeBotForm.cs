@@ -615,7 +615,15 @@ namespace BinanceApp
                     return;
                 }
             }
-           // Account tradeAcount = new Account(coinName, )
+            TradeBox tradeBox = new TradeBox();
+            tradeBox.lowerBuyPrice = buyLowerPrice;
+            tradeBox.stopLossBuyPrice = buyStopLoss;
+            tradeBox.takeProfitBuyPrice = buytakeProfit;
+            tradeBox.upperBuyPrice = buyUpperPrice;
+            CandleDto candle = new CandleDto();
+            Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox);
+            tradeAccountList.Add(tradeAcount);
+            bt_start_buy.Enabled=false;
         }
 
         private void bt_stop_buy_Click(object sender, EventArgs e)
