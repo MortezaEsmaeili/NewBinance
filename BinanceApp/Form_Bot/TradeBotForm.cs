@@ -424,7 +424,7 @@ namespace BinanceApp
                 account.SetNewPrice(cointInfo.CurrentPrice);
                 if(account.State == TradeState.PositionClosed)
                 {
-                    StopTrading(account.CoinName);l
+                    StopTrading(account.CoinName);
                 }
             }
         }
@@ -562,7 +562,9 @@ namespace BinanceApp
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             BinanceDataCollector.Instance.DataReadyEvent -= OnDataReadyEvent;
-
+            foreach(var account in tradeAccountList)
+                account.TrafficLogEvent-= TradeAcount_TrafficLogEvent;
+            tradeAccountList.Clear();
         }
 
         private void cb_show_chart_buy_CheckedChanged(object sender, EventArgs e)
@@ -645,9 +647,18 @@ namespace BinanceApp
             candle.highPrice = lastCandle.HighPrice;
 
             Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox);
+            tradeAcount.TrafficLogEvent += TradeAcount_TrafficLogEvent;
             tradeAccountList.Add(tradeAcount);
             bt_start_buy.Enabled=false;
             bt_start_sell.Enabled=false;
+        }
+
+        private void TradeAcount_TrafficLogEvent(string message)
+        {
+            Action action = () => { listBox1.Items.Add(message); };
+            if (InvokeRequired)
+                action.Invoke();
+            else { action();}                  
         }
 
         private void bt_stop_buy_Click(object sender, EventArgs e)
@@ -672,7 +683,20 @@ namespace BinanceApp
 
         private void SaveTradeData2DB(Account tradeAcount)
         {
-            throw new NotImplementedException();
+           using(var context = new TradeContext())
+            {
+                tradeAcount.tradingData.Net_Portfo_Profit=
+                tradeAcount.tradingData.Net_Profit_Loss;
+                tradeAcount.tradingData.DaysinPosition;
+                tradeAcount.tradingData.GrossProfit_Loss;
+                tradeAcount.tradingData.Cost;
+                tradeAcount.tradingData.GrossProfit_Loss_Percentage;
+                tradeAcount.tradingData.PercentageinTrade;
+                tradeAcount.tradingData.PositionMargin;
+                tradeAcount.tradingData.PositionValue;
+                context.TradingDatas.Add(tradeAcount.tradingData);
+                context.SaveChanges();
+            }
         }
 
         private void bt_start_sell_Click(object sender, EventArgs e)
@@ -706,6 +730,7 @@ namespace BinanceApp
 
             Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox);
             tradeAccountList.Add(tradeAcount);
+            tradeAcount.TrafficLogEvent += TradeAcount_TrafficLogEvent;
             bt_start_buy.Enabled = false;
             bt_start_sell.Enabled = false;
         }

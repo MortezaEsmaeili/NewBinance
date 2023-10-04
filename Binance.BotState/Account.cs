@@ -22,10 +22,10 @@ namespace Binance.BotState
         public readonly string CoinName;
         private decimal balance;
         private CandleDto candle;
-        private TradeBox tradeBox;
-        private TradeBoundry tradeBoundry;
+        public TradeBox tradeBox;
+        public TradeBoundry tradeBoundry;
         private decimal coinCount;
-        private TradingData tradingData;
+        public TradingData tradingData;
         private decimal available;
         private decimal price;
         // Constructor
@@ -183,10 +183,13 @@ namespace Binance.BotState
                 coinCount -= amount / price;
             }
         }
-
+        public delegate  void TrafficLog(string message);
+        public event TrafficLog TrafficLogEvent;        
+            
         private void SendLog(string log)
         {
-            //throw new NotImplementedException();
+            TrafficLogEvent?.Invoke(log);
         }
+    
     }
 }
