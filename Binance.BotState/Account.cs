@@ -186,7 +186,7 @@ namespace Binance.BotState
 
         private void SendLog(string log)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
