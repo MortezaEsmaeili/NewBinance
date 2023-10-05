@@ -29,7 +29,7 @@ namespace Binance.BotState
         private decimal available;
         private decimal price;
         // Constructor
-        public Account(string coinName, decimal _available, CandleDto candleDto, TradeBox tradeBox)
+        public Account(string coinName, decimal _available, CandleDto candleDto, TradeBox tradeBox, string position)
         {
             this.CoinName = coinName;
             coinCount = 0;
@@ -44,6 +44,8 @@ namespace Binance.BotState
             tradingData.Available = available;
             tradingData.CoinName = coinName;
             tradingData.OpenPrice = 0;
+            tradingData.Position = position;
+            tradingData.Amount = 0;
         }
         public decimal Balance
         {
@@ -80,7 +82,7 @@ namespace Binance.BotState
                 case TradeState.Initial:
                 case TradeState.OpenBuyPosition:
                 case TradeState.OpenSellPosition:
-                    TradeCommand tradeCommand = tradeBoundry.CheckState(price);
+                    TradeCommand tradeCommand = tradeBoundry.CheckState(price, tradingData.Position);
                     if (tradeCommand != null)
                         ExecuteCommand(tradeCommand, price);
                     break;
@@ -154,16 +156,16 @@ namespace Binance.BotState
         private void ExecuteCommand(TradeCommand tradeCommand, decimal price)
         {
             decimal amount = available / 5;
-            if (state == TradeState.Initial)
+
+            if (tradeCommand.command == CommandType.Buy && tradingData.Position == "Buy")
             {
-                tradingData.OpenDate = DateTime.Now;
-                tradingData.OpenPrice = price;
-            }
-            if (tradeCommand.command == CommandType.Buy)
-            {
-                tradingData.Position = "Buy";
                 if (Withdraw(amount))
                 {
+                    if (state == TradeState.Initial)
+                    {
+                        tradingData.OpenDate = DateTime.Now;
+                        tradingData.OpenPrice = price;
+                    }
                     SendLog($"Buy {amount} from {CoinName} at {DateTime.Now}");
                     state = tradeCommand.nextState;
                     coinCount += amount / price;
@@ -174,9 +176,13 @@ namespace Binance.BotState
                     state = TradeState.WaitForTakeProfitOrStopLoss;
                 }
             }
-            if (tradeCommand.command == CommandType.Sell)
+            if (tradeCommand.command == CommandType.Sell && tradingData.Position == "Sell")
             {
-                tradingData.Position = "Sell";
+                if (state == TradeState.Initial)
+                {
+                    tradingData.OpenDate = DateTime.Now;
+                    tradingData.OpenPrice = price;
+                }
                 Deposit(amount);
                 SendLog($"Sell {amount} from {CoinName} at {DateTime.Now}");
                 state = tradeCommand.nextState;

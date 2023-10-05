@@ -41,15 +41,16 @@ namespace Binance.BotState
             }
         }
 
-        public TradeCommand CheckState(decimal price)
+        public TradeCommand CheckState(decimal price, string position)
         {
-            TradeCommand tradeCommand = new TradeCommand();
-            if (price <= BuyPrice[0])
+            TradeCommand tradeCommand = null;
+            if (price <= BuyPrice[0] && position == "Buy")
             {
                 for(int i=0; i<=5; i++)
                 {
                     if (BuyPermition[i] && BuyPrice[i] >= price)
                     {
+                        tradeCommand = new TradeCommand();
                         tradeCommand.command = CommandType.Buy;
                         tradeCommand.nextState = TradeState.OpenBuyPosition;
                         BuyPermition[i] = false;
@@ -64,12 +65,13 @@ namespace Binance.BotState
                     tradeCommand.nextState = TradeState.WaitForTakeProfitOrStopLoss;
                 }
             }
-            if(price >= SellPrice[0])
+            if(price >= SellPrice[0] && position == "Sell")
             {
                 for (int i = 0; i <= 5; i++)
                 {
                     if (SellPermition[i] && SellPrice[i] <= price)
                     {
+                        tradeCommand = new TradeCommand();
                         tradeCommand.command = CommandType.Sell;
                         tradeCommand.nextState = TradeState.OpenSellPosition;
                         SellPermition[i] = false;

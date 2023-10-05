@@ -646,7 +646,8 @@ namespace BinanceApp
             candle.closePrice = lastCandle.ClosePrice;
             candle.highPrice = lastCandle.HighPrice;
 
-            Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox);
+            Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox,"Buy");
+            
             tradeAcount.TrafficLogEvent += TradeAcount_TrafficLogEvent;
             tradeAccountList.Add(tradeAcount);
             bt_start_buy.Enabled=false;
@@ -685,17 +686,41 @@ namespace BinanceApp
         {
            using(var context = new TradeContext())
             {
-                tradeAcount.tradingData.Net_Portfo_Profit=
-                tradeAcount.tradingData.Net_Profit_Loss;
-                tradeAcount.tradingData.DaysinPosition;
-                tradeAcount.tradingData.GrossProfit_Loss;
-                tradeAcount.tradingData.Cost;
-                tradeAcount.tradingData.GrossProfit_Loss_Percentage;
-                tradeAcount.tradingData.PercentageinTrade;
-                tradeAcount.tradingData.PositionMargin;
-                tradeAcount.tradingData.PositionValue;
-                context.TradingDatas.Add(tradeAcount.tradingData);
-                context.SaveChanges();
+                try
+                {
+                    if (tradeAcount.tradingData.Available == 0 ||
+                        tradeAcount.tradingData.Leverage == 0)
+                        return;
+                    tradeAcount.tradingData.CloseDate = DateTime.Now;
+                    tradeAcount.tradingData.Leverage = 3;
+                    tradeAcount.tradingData.PositionValue =
+                        tradeAcount.tradingData.Amount * tradeAcount.tradingData.OpenPrice;
+                    tradeAcount.tradingData.PositionMargin =
+                        tradeAcount.tradingData.PositionValue / tradeAcount.tradingData.Leverage;
+                    tradeAcount.tradingData.PercentageinTrade =
+                        tradeAcount.tradingData.PositionMargin / tradeAcount.tradingData.Available;
+                    tradeAcount.tradingData.DaysinPosition =
+                        (int)(tradeAcount.tradingData.CloseDate - tradeAcount.tradingData.OpenDate).TotalDays;
+                    tradeAcount.tradingData.Net_Profit_Loss =
+                        (tradeAcount.tradingData.OpenPrice - tradeAcount.tradingData.ClosePrice) * tradeAcount.tradingData.Amount;
+                    tradeAcount.tradingData.Net_Profit_Loss =
+                        tradeAcount.tradingData.AvailableAfterPosition - tradeAcount.tradingData.Available;
+                    tradeAcount.tradingData.Net_Portfo_Profit =
+                        tradeAcount.tradingData.Net_Profit_Loss / tradeAcount.tradingData.Available;
+                    tradeAcount.tradingData.GrossProfit_Loss =
+                        (tradeAcount.tradingData.OpenPrice - tradeAcount.tradingData.ClosePrice) * tradeAcount.tradingData.Amount;
+                    tradeAcount.tradingData.Cost =
+                        tradeAcount.tradingData.AvailableAfterPosition - tradeAcount.tradingData.Net_Profit_Loss;
+                    tradeAcount.tradingData.GrossProfit_Loss_Percentage =
+                        tradeAcount.tradingData.AvailableAfterPosition / tradeAcount.tradingData.Available;
+
+                    context.TradingDatas.Add(tradeAcount.tradingData);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
         }
 
@@ -728,7 +753,7 @@ namespace BinanceApp
             candle.closePrice = lastCandle.ClosePrice;
             candle.highPrice = lastCandle.HighPrice;
 
-            Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox);
+            Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox,"Sell");
             tradeAccountList.Add(tradeAcount);
             tradeAcount.TrafficLogEvent += TradeAcount_TrafficLogEvent;
             bt_start_buy.Enabled = false;
