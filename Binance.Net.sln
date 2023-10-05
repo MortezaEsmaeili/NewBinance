@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binance.BotState", "Binance.BotState\Binance.BotState.csproj", "{914154DA-EB93-46EA-9CB2-8C84595B381E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountTest", "AccountTest\AccountTest.csproj", "{6FA1FB26-BF15-4B3D-A566-F9C0DB0518B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{914154DA-EB93-46EA-9CB2-8C84595B381E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{914154DA-EB93-46EA-9CB2-8C84595B381E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{914154DA-EB93-46EA-9CB2-8C84595B381E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA1FB26-BF15-4B3D-A566-F9C0DB0518B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA1FB26-BF15-4B3D-A566-F9C0DB0518B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA1FB26-BF15-4B3D-A566-F9C0DB0518B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA1FB26-BF15-4B3D-A566-F9C0DB0518B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

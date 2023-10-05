@@ -46,6 +46,7 @@ namespace Binance.BotState
             tradingData.OpenPrice = 0;
             tradingData.Position = position;
             tradingData.Amount = 0;
+            Deposit(available);
         }
         public decimal Balance
         {
@@ -57,13 +58,13 @@ namespace Binance.BotState
         }
         private void Deposit(decimal amount)
         {
-            balance = +amount;
+            balance += amount;
         }
         private bool Withdraw(decimal amount)
         {
             if (balance < amount)
                 return false;
-            balance = -amount;
+            balance -= amount;
             return true;
         }
         public void StopTrade()
@@ -95,16 +96,19 @@ namespace Binance.BotState
 
         private void CheckTakeProfit(decimal price)
         {
-            if(state == TradeState.OpenBuyPosition)
+            if(state == TradeState.OpenBuyPosition ||
+                state == TradeState.WaitForTakeProfitOrStopLoss)
             {
                 if(price >= tradeBox.takeProfitBuyPrice)
                 {
                     CloseBuyPosition(price);
                 }
             }
-            if(state == TradeState.OpenSellPosition)
+            if(state == TradeState.OpenSellPosition ||
+                state == TradeState.WaitForTakeProfitOrStopLoss)
+
             {
-                if(price <= tradeBox.takeProfitSellPrice)
+                if (price <= tradeBox.takeProfitSellPrice)
                 {
                     CloseSellPosition(price);
                 }
@@ -137,14 +141,15 @@ namespace Binance.BotState
 
         private void CheckStopLoss(decimal price)
         {
-            if (state == TradeState.OpenBuyPosition)
+            if (state == TradeState.OpenBuyPosition || state == TradeState.WaitForTakeProfitOrStopLoss)
             {
                 if (price <= tradeBox.stopLossBuyPrice)
                 {
                     CloseBuyPosition(price);
                 }
             }
-            if (state == TradeState.OpenSellPosition)
+            if (state == TradeState.OpenSellPosition ||
+                state == TradeState.WaitForTakeProfitOrStopLoss)
             {
                 if (price >= tradeBox.stopLossSellPrice)
                 {
