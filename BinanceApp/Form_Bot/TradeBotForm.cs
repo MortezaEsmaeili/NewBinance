@@ -755,7 +755,7 @@ namespace BinanceApp
             candle.closePrice = lastCandle.ClosePrice;
             candle.highPrice = lastCandle.HighPrice;
 
-            Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox,"Sell");
+            Account tradeAcount = new Account(coinName, sellAvailable, candle, tradeBox,"Sell");
             tradeAccountList.Add(tradeAcount);
             tradeAcount.TrafficLogEvent += TradeAcount_TrafficLogEvent;
             bt_start_buy.Enabled = false;
