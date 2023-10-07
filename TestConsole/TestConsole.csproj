@@ -73,6 +73,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Binance.BotState\Binance.BotState.csproj">
+      <Project>{914154da-eb93-46ea-9cb2-8c84595b381e}</Project>
+      <Name>Binance.BotState</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Binance.Dal\Binance.Dal.csproj">
       <Project>{63fb8182-348f-4b35-b430-758e9873f465}</Project>
       <Name>Binance.Dal</Name>

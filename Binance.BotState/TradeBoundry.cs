@@ -67,7 +67,7 @@ namespace Binance.BotState
             }
             if(price >= SellPrice[0] && position == "Sell")
             {
-                for (int i = 0; i <= 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     if (SellPermition[i] && SellPrice[i] <= price)
                     {

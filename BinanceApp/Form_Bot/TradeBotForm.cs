@@ -418,6 +418,8 @@ namespace BinanceApp
 
         private void UpdatePricessinTrade(BinanceModel binance)
         {
+            if (tradeAccountList.Count < 1)
+                return;
             foreach (var account in tradeAccountList)
             {
                 var cointInfo = BinanceDataCollector.Instance.GetBinance(account.CoinName);

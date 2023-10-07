@@ -70,9 +70,11 @@ namespace Binance.BotState
         public void StopTrade()
         {
             SendLog("Trade was stoped by command.");
-            if (state == TradeState.OpenSellPosition)
+            if ((state == TradeState.OpenSellPosition || state == TradeState.WaitForTakeProfitOrStopLoss) &&
+                tradingData.Position == "Sell")
                 CloseSellPosition(price);
-            if(state == TradeState.OpenBuyPosition)
+            if((state == TradeState.OpenBuyPosition || state == TradeState.WaitForTakeProfitOrStopLoss) &&
+                tradingData.Position == "Buy")
                 CloseBuyPosition(price);
         }
         public void SetNewPrice(decimal price)
@@ -96,20 +98,22 @@ namespace Binance.BotState
 
         private void CheckTakeProfit(decimal price)
         {
-            if(state == TradeState.OpenBuyPosition ||
-                state == TradeState.WaitForTakeProfitOrStopLoss)
+            if((state == TradeState.OpenBuyPosition || state == TradeState.WaitForTakeProfitOrStopLoss) &&
+                tradingData.Position == "Buy")
             {
                 if(price >= tradeBox.takeProfitBuyPrice)
                 {
+                    SendLog($"Take Profit was reached in Buy Position for {CoinName} at {DateTime.Now} ");
                     CloseBuyPosition(price);
                 }
             }
-            if(state == TradeState.OpenSellPosition ||
-                state == TradeState.WaitForTakeProfitOrStopLoss)
+            if((state == TradeState.OpenSellPosition || state == TradeState.WaitForTakeProfitOrStopLoss) &&
+                tradingData.Position == "Sell")
 
             {
                 if (price <= tradeBox.takeProfitSellPrice)
                 {
+                    SendLog($"Take Profit was reached in Sell Position for {CoinName} at {DateTime.Now} ");
                     CloseSellPosition(price);
                 }
             }
@@ -141,18 +145,21 @@ namespace Binance.BotState
 
         private void CheckStopLoss(decimal price)
         {
-            if (state == TradeState.OpenBuyPosition || state == TradeState.WaitForTakeProfitOrStopLoss)
+            if ((state == TradeState.OpenBuyPosition || state == TradeState.WaitForTakeProfitOrStopLoss)
+                && tradingData.Position == "Buy")
             {
                 if (price <= tradeBox.stopLossBuyPrice)
                 {
+                    SendLog($"Stop Loss was reached in Buy Position for {CoinName} at {DateTime.Now} ");
                     CloseBuyPosition(price);
                 }
             }
-            if (state == TradeState.OpenSellPosition ||
-                state == TradeState.WaitForTakeProfitOrStopLoss)
+            if ((state == TradeState.OpenSellPosition || state == TradeState.WaitForTakeProfitOrStopLoss) &&
+                tradingData.Position == "Sell")
             {
                 if (price >= tradeBox.stopLossSellPrice)
                 {
+                    SendLog($"Stop Loss was reached in Sell Position for {CoinName} at {DateTime.Now} ");
                     CloseSellPosition(price);
                 }
             }
@@ -174,6 +181,7 @@ namespace Binance.BotState
                     SendLog($"Buy {amount} from {CoinName} at {DateTime.Now}");
                     state = tradeCommand.nextState;
                     coinCount += amount / price;
+                    SetNewPrice(price);
                 }
                 else
                 {
@@ -192,6 +200,7 @@ namespace Binance.BotState
                 SendLog($"Sell {amount} from {CoinName} at {DateTime.Now}");
                 state = tradeCommand.nextState;
                 coinCount -= amount / price;
+                SetNewPrice(price);
             }
         }
         public delegate  void TrafficLog(string message);
