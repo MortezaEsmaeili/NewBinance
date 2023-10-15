@@ -420,13 +420,13 @@ namespace BinanceApp
         {
             if (tradeAccountList.Count < 1)
                 return;
-            foreach (var account in tradeAccountList)
+            for(int i=0; i< tradeAccountList.Count;i++)
             {
-                BinanceModel cointInfo = (BinanceModel)BinanceDataCollector.Instance.GetBinance(account.CoinName).Clone();
-                account.SetNewPrice(cointInfo.CurrentPrice);
-                if(account.State == TradeState.PositionClosed)
+                BinanceModel cointInfo = (BinanceModel)BinanceDataCollector.Instance.GetBinance(tradeAccountList[i].CoinName).Clone();
+                tradeAccountList[i].SetNewPrice(cointInfo.CurrentPrice);
+                if(tradeAccountList[i].State == TradeState.PositionClosed)
                 {
-                    StopTrading(account.CoinName);
+                    StopTrading(tradeAccountList[i].CoinName);
                 }
             }
         }

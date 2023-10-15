@@ -115,5 +115,27 @@ namespace AccountTest
             decimal actual = account.Balance;
             Assert.AreEqual(account.tradingData.AvailableAfterPosition, actual, "Buy position worked correctly");
         }
+        [TestMethod]
+        public void TestMethodSell_StopLoss2()
+        {
+            // Arrange
+
+            TradeBox tradeBox = new TradeBox();
+            tradeBox.lowerSellPrice = (decimal)21.8;
+            tradeBox.stopLossSellPrice = (decimal)22.7;
+            tradeBox.takeProfitSellPrice = (decimal)21.05;
+            tradeBox.upperSellPrice = (decimal)22.50;
+
+            Account account = new Account("Morteza", 10000, tradeBox, "Sell");
+            account.TrafficLogEvent += Account_TrafficLogEvent;
+            var prices = new decimal[] { 21.65, 50, 45, 60, 70, 80, 100, 120, 130, 110, 90, 80, 60, 40, 30 };
+            //Act
+            foreach (var price in prices)
+                account.SetNewPrice(price);
+
+            //Assert
+            decimal actual = account.Balance;
+            Assert.AreEqual(account.tradingData.AvailableAfterPosition, actual, "Buy position worked correctly");
+        }
     }
 }
