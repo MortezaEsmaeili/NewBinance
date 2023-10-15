@@ -21,24 +21,25 @@ namespace Binance.BotState
         private TradeState state;
         public readonly string CoinName;
         private decimal balance;
-        private CandleDto candle;
+    //    private CandleDto candle;
         public TradeBox tradeBox;
         public TradeBoundry tradeBoundry;
         private decimal coinCount;
         public TradingData tradingData;
         private decimal available;
         private decimal price;
+        private decimal Trade_Sum = 0;
         // Constructor
-        public Account(string coinName, decimal _available, CandleDto candleDto, TradeBox tradeBox, string position)
+        public Account(string coinName, decimal _available/*, CandleDto candleDto*/, TradeBox tradeBox, string position)
         {
             this.CoinName = coinName;
             coinCount = 0;
             this.state = TradeState.Initial;
             this.balance = available;
             this.available = _available;
-            this.candle = candleDto;
+   //         this.candle = candleDto;
             this.tradeBox = tradeBox;
-            tradeBoundry = new TradeBoundry(candleDto);
+            tradeBoundry = new TradeBoundry(tradeBox);
             tradingData = new TradingData();
             tradingData.Leverage = 3;
             tradingData.Available = available;
@@ -46,6 +47,7 @@ namespace Binance.BotState
             tradingData.OpenPrice = 0;
             tradingData.Position = position;
             tradingData.Amount = 0;
+            Trade_Sum = 0;
             Deposit(available);
         }
         public decimal Balance
@@ -122,9 +124,10 @@ namespace Binance.BotState
         private void CloseSellPosition(decimal price)
         {
             SendLog($"Sell Position Closed for {CoinName} at price {price} at {DateTime.Now}");
+            tradingData.OpenPrice = Trade_Sum / coinCount;
             tradingData.CloseDate = DateTime.Now;
             tradingData.ClosePrice = price;
-            Withdraw(coinCount * price);
+            Deposit(coinCount * price);
             tradingData.AvailableAfterPosition = Balance;
             tradingData.Amount = -1*coinCount;
             state = TradeState.PositionClosed;
@@ -134,6 +137,7 @@ namespace Binance.BotState
         private void CloseBuyPosition(decimal price)
         {
             SendLog($"Buy Position Closed for {CoinName} at price {price} at {DateTime.Now}");
+            tradingData.OpenPrice = Trade_Sum / coinCount;
             tradingData.CloseDate = DateTime.Now;
             tradingData.ClosePrice = price;
             Deposit(coinCount * price);
@@ -178,9 +182,10 @@ namespace Binance.BotState
                         tradingData.OpenDate = DateTime.Now;
                         tradingData.OpenPrice = price;
                     }
-                    SendLog($"Buy {amount} from {CoinName} at {DateTime.Now}");
+                    SendLog($"Buy {amount} from {CoinName} at {DateTime.Now} with price: {price}");
                     state = tradeCommand.nextState;
                     coinCount += amount / price;
+                    Trade_Sum += amount;
                     SetNewPrice(price);
                 }
                 else
@@ -197,9 +202,10 @@ namespace Binance.BotState
                     tradingData.OpenPrice = price;
                 }
                 Deposit(amount);
-                SendLog($"Sell {amount} from {CoinName} at {DateTime.Now}");
+                SendLog($"Sell {amount} from {CoinName} at {DateTime.Now} with price: {price}");
                 state = tradeCommand.nextState;
                 coinCount -= amount / price;
+                Trade_Sum += amount;
                 SetNewPrice(price);
             }
         }

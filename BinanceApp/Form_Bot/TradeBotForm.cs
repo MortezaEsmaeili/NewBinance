@@ -416,13 +416,13 @@ namespace BinanceApp
             }
         }
 
-        private void UpdatePricessinTrade(BinanceModel binance)
+        private void UpdatePricessinTrade(BinanceModel _binance)
         {
             if (tradeAccountList.Count < 1)
                 return;
             foreach (var account in tradeAccountList)
             {
-                var cointInfo = BinanceDataCollector.Instance.GetBinance(account.CoinName);
+                BinanceModel cointInfo = (BinanceModel)BinanceDataCollector.Instance.GetBinance(account.CoinName).Clone();
                 account.SetNewPrice(cointInfo.CurrentPrice);
                 if(account.State == TradeState.PositionClosed)
                 {
@@ -648,7 +648,7 @@ namespace BinanceApp
             candle.closePrice = lastCandle.ClosePrice;
             candle.highPrice = lastCandle.HighPrice;
 
-            Account tradeAcount = new Account(coinName, buyAvailable, candle, tradeBox,"Buy");
+            Account tradeAcount = new Account(coinName, buyAvailable, tradeBox,"Buy");
             
             tradeAcount.TrafficLogEvent += TradeAcount_TrafficLogEvent;
             tradeAccountList.Add(tradeAcount);
@@ -755,7 +755,7 @@ namespace BinanceApp
             candle.closePrice = lastCandle.ClosePrice;
             candle.highPrice = lastCandle.HighPrice;
 
-            Account tradeAcount = new Account(coinName, sellAvailable, candle, tradeBox,"Sell");
+            Account tradeAcount = new Account(coinName, sellAvailable, tradeBox,"Sell");
             tradeAccountList.Add(tradeAcount);
             tradeAcount.TrafficLogEvent += TradeAcount_TrafficLogEvent;
             bt_start_buy.Enabled = false;

@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binance.BotState", "Binance.BotState\Binance.BotState.csproj", "{914154DA-EB93-46EA-9CB2-8C84595B381E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountTest", "AccountTest\AccountTest.csproj", "{6FA1FB26-BF15-4B3D-A566-F9C0DB0518B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountTest", "AccountTest\AccountTest.csproj", "{6FA1FB26-BF15-4B3D-A566-F9C0DB0518B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

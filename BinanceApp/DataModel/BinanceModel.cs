@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BinanceApp.DataModel
 {
-    public class BinanceModel
+    public class BinanceModel : ICloneable
     { 
         
         public string coinName { get; set; }
@@ -259,6 +259,10 @@ namespace BinanceApp.DataModel
                     wightedValues.Add(new WeightedValue { Value = WeightedSum / quantitySum, Time = range.Last().Time });
             }
         }
-        
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
