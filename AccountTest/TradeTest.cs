@@ -113,7 +113,7 @@ namespace AccountTest
 
             //Assert
             decimal actual = account.Balance;
-            Assert.AreEqual(account.tradingData.AvailableAfterPosition, actual, "Buy position worked correctly");
+            Assert.AreEqual(account.tradingData.AvailableAfterPosition, actual, "Sell position worked correctly");
         }
         [TestMethod]
         public void TestMethodSell_StopLoss2()
@@ -122,20 +122,47 @@ namespace AccountTest
 
             TradeBox tradeBox = new TradeBox();
             tradeBox.lowerSellPrice = (decimal)21.8;
-            tradeBox.stopLossSellPrice = (decimal)22.7;
+            tradeBox.stopLossSellPrice = (decimal)22.91;
             tradeBox.takeProfitSellPrice = (decimal)21.05;
             tradeBox.upperSellPrice = (decimal)22.50;
 
             Account account = new Account("Morteza", 10000, tradeBox, "Sell");
             account.TrafficLogEvent += Account_TrafficLogEvent;
-            var prices = new decimal[] { 21.65, 50, 45, 60, 70, 80, 100, 120, 130, 110, 90, 80, 60, 40, 30 };
+            var prices = new double[] { 21.60, 21.63, 21.7, 21.81, 21.85, 21.97, 22.1,
+                21.95, 22.10, 22.33, 22.70, 22.83, 22.90, 22.95, 23.01 };
             //Act
+            
             foreach (var price in prices)
-                account.SetNewPrice(price);
+                account.SetNewPrice((decimal)price);
 
             //Assert
             decimal actual = account.Balance;
-            Assert.AreEqual(account.tradingData.AvailableAfterPosition, actual, "Buy position worked correctly");
+            Assert.AreEqual(account.tradingData.AvailableAfterPosition, actual, "Sell position worked correctly");
+        }
+        
+        [TestMethod]
+        public void TestMethodSell_StopLoss3()
+        {
+            // Arrange
+
+            TradeBox tradeBox = new TradeBox();
+            tradeBox.lowerSellPrice = (decimal)24.10;
+            tradeBox.stopLossSellPrice = (decimal)24.30;
+            tradeBox.takeProfitSellPrice = (decimal)23.90;
+            tradeBox.upperSellPrice = (decimal)24.25;
+
+            Account account = new Account("Morteza", 10000, tradeBox, "Sell");
+            account.TrafficLogEvent += Account_TrafficLogEvent;
+            var prices = new double[] { 21.60, 22.90, 23.70, 24.09, 24.20, 24.27, 24.7,
+                24.01, 22.10, 22.33, 22.70, 22.83, 22.90, 22.95, 23.01 };
+            //Act
+
+            foreach (var price in prices)
+                account.SetNewPrice((decimal)price);
+
+            //Assert
+            decimal actual = account.Balance;
+            Assert.AreEqual(account.tradingData.AvailableAfterPosition, actual, "Sell position worked correctly");
         }
     }
 }

@@ -621,12 +621,12 @@ namespace BinanceApp
 
         private void bt_start_buy_Click(object sender, EventArgs e)
         {
-            var binanceInfo = BinanceDataCollector.Instance.GetBinance(coinName);
+   /*         var binanceInfo = BinanceDataCollector.Instance.GetBinance(coinName);
             if(binanceInfo == null)
             {
                 MessageBox.Show("There is no Binance Info");
                 return;
-            }
+            }*/
             foreach (var account in tradeAccountList)
             {
                 if(account.CoinName == coinName)
@@ -641,12 +641,12 @@ namespace BinanceApp
             tradeBox.stopLossBuyPrice = buyStopLoss;
             tradeBox.takeProfitBuyPrice = buytakeProfit;
             tradeBox.upperBuyPrice = buyUpperPrice;
-            var lastCandle = binanceInfo.Candels_4hour.Last();
+ /*           var lastCandle = binanceInfo.Candels_4hour.Last();
             CandleDto candle = new CandleDto();
             candle.lowPrice = lastCandle.LowPrice;
             candle.openPrice = lastCandle.OpenPrice;
             candle.closePrice = lastCandle.ClosePrice;
-            candle.highPrice = lastCandle.HighPrice;
+            candle.highPrice = lastCandle.HighPrice;*/
 
             Account tradeAcount = new Account(coinName, buyAvailable, tradeBox,"Buy");
             
@@ -728,12 +728,12 @@ namespace BinanceApp
 
         private void bt_start_sell_Click(object sender, EventArgs e)
         {
-            var binanceInfo = BinanceDataCollector.Instance.GetBinance(coinName);
+       /*     var binanceInfo = BinanceDataCollector.Instance.GetBinance(coinName);
             if (binanceInfo == null)
             {
                 MessageBox.Show("There is no Binance Info");
                 return;
-            }
+            }*/
             foreach (var account in tradeAccountList)
             {
                 if (account.CoinName == coinName)
@@ -744,16 +744,16 @@ namespace BinanceApp
                 }
             }
             TradeBox tradeBox = new TradeBox();
-            tradeBox.lowerBuyPrice = buyLowerPrice;
-            tradeBox.stopLossBuyPrice = buyStopLoss;
-            tradeBox.takeProfitBuyPrice = buytakeProfit;
-            tradeBox.upperBuyPrice = buyUpperPrice;
-            var lastCandle = binanceInfo.Candels_4hour.Last();
+            tradeBox.lowerSellPrice = sellLowerPrice;
+            tradeBox.stopLossSellPrice = sellStopLoss;
+            tradeBox.takeProfitSellPrice = selltakeProfit;
+            tradeBox.upperSellPrice = sellUpperPrice;
+   /*         var lastCandle = binanceInfo.Candels_4hour.Last();
             CandleDto candle = new CandleDto();
             candle.lowPrice = lastCandle.LowPrice;
             candle.openPrice = lastCandle.OpenPrice;
             candle.closePrice = lastCandle.ClosePrice;
-            candle.highPrice = lastCandle.HighPrice;
+            candle.highPrice = lastCandle.HighPrice;*/
 
             Account tradeAcount = new Account(coinName, sellAvailable, tradeBox,"Sell");
             tradeAccountList.Add(tradeAcount);
