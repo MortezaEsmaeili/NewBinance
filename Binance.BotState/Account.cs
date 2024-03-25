@@ -124,7 +124,7 @@ namespace Binance.BotState
         private void CloseSellPosition(decimal price)
         {
             SendLog($"Sell Position Closed for {CoinName} at price {price} at {DateTime.Now}");
-            tradingData.OpenPrice = Trade_Sum / coinCount;
+            tradingData.OpenPrice = -( Trade_Sum / coinCount);
             tradingData.CloseDate = DateTime.Now;
             tradingData.ClosePrice = price;
             Deposit(coinCount * price);

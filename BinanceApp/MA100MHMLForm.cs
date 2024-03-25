@@ -246,8 +246,9 @@ namespace BinanceApp
         {
             try
             {
-                binanceModel = BinanceDataCollector.Instance.GetBinance(coinName);
-                if (binanceModel == null) return;
+                BinanceModel temp = BinanceDataCollector.Instance.GetBinance(coinName);
+                if (temp == null) return;
+                binanceModel = (BinanceModel) temp.Clone();
                 if (binanceModel.PriceList == null || binanceModel.PriceList.Count == 0)
                     return;
 
@@ -332,15 +333,19 @@ namespace BinanceApp
 
         private void CalculateSeries(string DictionaryKey, List<IBinanceKline> candels, List<WeightedValue> MH, List<WeightedValue> ML)
         {
-            var quotes = BinanceHelper.GetQuotes(candels);
-            var sma = BinanceHelper.SMA(quotes, 100);
-            var startTime = sma.First().Date;
-            var endTime = sma.Last().Date;
-            MADic[DictionaryKey].DataSource = sma;
-            MHDic[DictionaryKey].DataSource = AddEndPoint(MH, endTime);
-            MLDic[DictionaryKey].DataSource = AddEndPoint(ML, endTime);
-            int len = Math.Min(sma.Count, 10);
-            MALine[DictionaryKey].DataSource = MacdAnalyclass.FitLine(sma.Skip(sma.Count - len).Take(len).ToList());
+            try
+            {
+                var quotes = BinanceHelper.GetQuotes(candels);
+                var sma = BinanceHelper.SMA(quotes, 100);
+                var startTime = sma.First().Date;
+                var endTime = sma.Last().Date;
+                MADic[DictionaryKey].DataSource = sma;
+                MHDic[DictionaryKey].DataSource = AddEndPoint(MH, endTime);
+                MLDic[DictionaryKey].DataSource = AddEndPoint(ML, endTime);
+                int len = Math.Min(sma.Count, 10);
+                MALine[DictionaryKey].DataSource = MacdAnalyclass.FitLine(sma.Skip(sma.Count - len).Take(len).ToList());
+            }
+            catch (Exception e) { e.ToString(); }
         }
 
         private List<WeightedValue> AddEndPoint(List<WeightedValue> valueList, DateTime endTime)
